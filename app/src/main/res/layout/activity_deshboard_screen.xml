@@ -322,7 +322,7 @@
 
     <fragment
         android:id="@+id/drawer_view"
-        android:name="com.example.eld.frgment.Side_menu_fragment"
+        android:name="com.example.eld.fragments.Side_menu_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

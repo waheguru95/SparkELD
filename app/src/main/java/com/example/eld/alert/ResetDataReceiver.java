@@ -4,9 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.eld.helperclass.Breakhelper;
-import com.example.eld.helperclass.DriveHelper;
-import com.example.eld.helperclass.Shifthelper;
+import com.example.eld.utils.Breakhelper;
+import com.example.eld.utils.DriveHelper;
+import com.example.eld.utils.Shifthelper;
 
 public class ResetDataReceiver extends BroadcastReceiver {
     @Override

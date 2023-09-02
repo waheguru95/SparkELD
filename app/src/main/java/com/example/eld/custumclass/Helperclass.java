@@ -159,10 +159,10 @@ public class Helperclass {
         return pref.getBoolean("status", false);
     }
 
-    public static void setid(String id, Activity sActivity) {
+    public static void setid(int id, Activity sActivity) {
         SharedPreferences pref = sActivity.getSharedPreferences(Constants.PREFRENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("id", id);
+        editor.putInt("id", id);
         editor.apply();
     }
 

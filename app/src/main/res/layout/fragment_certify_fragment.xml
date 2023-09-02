@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
     android:orientation="vertical"
-    tools:context=".frgment.Certify_fragment">
+    tools:context=".fragments.Certify_fragment">
 
 
 

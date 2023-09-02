@@ -17,15 +17,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eld.activity.Deshboard_screen;
-import com.example.eld.custumclass.Apiservices;
+import com.example.eld.network.RetrofitClient;
 import com.example.eld.custumclass.Helperclass;
-import com.example.eld.interfaces.Apiinterface;
+import com.example.eld.network.ApiService;
+import com.example.eld.network.dto.login.request.LoginRequestModel;
+import com.example.eld.network.dto.login.response.LoginResponseModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
 import org.json.JSONObject;
 
@@ -43,7 +46,7 @@ public class Login_screen extends AppCompatActivity {
     boolean passwordvisible;
     RelativeLayout loginbutton;
     private long backpresstime;
-    EditText paswordedit, driverid;
+    EditText paswordedit, etDriverid;
 
     Dialog popupdolig;
     private static OkHttpClient.Builder httpClientBuilder = null;
@@ -60,7 +63,7 @@ public class Login_screen extends AppCompatActivity {
         rememerme = findViewById(R.id.rememerme);
         loginbutton = findViewById(R.id.loginbutton);
         paswordedit = findViewById(R.id.paswordedit);
-        driverid = findViewById(R.id.driverid);
+        etDriverid = findViewById(R.id.driverid);
 
         popupdolig = new Dialog(this);
 
@@ -71,27 +74,20 @@ public class Login_screen extends AppCompatActivity {
         setTextViewColor(text_forgot, getResources().getColor(R.color.first),
                 getResources().getColor(R.color.second));
 
-        loginbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String driveridd = String.valueOf(driverid.getText());
-                String paswordeditt = paswordedit.getText().toString();
+        loginbutton.setOnClickListener(v -> {
+            String driverId = String.valueOf(etDriverid.getText().toString().trim());
+            String paswordeditt = paswordedit.getText().toString();
 
-                if (driveridd.isEmpty()) {
-                    Toast.makeText(Login_screen.this, "Enter Driver ID", Toast.LENGTH_SHORT).show();
-                } else if (paswordeditt.isEmpty()) {
-                    Toast.makeText(Login_screen.this, "Enter Password", Toast.LENGTH_SHORT).show();
-                } else if (paswordeditt.length() < 6) {
-                    Toast.makeText(Login_screen.this, "Password must be 6 characters", Toast.LENGTH_SHORT).show();
-                } else {
-
-                  loginuser(driveridd, paswordeditt);
-                    //---------TO Set Flow---------//
-                    startActivity(new Intent(Login_screen.this, Deshboard_screen.class));
-                    finish();
-                }
-
+            if (driverId.isEmpty()) {
+                Toast.makeText(Login_screen.this, "Enter Driver ID", Toast.LENGTH_SHORT).show();
+            } else if (paswordeditt.isEmpty()) {
+                Toast.makeText(Login_screen.this, "Enter Password", Toast.LENGTH_SHORT).show();
+            } else if (paswordeditt.length() < 6) {
+                Toast.makeText(Login_screen.this, "Password must be at least of 6 characters", Toast.LENGTH_SHORT).show();
+            } else {
+              callLoginUserApi(driverId, paswordeditt);
             }
+
         });
 
         paswordedit.setOnTouchListener(new View.OnTouchListener() {
@@ -120,47 +116,35 @@ public class Login_screen extends AppCompatActivity {
         });
     }
 
-    private void loginuser(String driveridd, String paswordeditt) {
-
+    private void callLoginUserApi(String driverId, String password) {
         if (Helperclass.getNetworkInfo(this)) {
             popupdolig.setContentView(R.layout.loadingpopup);
             popupdolig.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             popupdolig.setCancelable(false);
             popupdolig.show();
 
-
-            Apiinterface apiinterface = Apiservices.apiService(this).create(Apiinterface.class);
-
-            Call<JsonObject> call = apiinterface.loginUser(driveridd.trim(), paswordeditt);
-            call.enqueue(new Callback<JsonObject>() {
+            ApiService apiinterface = RetrofitClient.apiService(this).create(ApiService.class);
+            Call<JsonElement> call = apiinterface.loginUser(new LoginRequestModel(driverId, password));
+            call.enqueue(new Callback<JsonElement>() {
                 @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {
                     try {
                         popupdolig.dismiss();
-                        if (response.code() == HttpURLConnection.HTTP_OK && response.code() == 200) {
-                            JSONObject body = new JSONObject(response.body().toString());
+                        if (response.code() == HttpURLConnection.HTTP_OK) {
+                            LoginResponseModel loginRequestModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
 
-                            String getdriverid = body.getString("driver_id");
-                            String getToken = body.getString("jwt");
-                            String id = body.getString("id");
-
-                            Helperclass.setEmail(getdriverid, Login_screen.this);
+                            Helperclass.setEmail(loginRequestModel.getData().getEmail(), Login_screen.this);
+                           // Helperclass.setAuthenticToken(getToken, Login_screen.this);
+                            Helperclass.setid(loginRequestModel.getData().getId(), Login_screen.this);
                             Helperclass.setFirstLogin(true, Login_screen.this);
-                            Helperclass.setAuthenticToken(getToken, Login_screen.this);
-                            Helperclass.setid(id, Login_screen.this);
-
                             startActivity(new Intent(Login_screen.this, Deshboard_screen.class));
                             finish();
-
                         } else {
-                            JSONObject body = new JSONObject(response.errorBody().toString());
+                            JSONObject body = new JSONObject(response.errorBody().string().toString());
                             if (body.has("message")) {
                                 Toast.makeText(getApplicationContext(), "" + body.getString("message").toString(), Toast.LENGTH_SHORT).show();
                             }
-
                         }
-
-
                     } catch (Exception e) {
                         popupdolig.dismiss();
                         Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -168,7 +152,7 @@ public class Login_screen extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
+                public void onFailure(Call<JsonElement> call, Throwable t) {
                     popupdolig.dismiss();
                     Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -178,10 +162,7 @@ public class Login_screen extends AppCompatActivity {
         } else {
             popupdolig.dismiss();
             Toast.makeText(this, "Check network connection", Toast.LENGTH_SHORT).show();
-
         }
-
-
     }
 
 

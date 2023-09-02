@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:background="#fff"
         android:orientation="vertical"
-        tools:context=".frgment.Logs_fragment">
+        tools:context=".fragments.Logs_fragment">
 
         <LinearLayout
             android:layout_width="wrap_content"
