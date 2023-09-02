@@ -46,7 +46,7 @@ public class Login_screen extends AppCompatActivity {
     boolean passwordvisible;
     RelativeLayout loginbutton;
     private long backpresstime;
-    EditText paswordedit, etDriverid;
+    EditText paswordedit, etDriverId;
 
     Dialog popupdolig;
     private static OkHttpClient.Builder httpClientBuilder = null;
@@ -63,7 +63,7 @@ public class Login_screen extends AppCompatActivity {
         rememerme = findViewById(R.id.rememerme);
         loginbutton = findViewById(R.id.loginbutton);
         paswordedit = findViewById(R.id.paswordedit);
-        etDriverid = findViewById(R.id.driverid);
+        etDriverId = findViewById(R.id.driverid);
 
         popupdolig = new Dialog(this);
 
@@ -75,7 +75,7 @@ public class Login_screen extends AppCompatActivity {
                 getResources().getColor(R.color.second));
 
         loginbutton.setOnClickListener(v -> {
-            String driverId = String.valueOf(etDriverid.getText().toString().trim());
+            String driverId = String.valueOf(etDriverId.getText().toString().trim());
             String paswordeditt = paswordedit.getText().toString();
 
             if (driverId.isEmpty()) {

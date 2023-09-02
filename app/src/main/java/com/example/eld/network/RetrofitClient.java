@@ -24,11 +24,7 @@ public class RetrofitClient {
             .setLenient()
             .create();
     private static Retrofit retrofit = null;
-    private static Retrofit retrofitforChat=null;
-    private static Retrofit shipmentCost=null;
-    private static OkHttpClient.Builder httpShipmentBuilder = null;
     private static OkHttpClient.Builder httpClientBuilder = null;
-    private static OkHttpClient.Builder httpClientBuilderforChat = null;
 
     /*For HTTP base URL*/
     public static Retrofit  apiService(Context context) {
