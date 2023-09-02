@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".frgment.Reports_fragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_baseline_content_paste_24"
+        android:tint="#ED663B"
+        tools:ignore="UseAppTint" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Roadside inspection"
+        android:layout_marginStart="10dp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="20sp"/>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="20"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1back"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="#ED663B"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="10">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card1front"
+                android:layout_width="match_parent"
+                android:layout_margin="1dp"
+                app:cardBackgroundColor="#ED663B"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/card1text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WEB"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"/>
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card2back"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="#ED663B"
+        android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="10">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card2front"
+                android:layout_width="match_parent"
+                android:layout_margin="1dp"
+                app:cardBackgroundColor="#fff"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/card2text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EMAIL"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"/>
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+
+
+
+    </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="20dp"
+       android:layout_marginTop="5dp"
+       android:orientation="horizontal"
+       android:layout_marginEnd="20dp">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Date Time : "
+    android:textColor="#000"
+    android:textSize="17sp"/>
+
+       <TextView
+           android:id="@+id/dateandtime"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="11-11-2022,11:48 am"
+           android:textColor="#222121"
+           android:textSize="15sp"/>
+
+   </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="#fff">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:hint="eRODS code/email"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:imeOptions="actionDone"
+            android:paddingStart="15dp"
+            android:textColor="#000"
+            android:textColorHint="#878686"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        app:cardBackgroundColor="#ED663B"
+        app:cardCornerRadius="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+     >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:textSize="18sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

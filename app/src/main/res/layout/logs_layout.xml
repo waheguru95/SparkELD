@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp"
+        android:weightSum="65">
+        <TextView
+            android:id="@+id/timeadpter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="00:00"
+            android:layout_gravity="center_vertical"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/statusadpter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="EofF"
+            android:textSize="14sp"
+            android:textAllCaps="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="#000"
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
+
+        <TextView
+            android:id="@+id/locatioadpter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="17"
+            android:text="Mount Holly, New Jersey"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#000"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/odoadpter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="476960.0"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#000"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/engadpter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="11437.0"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#000"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/originadpter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="--"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#000"
+            android:textAlignment="center"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Dashboard"
+        android:id="@+id/myhome"
+        android:icon="@drawable/ic_baseline_home_24"/>
+    <item android:title="Logs"
+        android:id="@+id/logs"
+        android:icon="@drawable/ic_baseline_assignment_24"/>
+    <item android:title="Certify"
+        android:id="@+id/certfy"
+        android:icon="@drawable/ic_baseline_search_24"/>
+    <item android:title="Reports"
+        android:id="@+id/reports"
+        android:icon="@drawable/ic_baseline_fire_truck_24"/>
+
+
+</menu>

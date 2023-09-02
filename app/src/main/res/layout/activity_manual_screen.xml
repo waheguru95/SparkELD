@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".activity.Manual_screen">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#fff"
+        android:elevation="9dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Manual"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+        android:id="@+id/manual_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
+            android:tint="#ED663B"
+            tools:ignore="UseAppTint" />
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="ORANGESTROM ELD"
+                android:layout_marginTop="10dp"
+                android:textColor="#3E3E3E"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Getting started"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#3E3E3E"
+                android:textSize="25sp"
+             />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Installing ELD Device"
+                android:textColor="#ED663B"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="In order to install the ELD device (PT-40/IOSIX) simply connect it to the diagnostics port of your vehicle using the appropriate connector provided with the device."
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_height="wrap_content"/>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Installing the Nationwide ELD App"
+                android:textColor="#ED663B"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="In order to install the app simply search Nationwide ELD on Google Play or scan the QR code on the back
+
+of the manual.\n\nTo start using the app, use the login credentials received via email or from your motor carrier. If you did not receive these login credentials, please contact your motor carrier.\n\nIf prompted, please allow the app to use location in the background."
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginBottom="30dp"
+                android:layout_height="wrap_content"/>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rewcycleview"
+                android:layout_width="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Malfunction Reporting"
+                android:textColor="#ED663B"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:text="If an ELD malfunction occurs,the driver must:"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Note the malfunction of the ELD device and provide a written notice of the malfunction to the motor carrier within 24 hours;\n\nReconstruct the record of duty status (RODS) for the current 24-hour period and the previous 7 consecutive days, and record the RODS on graph-grid paper logs, or electronic logging software that comply with 49 CFR 395.8, unless the driver already has the records or retrieves them from the ELD; and\n\nContinue to manually prepare RODS in accordance with 49 CFR 395.8, until the ELD is serviced and back in compliance. The recording of driver's hours of service on paper log, or electronic logging software, cannot continue for more than 8 days after the malfunction; a driver that continues to record his or her hours of service on paper log, or logging software beyond 8 days risks being placed out of service."
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:text="If an ELD malfunction occurs,the motor carrier must:"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Correct, repair, replace, or service the malfunctioning ELD within eight days of discovering the condition or a driver's notification to the motor carrier, whichever occurs first; and\n\nRequire the driver to maintain paper record of duty status (RODS) until the ELD is back in service."
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thank You"
+                android:textColor="#ED663B"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+
+                />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

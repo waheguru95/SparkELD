@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".frgment.Certify_fragment">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_baseline_search_24"
+            android:tint="#ED663B"
+            tools:ignore="UseAppTint" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Self Certification"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="20"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1back"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="#ED663B"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="10">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card1front"
+                android:layout_width="match_parent"
+                android:layout_margin="1dp"
+                app:cardBackgroundColor="#ED663B"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/card1text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pending"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"/>
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card2back"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="#ED663B"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="10">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card2front"
+                android:layout_width="match_parent"
+                android:layout_margin="1dp"
+                app:cardBackgroundColor="#fff"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/card2text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Certified"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"/>
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+
+
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/certificationframe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+ />
+
+</LinearLayout>
+
+

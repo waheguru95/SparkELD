@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#fff"
+android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    app:cardElevation="10dp"
+    android:layout_marginTop="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:layout_width="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="30dp"
+            android:id="@+id/checkBox" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/playerNameList"
+            android:layout_marginStart="10dp"
+            android:textColor="#000"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

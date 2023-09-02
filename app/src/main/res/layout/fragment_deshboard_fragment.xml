@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:overScrollMode="never"
+    tools:context=".frgment.Deshboard_fragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:visibility="gone"
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            android:weightSum="20">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:orientation="horizontal"
+                android:weightSum="20">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp">
+
+
+                        <ProgressBar
+                            android:id="@+id/breakprogress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:indeterminateOnly="false"
+                            android:max="28800"
+                            android:progressDrawable="@drawable/rounded_progress"
+                            android:rotation="-180" />
+
+
+                        <TextView
+                            android:id="@+id/breaktime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="00:00:00"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/breaktime"
+                            android:layout_centerInParent="true"
+                            android:text="BREAK"
+                            android:textAlignment="center"
+                            android:textColor="@color/textgray"
+                            android:textSize="20sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp">
+
+                        <ProgressBar
+                            android:id="@+id/driveprogress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:indeterminateOnly="false"
+                            android:max="39600"
+                            android:progressDrawable="@drawable/drive_rounded_progress"
+                            android:rotation="-180" />
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/driveblionk"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@+id/driveTimeTV"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="gone"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/redlight"
+                            app:lottie_url="REPLACE_JSON_URL" />
+
+                        <TextView
+                            android:id="@+id/driveTimeTV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="00:00:00"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/driveTimeTV"
+                            android:layout_centerInParent="true"
+                            android:text="DRIVE"
+                            android:textAlignment="center"
+                            android:textColor="@color/textgray"
+                            android:textSize="20sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:orientation="horizontal"
+                android:weightSum="20">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp">
+
+
+                        <ProgressBar
+                            android:id="@+id/shiftprogress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:indeterminateOnly="false"
+                            android:max="50400"
+                            android:progressDrawable="@drawable/rounded_progress"
+                            android:rotation="-180" />
+
+
+                        <TextView
+                            android:id="@+id/shifttime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="00:00:00"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/shifttime"
+                            android:layout_centerInParent="true"
+                            android:text="SHIFT"
+                            android:textAlignment="center"
+                            android:textColor="@color/textgray"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp">
+
+                        <ProgressBar
+                            android:id="@+id/weekprogress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:indeterminateOnly="false"
+                            android:max="252000"
+                            android:progressDrawable="@drawable/cycle_rounded_progress"
+                            android:rotation="-180" />
+
+                        <TextView
+                            android:id="@+id/weektime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="00:00:00"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/weektime"
+                            android:layout_centerInParent="true"
+                            android:text="CYCLE"
+                            android:textAlignment="center"
+                            android:textColor="@color/textgray"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="50dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/editcodriver"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Co. Driver :"
+                            android:textColor="#000"
+                            android:textSize="19sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/cofrivername"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="10dp"
+                            android:text="No Co. driver"
+                            android:textColor="#5C5C5C"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/editcodriver"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_baseline_edit_24"
+                        android:tint="#ED663B"
+                        tools:ignore="UseAppTint" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_toStartOf="@+id/edittrip"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Trip No. :"
+                            android:textColor="#000"
+                            android:textSize="19sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tripno"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="10dp"
+                            android:text="Enter no."
+                            android:textColor="#5C5C5C"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/edittrip"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_baseline_edit_24"
+                        android:tint="#ED663B"
+                        tools:ignore="UseAppTint" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/editship"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Shipping Add. :"
+                            android:textColor="#000"
+                            android:textSize="19sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/shipno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="10dp"
+                            android:text="Enter add."
+                            android:textColor="#5C5C5C"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/editship"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_baseline_edit_24"
+                        android:tint="#ED663B"
+                        tools:ignore="UseAppTint" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
