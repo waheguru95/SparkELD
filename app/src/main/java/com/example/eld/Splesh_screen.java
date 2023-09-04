@@ -13,7 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.eld.activity.Deshboard_screen;
+import com.example.eld.activity.DashBoardScreen;
 import com.example.eld.custumclass.Helperclass;
 
 
@@ -46,7 +46,7 @@ public class Splesh_screen extends AppCompatActivity {
                     startActivity(new Intent(Splesh_screen.this,Login_screen.class));
                     finish();
                 }else {
-                    startActivity(new Intent(Splesh_screen.this, Deshboard_screen.class));
+                    startActivity(new Intent(Splesh_screen.this, DashBoardScreen.class));
                     finish();
                 }
             }

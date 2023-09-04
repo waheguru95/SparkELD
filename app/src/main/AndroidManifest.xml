@@ -38,6 +38,7 @@
         android:theme="@style/Theme.Eld"
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
+
         <activity
             android:name=".activity.Dvir2_screen"
             android:exported="false">
@@ -73,7 +74,7 @@
             android:name=".activity.Connect_with_bluetooth"
             android:exported="false" />
         <activity
-            android:name=".activity.Deshboard_screen"
+            android:name=".activity.DashBoardScreen"
             android:exported="false" />
         <activity
             android:name=".Splesh_screen"

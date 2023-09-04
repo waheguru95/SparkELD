@@ -86,16 +86,8 @@ import java.util.concurrent.TimeUnit;
 
 import kotlin.jvm.internal.Intrinsics;
 
-public class Deshboard_screen extends AppCompatActivity {
+public class DashBoardScreen extends AppCompatActivity {
 
-    public void onButtonClicked() {
-
-        // myFragment.changeUI();
-    }
-
-    Deshboard_fragment myFragment;
-
-    BluetoothAdapter bAdapter = null;
     private static final int REQUEST_BASE = 100;
     private static final int REQUEST_BT_ENABLE = REQUEST_BASE + 1;
     private static final double STOPPED_SPEED_THRESHOLD = 0.0;
@@ -106,155 +98,7 @@ public class Deshboard_screen extends AppCompatActivity {
     private final Timer ontimer = new Timer();
     private final Timer ytimer = new Timer();
     private final Timer ptimer = new Timer();
-    public DriveHelper driveHelper;
-    public OffDutyHelper offDutyHelper;
-    public WeekHelper weekHelper;
-    public Heplper heplper;
-    public Breakhelper breakhelper;
-    public Shifthelper shifthelper;
-    public Yardmoveshelper yardmoveshelper;
-    public PersonalHelper personalHelper;
-    BottomNavigationView bottomNavigationView;
-    ImageView side_menu, notification;
-    DrawerLayout drawerLayout;
-    CardView changestatus;
-    CardView onoffbluetooth;
-    Dialog confirmation_logout, status_dilog;
-    String locationn;
-    FirebaseFirestore firebaseFirestore;
-    TextView locationnnv;
-    Double lattitube = 0.0;
-    Double logitude = 0.0;
-    Double getodometer = 0.0;
-    Double enginhour = 0.0;
-    TextView VIN_no, deviceid, datat;
-    float y;
-    long drivesec;
-    long ondutysec;
-    long offdutysec;
-    long sleepsec;
-    long yarmovsec;
-    long psec;
-    // ---------NEW PARAMEERS---------------//
-    String status = "";
-    String orign = "NA";//NA
-    String graph = "logs";//NA
-    TextView driveingtiming, ondutytiming, sleeptiming, offdutyting, yardtiming, personaltiming, conectionstatus, singalstatus, fullstatus;
-    ImageView onblue, offblue;
-    private PeriodicWorkRequest periodicWorkRequest;
-    private WorkManager workManager;
-    private long backpresstime;
-    private EldManager mEldManager;
     private final Set<EldBroadcastTypes> subscribedRecords = EnumSet.of(EldBroadcastTypes.ELD_BUFFER_RECORD, EldBroadcastTypes.ELD_CACHED_RECORD, EldBroadcastTypes.ELD_FUEL_RECORD, EldBroadcastTypes.ELD_DATA_RECORD, EldBroadcastTypes.ELD_DRIVER_BEHAVIOR_RECORD, EldBroadcastTypes.ELD_EMISSIONS_PARAMETERS_RECORD, EldBroadcastTypes.ELD_ENGINE_PARAMETERS_RECORD, EldBroadcastTypes.ELD_TRANSMISSION_PARAMETERS_RECORD);
-    private Handler mHandler;
-    private Runnable mRunnable;
-    private double lastSpeed = 0.0;
-    private ActivityResultLauncher<Intent> activityLauncher;
-
-
-    private final EldBleConnectionStateChangeCallback bleConnectionStateChangeCallback = new EldBleConnectionStateChangeCallback() {
-        @Override
-        public void onConnectionStateChange(final int newState) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (newState == 0) {
-                        onblue.setVisibility(View.GONE);
-                        offblue.setVisibility(View.VISIBLE);
-
-                        conectionstatus.setText("Disconnected");
-                        deviceid.setText("Disconnected from ELD");
-                    } else if (newState == 2) {
-                        conectionstatus.setText("Connected");
-                        onblue.setVisibility(View.VISIBLE);
-                        offblue.setVisibility(View.GONE);
-
-                        deviceid.setText(mEldManager.EldGetSerial());
-                    } else {
-                        conectionstatus.append("New State of connection " + Integer.toString(newState, 10) + "\n");
-                    }
-                }
-            });
-        }
-    };
-
-    private boolean isNotificationScheduled = false;
-    private final EldBleDataCallback bleDataCallback = new EldBleDataCallback() {
-        @Override
-        public void OnDataRecord(final EldBroadcast dataRec, final EldBroadcastTypes RecordType) {
-            runOnUiThread(new Runnable() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void run() {
-
-                    if (dataRec.getBroadcastString().length() > 0) {
-                        // Remove the "Data: " prefix from the string
-                        String[] dataParts = dataRec.getBroadcastString().split(": ");
-                        String dataValue = dataParts[1];
-
-                        Log.i("TAG", "======daa========" + dataValue);
-                        if (dataRec.getBroadcastString().contains("Data:")) {
-                            datat.setText(dataRec.getBroadcastString());
-                            String[] units = dataValue.split(",");
-                            Log.d("TAG", " =========E_ON_EOFF========== " + units[0].toString());
-
-
-                            if (units.length > 12) {
-                                if (!units[1].isEmpty())
-                                    VIN_no.setText("VIN: " + units[1].toString());
-                                if (units[0].toString().equalsIgnoreCase("1")) {
-                                    Log.d("TAG", " =========E_ON========== " + units[0].toString());
-
-                                    status = "E_ON";
-
-
-                                    Helperclass.setStatusChange(true, Deshboard_screen.this);
-                                    if (Helperclass.getStartOdometer(Deshboard_screen.this).isEmpty() && !units[4].toString().isEmpty()) {
-                                        //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
-                                        double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
-                                        Helperclass.setStartOdometer(String.valueOf(speed), Deshboard_screen.this);
-                                    }
-                                } else if (units[0].toString().equalsIgnoreCase("0")) {
-                                    Log.d("TAG", " =========E_OFF========== " + units[0].toString());
-                                    status = "E_OFF";
-
-                                    Helperclass.setlastIsDriving(false, Deshboard_screen.this);
-                                    if (Helperclass.getStartOdometer(Deshboard_screen.this).isEmpty() && !units[4].toString().isEmpty()) {
-                                        //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
-                                        double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
-                                        Helperclass.setStartOdometer(String.valueOf(speed), Deshboard_screen.this);
-                                    }
-                                }
-                                if (!units[6].toString().isEmpty())
-                                    enginhour = Double.parseDouble(units[6].toString());
-                                if (!units[11].toString().isEmpty() && units[11].length() > 0)
-                                    lattitube = Double.parseDouble(units[11].toString());
-                                if (!units[12].toString().isEmpty() && units[11].length() > 0)
-                                    logitude = Double.parseDouble(units[12].toString());
-                                if (lattitube != 0.0 && logitude != 0.0) {
-                                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                                    try {
-                                        List<Address> addresses = geocoder.getFromLocation(lattitube, logitude, 1);
-                                        Address obj = addresses.get(0);
-                                        locationn = obj.getLocality() + "," + obj.getAdminArea();
-                                        locationnnv.setText(locationn);
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                checkDrivingCondition(Double.parseDouble(units[3]));
-
-                            } else {
-                                locationn = "Location Not Available";
-                            }
-                        }
-                    }
-
-                }
-            });
-        }
-    };
     //    private final EldBleScanCallback bleScanCallback = new EldBleScanCallback() {
 //        @Override
 //        public void onScanResult(EldScanObject device) {
@@ -329,6 +173,40 @@ public class Deshboard_screen extends AppCompatActivity {
 //        }
 //    };
     private final Handler hourlyhandler = new Handler();
+    public DriveHelper driveHelper;
+    public OffDutyHelper offDutyHelper;
+    public WeekHelper weekHelper;
+    public Heplper heplper;
+    public Breakhelper breakhelper;
+    public Shifthelper shifthelper;
+    public Yardmoveshelper yardmoveshelper;
+    public PersonalHelper personalHelper;
+    Deshboard_fragment myFragment;
+    BluetoothAdapter bAdapter = null;
+    BottomNavigationView bottomNavigationView;
+    ImageView side_menu, notification;
+    DrawerLayout drawerLayout;
+    CardView changestatus;
+    CardView onoffbluetooth;
+    Dialog confirmation_logout, status_dilog;
+    String locationn;
+    FirebaseFirestore firebaseFirestore;
+    TextView locationnnv;
+    Double lattitube = 0.0;
+    Double logitude = 0.0;
+    Double getodometer = 0.0;
+    Double enginhour = 0.0;
+    TextView VIN_no, deviceid, datat;
+    float y;
+    long drivesec;
+    long ondutysec;
+    long offdutysec;
+    long sleepsec;
+    long yarmovsec;
+    long psec;
+    // ---------NEW PARAMEERS---------------//
+    String status = "";
+    String orign = "NA";//NA
     private final Runnable logRunnable = new Runnable() {
         @Override
         public void run() {
@@ -356,7 +234,138 @@ public class Deshboard_screen extends AppCompatActivity {
             hourlyhandler.postDelayed(this, 15 * 60 * 1000); // schedule the next execution after 1 hour
         }
     };
+    String graph = "logs";//NA
+    TextView driveingtiming, ondutytiming, sleeptiming, offdutyting, yardtiming, personaltiming, conectionstatus, singalstatus, fullstatus;
+    ImageView onblue, offblue;
+    double time = 0.0;
+    private PeriodicWorkRequest periodicWorkRequest;
+    private WorkManager workManager;
+    private long backpresstime;
+    private EldManager mEldManager;
+    private final EldBleConnectionStateChangeCallback bleConnectionStateChangeCallback = new EldBleConnectionStateChangeCallback() {
+        @Override
+        public void onConnectionStateChange(final int newState) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (newState == 0) {
+                        onblue.setVisibility(View.GONE);
+                        offblue.setVisibility(View.VISIBLE);
 
+                        conectionstatus.setText("Disconnected");
+                        deviceid.setText("Disconnected from ELD");
+                    } else if (newState == 2) {
+                        conectionstatus.setText("Connected");
+                        onblue.setVisibility(View.VISIBLE);
+                        offblue.setVisibility(View.GONE);
+
+                        deviceid.setText(mEldManager.EldGetSerial());
+                    } else {
+                        conectionstatus.append("New State of connection " + Integer.toString(newState, 10) + "\n");
+                    }
+                }
+            });
+        }
+    };
+    private Handler mHandler;
+    private Runnable mRunnable;
+    private double lastSpeed = 0.0;
+    private ActivityResultLauncher<Intent> activityLauncher;
+    private boolean isNotificationScheduled = false;
+    private final EldBleDataCallback bleDataCallback = new EldBleDataCallback() {
+        @Override
+        public void OnDataRecord(final EldBroadcast dataRec, final EldBroadcastTypes RecordType) {
+            runOnUiThread(new Runnable() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void run() {
+
+                    if (dataRec.getBroadcastString().length() > 0) {
+                        // Remove the "Data: " prefix from the string
+                        String[] dataParts = dataRec.getBroadcastString().split(": ");
+                        String dataValue = dataParts[1];
+
+                        Log.i("TAG", "======daa========" + dataValue);
+                        if (dataRec.getBroadcastString().contains("Data:")) {
+                            datat.setText(dataRec.getBroadcastString());
+                            String[] units = dataValue.split(",");
+                            Log.d("TAG", " =========E_ON_EOFF========== " + units[0].toString());
+
+
+                            if (units.length > 12) {
+                                if (!units[1].isEmpty())
+                                    VIN_no.setText("VIN: " + units[1].toString());
+                                if (units[0].toString().equalsIgnoreCase("1")) {
+                                    Log.d("TAG", " =========E_ON========== " + units[0].toString());
+
+                                    status = "E_ON";
+
+
+                                    Helperclass.setStatusChange(true, DashBoardScreen.this);
+                                    if (Helperclass.getStartOdometer(DashBoardScreen.this).isEmpty() && !units[4].toString().isEmpty()) {
+                                        //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
+                                        double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
+                                        Helperclass.setStartOdometer(String.valueOf(speed), DashBoardScreen.this);
+                                    }
+                                } else if (units[0].toString().equalsIgnoreCase("0")) {
+                                    Log.d("TAG", " =========E_OFF========== " + units[0].toString());
+                                    status = "E_OFF";
+
+                                    Helperclass.setlastIsDriving(false, DashBoardScreen.this);
+                                    if (Helperclass.getStartOdometer(DashBoardScreen.this).isEmpty() && !units[4].toString().isEmpty()) {
+                                        //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
+                                        double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
+                                        Helperclass.setStartOdometer(String.valueOf(speed), DashBoardScreen.this);
+                                    }
+                                }
+                                if (!units[6].toString().isEmpty())
+                                    enginhour = Double.parseDouble(units[6].toString());
+                                if (!units[11].toString().isEmpty() && units[11].length() > 0)
+                                    lattitube = Double.parseDouble(units[11].toString());
+                                if (!units[12].toString().isEmpty() && units[11].length() > 0)
+                                    logitude = Double.parseDouble(units[12].toString());
+                                if (lattitube != 0.0 && logitude != 0.0) {
+                                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                    try {
+                                        List<Address> addresses = geocoder.getFromLocation(lattitube, logitude, 1);
+                                        Address obj = addresses.get(0);
+                                        locationn = obj.getLocality() + "," + obj.getAdminArea();
+                                        locationnnv.setText(locationn);
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                checkDrivingCondition(Double.parseDouble(units[3]));
+
+                            } else {
+                                locationn = "Location Not Available";
+                            }
+                        }
+                    }
+
+                }
+            });
+        }
+    };
+
+    public static boolean canDrive5Miles(double speedMph) {
+
+        boolean canDrive = speedMph > 8; // assuming that the car can drive 5 miles within 5 minute
+        Log.d("TAG", " =========canDrive========== " + canDrive);
+        return canDrive;
+    }
+
+    public static double convertKmToMiles(double km) {
+        double miles = km / 1.609344;
+        //  double miles = km * 0.621371;
+        return miles;
+    }
+
+    public void onButtonClicked() {
+
+        // myFragment.changeUI();
+    }
 
     @NotNull
     public final DriveHelper getdriveHelper() {
@@ -535,14 +544,14 @@ public class Deshboard_screen extends AppCompatActivity {
                 confirmation_logout.show();
             } else if (status.equals("No Device")) {
                 //request android 12 runtime bluetooth permissions
-                if (ContextCompat.checkSelfPermission(Deshboard_screen.this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
+                if (ContextCompat.checkSelfPermission(DashBoardScreen.this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        ActivityCompat.requestPermissions(Deshboard_screen.this, new String[]{Manifest.permission.BLUETOOTH_SCAN}, 2);
+                        ActivityCompat.requestPermissions(DashBoardScreen.this, new String[]{Manifest.permission.BLUETOOTH_SCAN}, 2);
                     }
                 }
-                if (ContextCompat.checkSelfPermission(Deshboard_screen.this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED) {
+                if (ContextCompat.checkSelfPermission(DashBoardScreen.this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        ActivityCompat.requestPermissions(Deshboard_screen.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+                        ActivityCompat.requestPermissions(DashBoardScreen.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
                     }
                 }
                 conectionstatus.setText("SCANNING...");
@@ -553,7 +562,7 @@ public class Deshboard_screen extends AppCompatActivity {
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Deshboard_screen.this, Notification_screen.class));
+                startActivity(new Intent(DashBoardScreen.this, Notification_screen.class));
             }
         });
         side_menu.setOnClickListener(new View.OnClickListener() {
@@ -575,19 +584,19 @@ public class Deshboard_screen extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.myhome:
                         myFragment = new Deshboard_fragment();
-                        Helperclass.setDeshBoard(true, Deshboard_screen.this);
+                        Helperclass.setDeshBoard(true, DashBoardScreen.this);
                         controlfunction(myFragment);
                         break;
                     case R.id.logs:
-                        Helperclass.setDeshBoard(false, Deshboard_screen.this);
+                        Helperclass.setDeshBoard(false, DashBoardScreen.this);
                         controlfunction(new Logs_fragment());
                         break;
                     case R.id.certfy:
-                        Helperclass.setDeshBoard(false, Deshboard_screen.this);
+                        Helperclass.setDeshBoard(false, DashBoardScreen.this);
                         controlfunction(new Certify_fragment());
                         break;
                     case R.id.reports:
-                        Helperclass.setDeshBoard(false, Deshboard_screen.this);
+                        Helperclass.setDeshBoard(false, DashBoardScreen.this);
                         controlfunction(new Reports_fragment());
                         break;
 
@@ -867,8 +876,8 @@ public class Deshboard_screen extends AppCompatActivity {
                         inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
                         startstopy();
 
-                        Helperclass.setlastIsDriving(false, Deshboard_screen.this);
-                        Helperclass.setStartOdometer("", Deshboard_screen.this);
+                        Helperclass.setlastIsDriving(false, DashBoardScreen.this);
+                        Helperclass.setStartOdometer("", DashBoardScreen.this);
 
                     }
                 });
@@ -909,8 +918,8 @@ public class Deshboard_screen extends AppCompatActivity {
                         inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
 
                         startstopp();
-                        Helperclass.setlastIsDriving(false, Deshboard_screen.this);
-                        Helperclass.setStartOdometer("", Deshboard_screen.this);
+                        Helperclass.setlastIsDriving(false, DashBoardScreen.this);
+                        Helperclass.setStartOdometer("", DashBoardScreen.this);
                     }
                 });
                 status_dilog.show();
@@ -1199,7 +1208,6 @@ public class Deshboard_screen extends AppCompatActivity {
         return TimestampConverter.generateTimestamp();
     }
 
-
     private final void stopoffdutyTimer() {
         offDutyHelper.setoffdutytimerCounting(false);
     }
@@ -1207,7 +1215,6 @@ public class Deshboard_screen extends AppCompatActivity {
     private final void startoffdutyTimer() {
         offDutyHelper.setoffdutytimerCounting(true);
     }
-
 
     private final void stopDriveTimer() {
         driveHelper.setdrivetimerCounting(false);
@@ -1792,7 +1799,7 @@ public class Deshboard_screen extends AppCompatActivity {
 
             if (currentmile >= totalMiles) {
                 Helperclass.setlastIsDriving(true, this);
-                Helperclass.setStartOdometer("", Deshboard_screen.this);
+                Helperclass.setStartOdometer("", DashBoardScreen.this);
                 value = true;
                 locationn = locationnnv.getText().toString();
 
@@ -1823,22 +1830,12 @@ public class Deshboard_screen extends AppCompatActivity {
         return value;
     }
 
-    double time = 0.0;
-
-
-    public static boolean canDrive5Miles(double speedMph) {
-
-        boolean canDrive = speedMph > 8; // assuming that the car can drive 5 miles within 5 minute
-        Log.d("TAG", " =========canDrive========== " + canDrive);
-        return canDrive;
-    }
-
     public void calculateTimeAndDistance(double speedkph) {
         Log.d("TAG", " =========speedkph========== " + speedkph);
 
         if (speedkph >= 8.04672) {
             Helperclass.setlastIsDriving(true, this);
-            Helperclass.setStartOdometer("", Deshboard_screen.this);
+            Helperclass.setStartOdometer("", DashBoardScreen.this);
             locationn = locationnnv.getText().toString();
 
             String daa = datat.getText().toString();
@@ -1874,7 +1871,6 @@ public class Deshboard_screen extends AppCompatActivity {
             Log.d("TAG", " =========NOT DRIVEING========== ");
         }
     }
-
 
     private void checkDrivingCondition(double currentSpeed) {
         Log.d("FIVEMILE", " =========EldDataRecordSPEED========== " + currentSpeed);
@@ -2162,7 +2158,7 @@ public class Deshboard_screen extends AppCompatActivity {
                             float y = 1f;
                             status = "OND";
                             orign = "Manual";
-                            Helperclass.setlastIsDriving(false, Deshboard_screen.this);
+                            Helperclass.setlastIsDriving(false, DashBoardScreen.this);
                             inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
                             startstopshift(true);
 
@@ -2210,104 +2206,6 @@ public class Deshboard_screen extends AppCompatActivity {
         super.onDestroy();
 
     }
-
-    private final class TimeTask extends TimerTask {
-        public TimeTask() {
-        }
-
-        public void run() {
-            if (heplper.timerCountinge()) {
-                long datt = (new Date()).getTime();
-                long time = datt - heplper.startTimee().getTime();
-                timeFromLong(time);
-
-            }
-        }
-    }
-
-    private final class TimeDrive extends TimerTask {
-        public TimeDrive() {
-        }
-
-        public void run() {
-            if (driveHelper.drivetimerCounting()) {
-                long datt = (new Date()).getTime();
-                long time;
-                if (driveHelper.startdriveTime() != null) {
-                    time = datt - driveHelper.startdriveTime().getTime();
-                    timeStringFromLong(time);
-                }
-
-
-            }
-        }
-    }
-
-    private final class TimeTaskoffduty extends TimerTask {
-        public TimeTaskoffduty() {
-        }
-
-        public void run() {
-            if (offDutyHelper.offdutytimerCounting()) {
-                long datt = (new Date()).getTime();
-                Log.i("TAG", "======START OFF DUTY========" + offDutyHelper.startoffdutyTime());
-                long time;
-                if (offDutyHelper.startoffdutyTime() != null) {
-                    time = datt - offDutyHelper.startoffdutyTime().getTime();
-                    offtimeFromLong(time);
-                }
-
-
-            }
-        }
-    }
-
-    private final class TimeShift extends TimerTask {
-        public TimeShift() {
-        }
-
-        public void run() {
-            if (shifthelper.shifttimerCounting()) {
-                long datt = (new Date()).getTime();
-                long time;
-                if (shifthelper.shiftstartTime() != null) {
-                    time = datt - shifthelper.shiftstartTime().getTime();
-                    ontimeFromLong(time);
-                }
-
-            }
-        }
-    }
-
-    private final class TimeTasky extends TimerTask {
-        public TimeTasky() {
-        }
-
-        public void run() {
-            if (yardmoveshelper.ytimerCountinge()) {
-                long datt = (new Date()).getTime();
-                long time = datt - yardmoveshelper.ystartTimee().getTime();
-                ytimeFromLong(time);
-            }
-        }
-    }
-
-    private final class TimeTaskp extends TimerTask {
-        public TimeTaskp() {
-
-        }
-
-        public void run() {
-            if (personalHelper.ptimerCountinge()) {
-                long datt = (new Date()).getTime();
-                long time = datt - personalHelper.pstartTimee().getTime();
-                ptimeFromLong(time);
-
-            }
-        }
-
-    }
-
 
     public void createFirstLog() {
         Log.d("TAG", " =========createFirstLog========== " + Helperclass.getFirstLogin(this));
@@ -2422,12 +2320,6 @@ public class Deshboard_screen extends AppCompatActivity {
 
     }
 
-    public static double convertKmToMiles(double km) {
-        double miles = km / 1.609344;
-        //  double miles = km * 0.621371;
-        return miles;
-    }
-
     public void ResetDataAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, ResetDataReceiver.class);
@@ -2468,6 +2360,103 @@ public class Deshboard_screen extends AppCompatActivity {
 
         // Set the alarm to repeat every day
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    private final class TimeTask extends TimerTask {
+        public TimeTask() {
+        }
+
+        public void run() {
+            if (heplper.timerCountinge()) {
+                long datt = (new Date()).getTime();
+                long time = datt - heplper.startTimee().getTime();
+                timeFromLong(time);
+
+            }
+        }
+    }
+
+    private final class TimeDrive extends TimerTask {
+        public TimeDrive() {
+        }
+
+        public void run() {
+            if (driveHelper.drivetimerCounting()) {
+                long datt = (new Date()).getTime();
+                long time;
+                if (driveHelper.startdriveTime() != null) {
+                    time = datt - driveHelper.startdriveTime().getTime();
+                    timeStringFromLong(time);
+                }
+
+
+            }
+        }
+    }
+
+    private final class TimeTaskoffduty extends TimerTask {
+        public TimeTaskoffduty() {
+        }
+
+        public void run() {
+            if (offDutyHelper.offdutytimerCounting()) {
+                long datt = (new Date()).getTime();
+                Log.i("TAG", "======START OFF DUTY========" + offDutyHelper.startoffdutyTime());
+                long time;
+                if (offDutyHelper.startoffdutyTime() != null) {
+                    time = datt - offDutyHelper.startoffdutyTime().getTime();
+                    offtimeFromLong(time);
+                }
+
+
+            }
+        }
+    }
+
+    private final class TimeShift extends TimerTask {
+        public TimeShift() {
+        }
+
+        public void run() {
+            if (shifthelper.shifttimerCounting()) {
+                long datt = (new Date()).getTime();
+                long time;
+                if (shifthelper.shiftstartTime() != null) {
+                    time = datt - shifthelper.shiftstartTime().getTime();
+                    ontimeFromLong(time);
+                }
+
+            }
+        }
+    }
+
+    private final class TimeTasky extends TimerTask {
+        public TimeTasky() {
+        }
+
+        public void run() {
+            if (yardmoveshelper.ytimerCountinge()) {
+                long datt = (new Date()).getTime();
+                long time = datt - yardmoveshelper.ystartTimee().getTime();
+                ytimeFromLong(time);
+            }
+        }
+    }
+
+    private final class TimeTaskp extends TimerTask {
+        public TimeTaskp() {
+
+        }
+
+        public void run() {
+            if (personalHelper.ptimerCountinge()) {
+                long datt = (new Date()).getTime();
+                long time = datt - personalHelper.pstartTimee().getTime();
+                ptimeFromLong(time);
+
+            }
+        }
+
     }
 
 }

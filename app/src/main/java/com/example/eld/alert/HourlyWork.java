@@ -8,8 +8,6 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.eld.activity.Deshboard_screen;
-
 public class HourlyWork extends Worker {
     private Context mContext;
 
@@ -30,7 +28,7 @@ public class HourlyWork extends Worker {
         if (inputData.getBoolean("Houly", false)) {
             // Perform actions for PeriodicWorkRequest
             Log.d("MyWorker", "PeriodicWorkRequest");
-         //   ((Deshboard_screen) mContext).createINTLog(); // Call your activity method
+         //   ((DashBoardScreen) mContext).createINTLog(); // Call your activity method
 
         }
 

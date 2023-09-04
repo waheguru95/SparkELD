@@ -22,7 +22,7 @@ import com.example.eld.Login_screen;
 import com.example.eld.R;
 import com.example.eld.activity.About_screen;
 import com.example.eld.activity.Connect_with_bluetooth;
-import com.example.eld.activity.Deshboard_screen;
+import com.example.eld.activity.DashBoardScreen;
 import com.example.eld.activity.Dvir2_screen;
 import com.example.eld.activity.Manual_screen;
 import com.example.eld.activity.Setting_screen;
@@ -71,7 +71,7 @@ public class Side_menu_fragment extends Fragment {
         dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Deshboard_screen.class));
+                startActivity(new Intent(getActivity(), DashBoardScreen.class));
                 dashboard.setCardBackgroundColor(Color.rgb(237, 102, 59));
                 logout.setCardBackgroundColor(Color.rgb(255, 255, 255));
                 exitapp.setCardBackgroundColor(Color.rgb(255, 255, 255));

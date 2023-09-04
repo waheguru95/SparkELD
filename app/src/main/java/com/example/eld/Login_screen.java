@@ -20,7 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.eld.activity.Deshboard_screen;
+import com.example.eld.activity.DashBoardScreen;
 import com.example.eld.network.RetrofitClient;
 import com.example.eld.custumclass.Helperclass;
 import com.example.eld.network.ApiService;
@@ -137,7 +137,7 @@ public class Login_screen extends AppCompatActivity {
                            // Helperclass.setAuthenticToken(getToken, Login_screen.this);
                             Helperclass.setid(loginRequestModel.getData().getId(), Login_screen.this);
                             Helperclass.setFirstLogin(true, Login_screen.this);
-                            startActivity(new Intent(Login_screen.this, Deshboard_screen.class));
+                            startActivity(new Intent(Login_screen.this, DashBoardScreen.class));
                             finish();
                         } else {
                             JSONObject body = new JSONObject(response.errorBody().string().toString());
