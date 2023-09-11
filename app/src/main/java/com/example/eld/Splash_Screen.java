@@ -1,7 +1,5 @@
 package com.example.eld;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -13,11 +11,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.eld.activity.BaseActivity;
 import com.example.eld.activity.DashBoardScreen;
-import com.example.eld.custumclass.Helperclass;
 
 
-public class Splesh_screen extends AppCompatActivity {
+public class Splash_Screen extends BaseActivity {
     private static int splash=2000;
     ImageView inneranimation;
     TextView first;
@@ -42,11 +40,11 @@ public class Splesh_screen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(Helperclass.getAuthenticToken(Splesh_screen.this).isEmpty()){
-                    startActivity(new Intent(Splesh_screen.this,Login_screen.class));
+                if(helperClass.getAuthenticToken().isEmpty()){
+                    startActivity(new Intent(Splash_Screen.this,Login_screen.class));
                     finish();
                 }else {
-                    startActivity(new Intent(Splesh_screen.this, DashBoardScreen.class));
+                    startActivity(new Intent(Splash_Screen.this, DashBoardScreen.class));
                     finish();
                 }
             }

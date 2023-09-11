@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -45,7 +44,6 @@ import androidx.work.WorkManager;
 import com.example.eld.R;
 import com.example.eld.alert.FiveMinuteN;
 import com.example.eld.alert.ResetDataReceiver;
-import com.example.eld.custumclass.Helperclass;
 import com.example.eld.custumclass.TimestampConverter;
 import com.example.eld.fragments.Certify_fragment;
 import com.example.eld.fragments.Deshboard_fragment;
@@ -86,7 +84,7 @@ import java.util.concurrent.TimeUnit;
 
 import kotlin.jvm.internal.Intrinsics;
 
-public class DashBoardScreen extends AppCompatActivity {
+public class DashBoardScreen extends BaseActivity {
 
     private static final int REQUEST_BASE = 100;
     private static final int REQUEST_BT_ENABLE = REQUEST_BASE + 1;
@@ -301,21 +299,22 @@ public class DashBoardScreen extends AppCompatActivity {
                                     status = "E_ON";
 
 
-                                    Helperclass.setStatusChange(true, DashBoardScreen.this);
-                                    if (Helperclass.getStartOdometer(DashBoardScreen.this).isEmpty() && !units[4].toString().isEmpty()) {
+                                    helperClass.setStatusChange(true);
+                                    if (helperClass.getODOMETER().isEmpty() && !units[4].toString().isEmpty()) {
                                         //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
                                         double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
-                                        Helperclass.setStartOdometer(String.valueOf(speed), DashBoardScreen.this);
+                                        helperClass.setODOMETER(String.valueOf(speed));
+
                                     }
                                 } else if (units[0].toString().equalsIgnoreCase("0")) {
                                     Log.d("TAG", " =========E_OFF========== " + units[0].toString());
                                     status = "E_OFF";
 
-                                    Helperclass.setlastIsDriving(false, DashBoardScreen.this);
-                                    if (Helperclass.getStartOdometer(DashBoardScreen.this).isEmpty() && !units[4].toString().isEmpty()) {
+                                    helperClass.setIS_DRIVING(false);
+                                    if (helperClass.getODOMETER().isEmpty() && !units[4].toString().isEmpty()) {
                                         //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
                                         double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
-                                        Helperclass.setStartOdometer(String.valueOf(speed), DashBoardScreen.this);
+                                        helperClass.setODOMETER(String.valueOf(speed));
                                     }
                                 }
                                 if (!units[6].toString().isEmpty())
@@ -488,8 +487,8 @@ public class DashBoardScreen extends AppCompatActivity {
 
 
 
-     /*   Log.d("TAG", " =========STATUSCHANGE========== " + Helperclass.getStatusChange(this));
-        if (Helperclass.getStatusChange(this)) {
+     /*   Log.d("TAG", " =========STATUSCHANGE========== " + helperClass.getStatusChange(this));
+        if (helperClass.getStatusChange(this)) {
             datat.setText("1,3AKJGLBG8GSHB0540,555,23,791565.400,0.000,20238.40,0.00,13.28,03/17/23,13:48:36,39.619926,-74.787261,0,68,8,9,1.2,4524,315");
             //datat.setText("0,3AKJGLBG8GSHB0540,0,73,,,20238.40,,,,,,,,,68,8,9,1.2,4524,315");
         } else {
@@ -575,7 +574,7 @@ public class DashBoardScreen extends AppCompatActivity {
                 }
             }
         });
-        Helperclass.setDeshBoard(true, this);
+        helperClass.setDASHBOARD(true);
         myFragment = new Deshboard_fragment();
         controlfunction(myFragment);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -584,19 +583,19 @@ public class DashBoardScreen extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.myhome:
                         myFragment = new Deshboard_fragment();
-                        Helperclass.setDeshBoard(true, DashBoardScreen.this);
+                        helperClass.setDASHBOARD(true);
                         controlfunction(myFragment);
                         break;
                     case R.id.logs:
-                        Helperclass.setDeshBoard(false, DashBoardScreen.this);
+                        helperClass.setDASHBOARD(true);
                         controlfunction(new Logs_fragment());
                         break;
                     case R.id.certfy:
-                        Helperclass.setDeshBoard(false, DashBoardScreen.this);
+                        helperClass.setDASHBOARD(true);
                         controlfunction(new Certify_fragment());
                         break;
                     case R.id.reports:
-                        Helperclass.setDeshBoard(false, DashBoardScreen.this);
+                        helperClass.setDASHBOARD(true);
                         controlfunction(new Reports_fragment());
                         break;
 
@@ -876,8 +875,8 @@ public class DashBoardScreen extends AppCompatActivity {
                         inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
                         startstopy();
 
-                        Helperclass.setlastIsDriving(false, DashBoardScreen.this);
-                        Helperclass.setStartOdometer("", DashBoardScreen.this);
+                        helperClass.setIS_DRIVING(false);
+                        helperClass.setODOMETER("");
 
                     }
                 });
@@ -918,8 +917,8 @@ public class DashBoardScreen extends AppCompatActivity {
                         inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
 
                         startstopp();
-                        Helperclass.setlastIsDriving(false, DashBoardScreen.this);
-                        Helperclass.setStartOdometer("", DashBoardScreen.this);
+                        helperClass.setIS_DRIVING(false);
+                        helperClass.setODOMETER("");
                     }
                 });
                 status_dilog.show();
@@ -1160,7 +1159,7 @@ public class DashBoardScreen extends AppCompatActivity {
         hashMap.put("eh", enginhour + "");
         hashMap.put("orign", orign + "");
         hashMap.put("graph", graph);
-//        firebaseFirestore.collection(Helperclass.getid(getApplicationContext())).add(hashMap);
+//        firebaseFirestore.collection(helperClass.getid(getApplicationContext())).add(hashMap);
     }
 
     @Override
@@ -1279,7 +1278,7 @@ public class DashBoardScreen extends AppCompatActivity {
                     handl.postDelayed(this, 1000);
                 }
             });
-            if (Helperclass.getDeshBoard(this)) {
+            if (helperClass.getDASHBOARD()) {
                 myFragment.changeDriveandBreakUI(true, true);
 
             }
@@ -1466,7 +1465,7 @@ public class DashBoardScreen extends AppCompatActivity {
                 handl.postDelayed(this, 1000);
             }
         });
-        if (Helperclass.getDeshBoard(this)) {
+        if (helperClass.getDASHBOARD()) {
             myFragment.changeDriveandBreakUI(false, false);
             myFragment.changeShift(false);
         }
@@ -1522,7 +1521,7 @@ public class DashBoardScreen extends AppCompatActivity {
             });
 
         }
-        if (Helperclass.getDeshBoard(this)) {
+        if (helperClass.getDASHBOARD()) {
             myFragment.changeShift(true);
         }
 
@@ -1793,13 +1792,13 @@ public class DashBoardScreen extends AppCompatActivity {
         Double totalMiles = 0.0;
         Double currentmile = convertKmToMiles(Odometer);
         Log.d("TAG", " =========Miles========== " + currentmile);
-        Log.d("TAG", " =========5ADDMile========== " + Helperclass.getStartOdometer(this));
-        if (!Helperclass.getStartOdometer(this).isEmpty()) {
-            totalMiles = Double.parseDouble(Helperclass.getStartOdometer(this));
+        Log.d("TAG", " =========5ADDMile========== " + helperClass.getODOMETER());
+        if (!helperClass.getODOMETER().isEmpty()) {
+            totalMiles = Double.parseDouble(helperClass.getODOMETER());
 
             if (currentmile >= totalMiles) {
-                Helperclass.setlastIsDriving(true, this);
-                Helperclass.setStartOdometer("", DashBoardScreen.this);
+                helperClass.setIS_DRIVING(true);
+                helperClass.setODOMETER("");
                 value = true;
                 locationn = locationnnv.getText().toString();
 
@@ -1834,8 +1833,8 @@ public class DashBoardScreen extends AppCompatActivity {
         Log.d("TAG", " =========speedkph========== " + speedkph);
 
         if (speedkph >= 8.04672) {
-            Helperclass.setlastIsDriving(true, this);
-            Helperclass.setStartOdometer("", DashBoardScreen.this);
+            helperClass.setIS_DRIVING(true);
+            helperClass.setODOMETER("");
             locationn = locationnnv.getText().toString();
 
             String daa = datat.getText().toString();
@@ -1878,18 +1877,18 @@ public class DashBoardScreen extends AppCompatActivity {
 
         // Check if the vehicle is driving
         if (currentSpeed > 0) {
-            Helperclass.setisDriving(true, this);
+            helperClass.setIS_DRIVING(true);
 
-            Helperclass.setSpeedStartTime(Long.valueOf(0), this);
+            helperClass.setSPEED_START_TIME(Long.valueOf(0));
 
         } else if (currentSpeed == STOPPED_SPEED_THRESHOLD) {
-            Helperclass.setisDriving(false, this);
-            Log.d("TAG", " =========NOT DRIVE CREATE LOG========== " + Helperclass.getSpeedStartTime(this));
-            Log.d("TAG", " ========= savestatus ========== " + Helperclass.getSaveStatus(this));
+            helperClass.setIS_DRIVING(false);
+            Log.d("TAG", " =========NOT DRIVE CREATE LOG========== " + helperClass.getSPEED_START_TIME());
+            Log.d("TAG", " ========= savestatus ========== " + helperClass.getSaveStatus());
             Log.d("TAG", " ========= status ========== " + status);
-            if (Helperclass.getSpeedStartTime(this) == 0) {
-                Helperclass.setSpeedStartTime(System.currentTimeMillis(), this);
-                if (status.equals("Drive") && !status.equalsIgnoreCase(Helperclass.getSaveStatus(this))) {
+            if (helperClass.getSPEED_START_TIME() == 0) {
+                helperClass.setSPEED_START_TIME(System.currentTimeMillis());
+                if (status.equals("Drive") && !status.equalsIgnoreCase(helperClass.getSaveStatus())) {
 
                     //CREATE second log of Engine state
                     String daa = datat.getText().toString();
@@ -1902,8 +1901,8 @@ public class DashBoardScreen extends AppCompatActivity {
                         if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
                         if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
 
-                        Helperclass.setSaveStatus(status, this);
-                        Helperclass.setStatusChange(true, this);
+                        helperClass.setSaveStatus(status);
+                        helperClass.setStatusChange(true);
 
                         inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
 //STOP  E_OFF START OFFD
@@ -1923,27 +1922,27 @@ public class DashBoardScreen extends AppCompatActivity {
                 }
 
             }
-            if (System.currentTimeMillis() - Helperclass.getSpeedStartTime(this) >= FIVE_MINUTES_IN_MS) {
+            if (System.currentTimeMillis() - helperClass.getSPEED_START_TIME() >= FIVE_MINUTES_IN_MS) {
                 Log.d("TAG", " =========isNotificationScheduled========== " + isNotificationScheduled);
-                Log.d("TAG", " =========STATUS========== " + Helperclass.getSaveStatus(this).equalsIgnoreCase("Drive"));
+                Log.d("TAG", " =========STATUS========== " + helperClass.getSaveStatus().equalsIgnoreCase("Drive"));
                 // Schedule a notification and log creation after 5 minutes
-                if (Helperclass.getlastIsDriving(this)) {
+                if (helperClass.getIS_DRIVING()) {
                     scheduleNotification();
                     //isNotificationScheduled = true;
                 }
             }
         } else {
-            Helperclass.setSpeedStartTime(Long.valueOf(0), this);
+            helperClass.setSPEED_START_TIME(Long.valueOf(0));
         }
 
-        Log.d("TAG", " =========ISDRIVE========== " + Helperclass.getisDriving(this));
-        Log.d("TAG", " =========LASTISDRIVING========== " + Helperclass.getlastIsDriving(this));
-        Log.d("TAG", " =========STATUSCCC========== " + Helperclass.getStatusChange(this));
-        Log.d("TAG", " =========SAVEstatus========== " + Helperclass.getSaveStatus(this));
+        Log.d("TAG", " =========ISDRIVE========== " + helperClass.getIS_DRIVING());
+        Log.d("TAG", " =========LASTISDRIVING========== " + helperClass.getIS_DRIVING());
+        Log.d("TAG", " =========STATUSCCC========== " + helperClass.getStatusChange());
+        Log.d("TAG", " =========SAVEstatus========== " + helperClass.getSaveStatus());
         Log.d("TAG", " =========status========== " + status);
         // Change the status based on driving condition
-        if (Helperclass.getisDriving(this)) {
-            if (!status.equalsIgnoreCase(Helperclass.getSaveStatus(this))) {
+        if (helperClass.getIS_DRIVING()) {
+            if (!status.equalsIgnoreCase(helperClass.getSaveStatus())) {
                 //CREATE second log of Engine state
                 String daa = datat.getText().toString();
                 locationn = locationnnv.getText().toString();
@@ -1953,8 +1952,8 @@ public class DashBoardScreen extends AppCompatActivity {
                     orign = "Auto";
                     if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
                     if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
-                    Helperclass.setSaveStatus(status, this);
-                    Helperclass.setStatusChange(true, this);
+                    helperClass.setSaveStatus(status);
+                    helperClass.setStatusChange(true);
                     float y = 0f;
                     if (status.equals("E_OFF")) {
                         // E_OFF START MODE OFFD and STOP other mode
@@ -1999,7 +1998,7 @@ public class DashBoardScreen extends AppCompatActivity {
                     if (units.length > 6) {
                         try {
 
-                            if (status.equals("E_ON") && !Helperclass.getlastIsDriving(this)) {
+                            if (status.equals("E_ON") && !helperClass.getIS_DRIVING()) {
 
                                 calculateTimeAndDistance(currentSpeed);
                                 //Fivemile(currentSpeed);
@@ -2015,7 +2014,7 @@ public class DashBoardScreen extends AppCompatActivity {
 
 
         } else {
-            if (!status.equalsIgnoreCase(Helperclass.getSaveStatus(this))) {
+            if (!status.equalsIgnoreCase(helperClass.getSaveStatus())) {
 
                 //CREATE second log of Engine state
                 String daa = datat.getText().toString();
@@ -2027,8 +2026,8 @@ public class DashBoardScreen extends AppCompatActivity {
                     orign = "Auto";
                     if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
                     if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
-                    Helperclass.setSaveStatus(status, this);
-                    Helperclass.setStatusChange(true, this);
+                    helperClass.setSaveStatus(status);
+                    helperClass.setStatusChange(true);
 
                     if (status.equals("E_OFF")) {
                         // E_OFF START MODE OFFD and STOP other mode
@@ -2158,7 +2157,7 @@ public class DashBoardScreen extends AppCompatActivity {
                             float y = 1f;
                             status = "OND";
                             orign = "Manual";
-                            Helperclass.setlastIsDriving(false, DashBoardScreen.this);
+                            helperClass.setIS_DRIVING(false);
                             inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
                             startstopshift(true);
 
@@ -2208,8 +2207,8 @@ public class DashBoardScreen extends AppCompatActivity {
     }
 
     public void createFirstLog() {
-        Log.d("TAG", " =========createFirstLog========== " + Helperclass.getFirstLogin(this));
-        if (Helperclass.getFirstLogin(this)) {
+        Log.d("TAG", " =========createFirstLog========== " + helperClass.getFirstLogin());
+        if (helperClass.getFirstLogin()) {
 
             String daa = datat.getText().toString();
             locationn = locationnnv.getText().toString();
@@ -2228,7 +2227,7 @@ public class DashBoardScreen extends AppCompatActivity {
             orign = "Auto";
 
             inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
-            Helperclass.setFirstLogin(false, this);
+            helperClass.setFirstLogin(false);
 
             singalstatus.setText("OFF");
             fullstatus.setText("Off duty");

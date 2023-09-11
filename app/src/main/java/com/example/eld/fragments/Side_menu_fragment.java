@@ -37,6 +37,7 @@ public class Side_menu_fragment extends Fragment {
     TextView deshboardtext, logouttext, exittext;
     ImageView deshboardedit, logoutedit, exitedit;
     TextView driveerid, drivername;
+    Helperclass helperClass;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,8 +66,8 @@ public class Side_menu_fragment extends Fragment {
         driveerid = view.findViewById(R.id.driveerid);
         drivername = view.findViewById(R.id.drivername);
         confirmation_logout = new Dialog(getContext());
-
-        driveerid.setText(Helperclass.getEmail(getActivity()));
+        helperClass = new Helperclass(getSharedPref(getActivity()));
+        driveerid.setText(helperClass.getEmail());
 
         dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,6 +214,8 @@ public class Side_menu_fragment extends Fragment {
         });
 
     }
-
+    private SharedPreferences getSharedPref(Context context) {
+        return context.getSharedPreferences("ELD", Context.MODE_PRIVATE);
+    }
 
 }

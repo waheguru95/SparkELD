@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eld.activity.BaseActivity;
 import com.example.eld.activity.DashBoardScreen;
 import com.example.eld.network.RetrofitClient;
 import com.example.eld.custumclass.Helperclass;
@@ -32,21 +33,25 @@ import com.google.gson.JsonElement;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class Login_screen extends AppCompatActivity {
+public class Login_screen extends BaseActivity {
     TextView text_forgot, rememerme;
 
     boolean passwordvisible;
     RelativeLayout loginbutton;
     private long backpresstime;
     EditText paswordedit, etDriverId;
+    ApiService apiinterface = RetrofitClient.apiService(this).create(ApiService.class);
+
 
     Dialog popupdolig;
     private static OkHttpClient.Builder httpClientBuilder = null;
@@ -73,9 +78,8 @@ public class Login_screen extends AppCompatActivity {
 
         setTextViewColor(text_forgot, getResources().getColor(R.color.first),
                 getResources().getColor(R.color.second));
-
         loginbutton.setOnClickListener(v -> {
-            String driverId = String.valueOf(etDriverId.getText().toString().trim());
+            String driverId = etDriverId.getText().toString().trim();
             String paswordeditt = paswordedit.getText().toString();
 
             if (driverId.isEmpty()) {
@@ -117,13 +121,12 @@ public class Login_screen extends AppCompatActivity {
     }
 
     private void callLoginUserApi(String driverId, String password) {
-        if (Helperclass.getNetworkInfo(this)) {
+        if (helperClass.getNetworkInfo()) {
             popupdolig.setContentView(R.layout.loadingpopup);
             popupdolig.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             popupdolig.setCancelable(false);
             popupdolig.show();
 
-            ApiService apiinterface = RetrofitClient.apiService(this).create(ApiService.class);
             Call<JsonElement> call = apiinterface.loginUser(new LoginRequestModel(driverId, password));
             call.enqueue(new Callback<JsonElement>() {
                 @Override
@@ -133,10 +136,23 @@ public class Login_screen extends AppCompatActivity {
                         if (response.code() == HttpURLConnection.HTTP_OK) {
                             LoginResponseModel loginRequestModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
 
-                            Helperclass.setEmail(loginRequestModel.getData().getEmail(), Login_screen.this);
+                            helperClass.setEmail(loginRequestModel.getData().getEmail());
                            // Helperclass.setAuthenticToken(getToken, Login_screen.this);
-                            Helperclass.setid(loginRequestModel.getData().getId(), Login_screen.this);
-                            Helperclass.setFirstLogin(true, Login_screen.this);
+                            helperClass.setId(""+loginRequestModel.getData().getId());
+                            Call<ResponseBody> driverProfileCall = apiinterface.getDriverProfile(1);
+                            try {
+                                Response<ResponseBody> driverProfileResponse = driverProfileCall.execute();
+                                if (response.isSuccessful()) {
+                                     ResponseBody responseBody = driverProfileResponse.body();
+                                 } else {
+                                    // Handle the error response here
+                                    // You can get the error message from response.errorBody()
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            helperClass.setFirstLogin(true);
                             startActivity(new Intent(Login_screen.this, DashBoardScreen.class));
                             finish();
                         } else {

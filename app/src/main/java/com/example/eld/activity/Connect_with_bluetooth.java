@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-public class Connect_with_bluetooth extends AppCompatActivity {
+public class Connect_with_bluetooth extends BaseActivity {
     ImageView bluetooth_back;
     TextView deviceresult;
     Switch switchbutton,scanning;
@@ -63,7 +63,6 @@ public class Connect_with_bluetooth extends AppCompatActivity {
     private static final int REQUEST_BT_ENABLE = REQUEST_BASE + 1;
     private EldManager mEldManager;
     private Set<EldBroadcastTypes> subscribedRecords = EnumSet.of(EldBroadcastTypes.ELD_BUFFER_RECORD, EldBroadcastTypes.ELD_CACHED_RECORD, EldBroadcastTypes.ELD_FUEL_RECORD, EldBroadcastTypes.ELD_DATA_RECORD, EldBroadcastTypes.ELD_DRIVER_BEHAVIOR_RECORD, EldBroadcastTypes.ELD_EMISSIONS_PARAMETERS_RECORD, EldBroadcastTypes.ELD_ENGINE_PARAMETERS_RECORD, EldBroadcastTypes.ELD_TRANSMISSION_PARAMETERS_RECORD);
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -80,7 +79,8 @@ public class Connect_with_bluetooth extends AppCompatActivity {
         showeld=findViewById(R.id.showeld);
         shoemgs=findViewById(R.id.shoemgs);
 
-        driveerid.setText(Helperclass.getEmail(this));
+
+        driveerid.setText(helperClass.getEmail());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
