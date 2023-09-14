@@ -30,12 +30,15 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
             android:src="@drawable/personicon"
-            android:layout_gravity="center_vertical"/>
+            android:tintMode="src_in"
+            app:tint="#0091EA" />
 
 
         <EditText
@@ -68,34 +71,37 @@
         app:cardBackgroundColor="#fff"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
+            android:layout_width="345dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
                 android:src="@drawable/lockicon"
-                android:layout_gravity="center_vertical"/>
+                android:tintMode="src_in"
+                app:tint="#0091EA" />
 
 
             <EditText
                 android:id="@+id/paswordedit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#fff"
-                android:paddingEnd="15dp"
-                android:drawableRight="@drawable/ic_baseline_visibility_off_24"
-                android:hint="Password"
-                android:imeOptions="actionDone"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:background="#fff"
+                android:hint="Password"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:textColorHint="#878686" />
+                android:textColorHint="#878686"
+                android:textSize="15sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -116,20 +122,23 @@
 
 
         <TextView
-            android:id="@+id/rememerme"
+            android:id="@+id/rememberme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/check_box"
             android:text="Remember me"
+            android:textColor="@color/skyblue"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/text_forgot"
+            android:id="@+id/tvforgotpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="Forgot password ?"
+            android:textColor="@color/skyblue"
             android:textSize="15sp" />
 
     </RelativeLayout>
@@ -149,9 +158,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:fontFamily="monospace"
         android:text="Login"
         android:textColor="#fff"
-        android:fontFamily="monospace"
         android:textSize="20sp"
         android:textStyle="bold" />
 </RelativeLayout>

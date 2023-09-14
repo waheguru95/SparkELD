@@ -18,13 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eld.activity.BaseActivity;
 import com.example.eld.activity.DashBoardScreen;
-import com.example.eld.network.RetrofitClient;
-import com.example.eld.custumclass.Helperclass;
+import com.example.eld.activity.ForgotPasswordActivity;
 import com.example.eld.network.ApiService;
+import com.example.eld.network.RetrofitClient;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
 import com.example.eld.network.dto.login.response.LoginResponseModel;
 import com.google.gson.Gson;
@@ -64,8 +63,8 @@ public class Login_screen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
-        text_forgot = findViewById(R.id.text_forgot);
-        rememerme = findViewById(R.id.rememerme);
+        text_forgot = findViewById(R.id.tvforgotpassword);
+        rememerme = findViewById(R.id.rememberme);
         loginbutton = findViewById(R.id.loginbutton);
         paswordedit = findViewById(R.id.paswordedit);
         etDriverId = findViewById(R.id.driverid);
@@ -73,11 +72,11 @@ public class Login_screen extends BaseActivity {
         popupdolig = new Dialog(this);
 
 
-        setcolorinrember(rememerme, getResources().getColor(R.color.second),
-                getResources().getColor(R.color.first));
-
-        setTextViewColor(text_forgot, getResources().getColor(R.color.first),
-                getResources().getColor(R.color.second));
+//        setcolorinrember(rememerme, getResources().getColor(R.color.skyblue),
+//                getResources().getColor(R.color.lightskyblue));
+//
+//        setTextViewColor(text_forgot, getResources().getColor(R.color.skyblue),
+//                getResources().getColor(R.color.lightskyblue));
         loginbutton.setOnClickListener(v -> {
             String driverId = etDriverId.getText().toString().trim();
             String paswordeditt = paswordedit.getText().toString();
@@ -89,11 +88,16 @@ public class Login_screen extends BaseActivity {
             } else if (paswordeditt.length() < 6) {
                 Toast.makeText(Login_screen.this, "Password must be at least of 6 characters", Toast.LENGTH_SHORT).show();
             } else {
-              callLoginUserApi(driverId, paswordeditt);
+                callLoginUserApi(driverId, paswordeditt);
             }
 
         });
 
+        text_forgot.setOnClickListener(v ->
+        {
+            Intent forgotPWIntent = new Intent(this, ForgotPasswordActivity.class);
+            this.startActivity(forgotPWIntent);
+        });
         paswordedit.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -137,14 +141,14 @@ public class Login_screen extends BaseActivity {
                             LoginResponseModel loginRequestModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
 
                             helperClass.setEmail(loginRequestModel.getData().getEmail());
-                           // Helperclass.setAuthenticToken(getToken, Login_screen.this);
-                            helperClass.setId(""+loginRequestModel.getData().getId());
+                            // Helperclass.setAuthenticToken(getToken, Login_screen.this);
+                            helperClass.setId("" + loginRequestModel.getData().getId());
                             Call<ResponseBody> driverProfileCall = apiinterface.getDriverProfile(1);
                             try {
                                 Response<ResponseBody> driverProfileResponse = driverProfileCall.execute();
                                 if (response.isSuccessful()) {
-                                     ResponseBody responseBody = driverProfileResponse.body();
-                                 } else {
+                                    ResponseBody responseBody = driverProfileResponse.body();
+                                } else {
                                     // Handle the error response here
                                     // You can get the error message from response.errorBody()
                                 }

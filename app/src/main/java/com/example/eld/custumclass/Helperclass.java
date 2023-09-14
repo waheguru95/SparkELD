@@ -120,7 +120,7 @@ public class Helperclass {
     }
 
     public boolean getNetworkInfo() {
-        return sharedPreferences.getBoolean(NETWORK_INFO, false) ;
+        return sharedPreferences.getBoolean(NETWORK_INFO, true) ;
     }
 
     public void setNetworkInfo(boolean NETWORK_INFO) {

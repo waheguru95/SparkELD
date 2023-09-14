@@ -12,6 +12,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -22,6 +23,8 @@ public interface ApiService {
     @POST("login/checkLogin")
     Call<JsonElement> loginUser(@Body LoginRequestModel requestModel);
 
+
+
     @FormUrlEncoded
     @POST("adduserstatus.php")
     Call<JsonObject> addstatus(@Header("Authorization")String token,
@@ -31,6 +34,11 @@ public interface ApiService {
                                 @Field("yvalues") String yvalues
 
     );
+
+    @Headers("Content-Type: application/json")
+    @POST("api/reset/sendOtp")
+    Call<JsonObject> sendOtp(@Body JsonObject requestBody);
+
     @POST("getuserstatus.php")
     Call<JsonObject> getstatus(
             @Header("Authorization")String token);

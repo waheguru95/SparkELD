@@ -17,4 +17,5 @@
     <color name="textgray">#808080</color>
     <color name="gray">#838383</color>
     <color name="lightgray">#1A838383</color>
+    <color name="def_stroke_color">#E2E2E2</color>
 </resources>
