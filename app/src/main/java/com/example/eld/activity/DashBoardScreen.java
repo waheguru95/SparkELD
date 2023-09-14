@@ -44,14 +44,14 @@ import androidx.work.WorkManager;
 import com.example.eld.R;
 import com.example.eld.alert.FiveMinuteN;
 import com.example.eld.alert.ResetDataReceiver;
-import com.example.eld.custumclass.TimestampConverter;
+import com.example.eld.utils.TimestampConverter;
 import com.example.eld.fragments.Certify_fragment;
 import com.example.eld.fragments.Deshboard_fragment;
 import com.example.eld.fragments.Logs_fragment;
 import com.example.eld.fragments.Reports_fragment;
 import com.example.eld.utils.Breakhelper;
 import com.example.eld.utils.DriveHelper;
-import com.example.eld.utils.Heplper;
+import com.example.eld.utils.Helper;
 import com.example.eld.utils.OffDutyHelper;
 import com.example.eld.utils.PersonalHelper;
 import com.example.eld.utils.Shifthelper;
@@ -174,7 +174,7 @@ public class DashBoardScreen extends BaseActivity {
     public DriveHelper driveHelper;
     public OffDutyHelper offDutyHelper;
     public WeekHelper weekHelper;
-    public Heplper heplper;
+    public Helper heplper;
     public Breakhelper breakhelper;
     public Shifthelper shifthelper;
     public Yardmoveshelper yardmoveshelper;
@@ -376,8 +376,8 @@ public class DashBoardScreen extends BaseActivity {
     }
 
     @NotNull
-    public final Heplper getHeplper() {
-        Heplper helperr = this.heplper;
+    public final Helper getHeplper() {
+        Helper helperr = this.heplper;
         if (helperr == null) {
             Intrinsics.throwUninitializedPropertyAccessException("heplper");
         }
@@ -447,7 +447,7 @@ public class DashBoardScreen extends BaseActivity {
 
         driveHelper = new DriveHelper(getApplicationContext());
         offDutyHelper = new OffDutyHelper(getApplicationContext());
-        heplper = new Heplper(getApplicationContext());
+        heplper = new Helper(getApplicationContext());
         breakhelper = new Breakhelper(getApplicationContext());
         shifthelper = new Shifthelper(getApplicationContext());
         yardmoveshelper = new Yardmoveshelper(getApplicationContext());
@@ -928,7 +928,7 @@ public class DashBoardScreen extends BaseActivity {
 
         DriveHelper driveHelper = this.driveHelper;
         OffDutyHelper offDutyHelper = this.offDutyHelper;
-        Heplper heplper = this.heplper;
+        Helper heplper = this.heplper;
         Shifthelper shifthelper = this.shifthelper;
         Breakhelper breakhelper = this.breakhelper;
         Yardmoveshelper yardmoveshelper = this.yardmoveshelper;

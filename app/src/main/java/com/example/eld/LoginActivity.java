@@ -6,12 +6,15 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ import com.example.eld.network.ApiService;
 import com.example.eld.network.RetrofitClient;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
 import com.example.eld.network.dto.login.response.LoginResponseModel;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -42,11 +47,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class Login_screen extends BaseActivity {
-    TextView text_forgot, rememerme;
-
+public class LoginActivity extends BaseActivity {
+    TextView text_forgot;
+    MaterialCheckBox cbRememberMe;
     boolean passwordvisible;
-    RelativeLayout loginbutton;
+    MaterialButton btnLogin;
     private long backpresstime;
     EditText paswordedit, etDriverId;
     ApiService apiinterface = RetrofitClient.apiService(this).create(ApiService.class);
@@ -64,64 +69,69 @@ public class Login_screen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         text_forgot = findViewById(R.id.tvforgotpassword);
-        rememerme = findViewById(R.id.rememberme);
-        loginbutton = findViewById(R.id.loginbutton);
+        cbRememberMe = findViewById(R.id.cb_remember_me);
+        btnLogin = findViewById(R.id.loginbutton);
         paswordedit = findViewById(R.id.paswordedit);
         etDriverId = findViewById(R.id.driverid);
 
+        setListener();
+        setStatusBarTransparent();
         popupdolig = new Dialog(this);
 
 
-//        setcolorinrember(rememerme, getResources().getColor(R.color.skyblue),
-//                getResources().getColor(R.color.lightskyblue));
+
+
+//        paswordedit.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                final int right = 2;
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    if (event.getRawX() >= paswordedit.getRight() - paswordedit.getCompoundDrawables()[right].getBounds().width()) {
+//                        int selection = paswordedit.getSelectionEnd();
+//                        if (passwordvisible) {
+//                            paswordedit.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_visibility_off_24, 0);
 //
-//        setTextViewColor(text_forgot, getResources().getColor(R.color.skyblue),
-//                getResources().getColor(R.color.lightskyblue));
-        loginbutton.setOnClickListener(v -> {
+//                            paswordedit.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                            passwordvisible = false;
+//                        } else {
+//                            paswordedit.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_visibility_24, 0);
+//                            paswordedit.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                            passwordvisible = true;
+//                        }
+//                        paswordedit.setSelection(selection);
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
+    }
+
+    private void setListener() {
+        btnLogin.setOnClickListener(v -> {
             String driverId = etDriverId.getText().toString().trim();
-            String paswordeditt = paswordedit.getText().toString();
+            String password = paswordedit.getText().toString();
 
             if (driverId.isEmpty()) {
-                Toast.makeText(Login_screen.this, "Enter Driver ID", Toast.LENGTH_SHORT).show();
-            } else if (paswordeditt.isEmpty()) {
-                Toast.makeText(Login_screen.this, "Enter Password", Toast.LENGTH_SHORT).show();
-            } else if (paswordeditt.length() < 6) {
-                Toast.makeText(Login_screen.this, "Password must be at least of 6 characters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Enter Driver ID", Toast.LENGTH_SHORT).show();
+            } else if (password.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
+            } else if (password.length() < 6) {
+                Toast.makeText(LoginActivity.this, "Password must be at least of 6 characters", Toast.LENGTH_SHORT).show();
             } else {
-                callLoginUserApi(driverId, paswordeditt);
-            }
-
-        });
-
-        text_forgot.setOnClickListener(v ->
-        {
-            Intent forgotPWIntent = new Intent(this, ForgotPasswordActivity.class);
-            this.startActivity(forgotPWIntent);
-        });
-        paswordedit.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int right = 2;
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= paswordedit.getRight() - paswordedit.getCompoundDrawables()[right].getBounds().width()) {
-                        int selection = paswordedit.getSelectionEnd();
-                        if (passwordvisible) {
-                            paswordedit.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_visibility_off_24, 0);
-
-                            paswordedit.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                            passwordvisible = false;
-                        } else {
-                            paswordedit.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_visibility_24, 0);
-                            paswordedit.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                            passwordvisible = true;
-                        }
-                        paswordedit.setSelection(selection);
-                        return true;
-                    }
-                }
-                return false;
+                callLoginUserApi(driverId, password);
             }
         });
+
+        text_forgot.setOnClickListener(v -> {
+            Intent forgotPasswordIntent = new Intent(this, ForgotPasswordActivity.class);
+            this.startActivity(forgotPasswordIntent);
+        });
+    }
+
+    private void setStatusBarTransparent() {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     private void callLoginUserApi(String driverId, String password) {
@@ -157,7 +167,7 @@ public class Login_screen extends BaseActivity {
                             }
 
                             helperClass.setFirstLogin(true);
-                            startActivity(new Intent(Login_screen.this, DashBoardScreen.class));
+                            startActivity(new Intent(LoginActivity.this, DashBoardScreen.class));
                             finish();
                         } else {
                             JSONObject body = new JSONObject(response.errorBody().string().toString());
@@ -183,17 +193,6 @@ public class Login_screen extends BaseActivity {
             popupdolig.dismiss();
             Toast.makeText(this, "Check network connection", Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-    private void setcolorinrember(TextView rememerme, int... color) {
-        TextPaint textPaint = rememerme.getPaint();
-
-
-        float width = textPaint.measureText(rememerme.getText().toString());
-        Shader shader = new LinearGradient(0, 0, width, rememerme.getTextSize(), color, null, Shader.TileMode.CLAMP);
-        rememerme.getPaint().setShader(shader);
-        rememerme.setTextColor(color[0]);
     }
 
     private void setTextViewColor(TextView text_forgot, int... color) {

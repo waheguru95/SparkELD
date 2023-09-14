@@ -90,7 +90,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login_screen"
+            android:name=".LoginActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

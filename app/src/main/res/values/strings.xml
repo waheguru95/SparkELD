@@ -9,6 +9,14 @@
     <string name="spark_eld">Spark ELD</string>
     <string name="enter_email_for_otp">Enter your email id to reset your password</string>
     <string name="enter_email_heading_for_otp">Enter your Email Id</string>
-    <string name="email_id_hint">email Id</string>
+    <string name="email_id_hint">Email Id</string>
+    <string name="driver_id">Driver ID</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="forgot_password_">Forgot password</string>
+    <string name="enter_the_registered_email_and_we_will_send_you_an_otp_to_reset_your_password">Enter the registered email id and we will send you an OTP to reset your password.</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="login">Login</string>
+    <string name="submit">Submit</string>
     <integer name="btnPlusView">1</integer>
 </resources>

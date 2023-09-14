@@ -30,7 +30,7 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/selecttall"
-            android:background="@drawable/buttongradiant"
+            android:background="@drawable/button_gradient"
             android:backgroundTint="#fff" />
 
 

@@ -41,7 +41,7 @@ public class Splash_Screen extends BaseActivity {
             @Override
             public void run() {
                 if(helperClass.getAuthenticToken().isEmpty()){
-                    startActivity(new Intent(Splash_Screen.this,Login_screen.class));
+                    startActivity(new Intent(Splash_Screen.this, LoginActivity.class));
                     finish();
                 }else {
                     startActivity(new Intent(Splash_Screen.this, DashBoardScreen.class));

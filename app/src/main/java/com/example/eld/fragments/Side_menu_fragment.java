@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.eld.Login_screen;
+import com.example.eld.LoginActivity;
 import com.example.eld.R;
 import com.example.eld.activity.About_screen;
 import com.example.eld.activity.Connect_with_bluetooth;
@@ -26,8 +26,8 @@ import com.example.eld.activity.DashBoardScreen;
 import com.example.eld.activity.Dvir2_screen;
 import com.example.eld.activity.Manual_screen;
 import com.example.eld.activity.Setting_screen;
-import com.example.eld.custumclass.Constants;
-import com.example.eld.custumclass.Helperclass;
+import com.example.eld.utils.Constants;
+import com.example.eld.utils.Helperclass;
 
 
 public class Side_menu_fragment extends Fragment {
@@ -143,7 +143,7 @@ public class Side_menu_fragment extends Fragment {
                         if (sharedPreferences != null) {
                             sharedPreferences.clear();
                             sharedPreferences.apply();
-                            Intent intent = new Intent(getActivity(), Login_screen.class);
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             getActivity().startActivity(intent);
                             confirmation_logout.dismiss();

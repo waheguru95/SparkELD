@@ -6,10 +6,12 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.eld.R;
 import com.example.eld.network.ApiService;
 import com.example.eld.network.RetrofitClient;
+import com.google.android.material.button.MaterialButton;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -19,20 +21,35 @@ import retrofit2.Response;
 public class ForgotPasswordActivity extends BaseActivity {
 
     EditText et_emailId;
-    RelativeLayout rl_submitbutton;
+    MaterialButton btnSubmit;
     ApiService apiService;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        rl_submitbutton = findViewById(R.id.rl_submitbutton);
+        toolbar = findViewById(R.id.toolbar);
+        btnSubmit = findViewById(R.id.btn_submit);
+        setAppBarTitle();
+        setListeners();
         apiService = RetrofitClient.apiService(this).create(ApiService.class);
-        rl_submitbutton.setOnClickListener(v -> {
+
+    }
+
+    private void setListeners() {
+        btnSubmit.setOnClickListener(v -> {
             Intent resetPasswordIntent = new Intent(this, ResetPasswordActivity.class);
             this.startActivity(resetPasswordIntent);
         });
+    }
+
+    private void setAppBarTitle() {
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
 

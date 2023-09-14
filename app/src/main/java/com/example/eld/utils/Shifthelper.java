@@ -3,8 +3,6 @@ package com.example.eld.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.eld.custumclass.Constants;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

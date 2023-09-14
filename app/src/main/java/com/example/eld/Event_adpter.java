@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eld.custumclass.TimestampConverter;
+import com.example.eld.utils.TimestampConverter;
 
 import java.util.ArrayList;
 

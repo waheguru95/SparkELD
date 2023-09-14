@@ -1,54 +1,29 @@
 package com.example.eld.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothHeadset;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.eld.R;
-import com.example.eld.custumclass.Helperclass;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.iosix.eldblelib.EldBleConnectionStateChangeCallback;
 import com.iosix.eldblelib.EldBleDataCallback;
 import com.iosix.eldblelib.EldBleError;
 import com.iosix.eldblelib.EldBleScanCallback;
-import com.iosix.eldblelib.EldBroadcast;
 import com.iosix.eldblelib.EldBroadcastTypes;
-import com.iosix.eldblelib.EldCachedPeriodicRecord;
-import com.iosix.eldblelib.EldDataRecord;
 import com.iosix.eldblelib.EldManager;
 import com.iosix.eldblelib.EldScanObject;
 import com.tuyenmonkey.mkloader.MKLoader;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 public class Connect_with_bluetooth extends BaseActivity {

@@ -1,4 +1,4 @@
-package com.example.eld.custumclass;
+package com.example.eld.utils;
 
 public interface Constants {
    // String BASE_URL = "http://ujjvalacademy.in/eld/";

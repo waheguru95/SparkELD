@@ -3,8 +3,6 @@ package com.example.eld.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.eld.custumclass.Constants;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +14,7 @@ import java.util.Locale;
 import kotlin.jvm.internal.DefaultConstructorMarker;
 import kotlin.jvm.internal.Intrinsics;
 
-public class Heplper {
+public class Helper {
     private SharedPreferences sharedPref;
     private SimpleDateFormat dateFormat;
     private boolean timerCounting;
@@ -24,7 +22,7 @@ public class Heplper {
     private Date stopTimeee;
 
     @NotNull
-    public static final Heplper.Companionn Companion = new Heplper.Companionn((DefaultConstructorMarker)null);
+    public static final Helper.Companionn Companion = new Helper.Companionn((DefaultConstructorMarker)null);
 
     @Nullable
     public final Date startTimee() {
@@ -63,7 +61,7 @@ public class Heplper {
         var2.putBoolean("sleepcountinue", valuee);
         var2.apply();
     }
-    public Heplper(@NotNull Context contextt) {
+    public Helper(@NotNull Context contextt) {
         Intrinsics.checkNotNullParameter(contextt, "contextt");
         SharedPreferences var10001 = contextt.getSharedPreferences(Constants.PREFRENCES, Context.MODE_PRIVATE);
         Intrinsics.checkNotNullExpressionValue(var10001, "contextt.getSharedPrefere…ES, Context.MODE_PRIVATE)");

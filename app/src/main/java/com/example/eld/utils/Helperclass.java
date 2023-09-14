@@ -1,4 +1,4 @@
-package com.example.eld.custumclass;
+package com.example.eld.utils;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

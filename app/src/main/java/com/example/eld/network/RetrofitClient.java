@@ -3,7 +3,7 @@ package com.example.eld.network;
 import android.content.Context;
 
 
-import com.example.eld.custumclass.Constants;
+import com.example.eld.utils.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -3,168 +3,153 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#fff"
     android:layout_height="match_parent"
-    tools:context=".Login_screen">
+    android:background="#fff"
+    tools:context=".LoginActivity"
+    android:fitsSystemWindows="true">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/truk"/>
-
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_marginStart="25dp"
-    android:layout_marginEnd="25dp"
-    android:layout_marginTop="80dp"
-    app:cardCornerRadius="20dp"
-    app:cardBackgroundColor="#fff"
-    app:cardElevation="20dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_20sdp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/personicon"
-            android:tintMode="src_in"
-            app:tint="#0091EA" />
-
-
-        <EditText
-            android:id="@+id/driverid"
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:backgroundTint="#fff"
-            android:drawablePadding="7dp"
-            android:fontFamily="sans-serif-thin"
-            android:hint="Driver ID"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:paddingStart="15dp"
-            android:singleLine="true"
-            android:textColor="#000"
-            android:textColorHint="#878686"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/truk" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="25dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="5dp">
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="#fff"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="20dp">
-
-        <LinearLayout
-            android:layout_width="345dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/lockicon"
-                android:tintMode="src_in"
-                app:tint="#0091EA" />
-
-
-            <EditText
-                android:id="@+id/paswordedit"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#fff"
-                android:hint="Password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textColor="#000"
-                android:textColorHint="#878686"
-                android:textSize="15sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
-
-        <CheckBox
-            android:id="@+id/check_box"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/buttongradiant"
-            android:backgroundTint="#fff" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="25dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/personicon"
+                    android:tintMode="src_in"
+                    app:tint="#0091EA" />
 
 
-        <TextView
-            android:id="@+id/rememberme"
-            android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/driverid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:backgroundTint="#fff"
+                    android:drawablePadding="7dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:hint="@string/driver_id"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:paddingHorizontal="15dp"
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:textColorHint="#878686"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="345dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/lockicon"
+                    android:tintMode="src_in"
+                    app:tint="#0091EA" />
+
+
+                <EditText
+                    android:id="@+id/paswordedit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    android:hint="@string/password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="15dp"
+                    android:textColor="#000"
+                    android:textColorHint="#878686"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/check_box"
-            android:text="Remember me"
-            android:textColor="@color/skyblue"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="15sp" />
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp">
 
-        <TextView
-            android:id="@+id/tvforgotpassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="Forgot password ?"
-            android:textColor="@color/skyblue"
-            android:textSize="15sp" />
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cb_remember_me"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:text="@string/remember_me"
+                android:textColor="@color/primaryColor"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:backgroundTint="#fff"
+                android:textSize="@dimen/_11sdp"/>
 
-    </RelativeLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvforgotpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="@string/forgot_password"
+                android:textColor="@color/primaryColor"
+                android:textSize="@dimen/_11sdp"
+                tools:ignore="RelativeOverlap" />
 
-<RelativeLayout
-    android:id="@+id/loginbutton"
-    android:layout_width="match_parent"
-    android:background="@drawable/buttongradiant"
-    android:layout_marginTop="50dp"
-    android:layout_marginStart="25dp"
-    android:layout_marginEnd="25dp"
-    android:elevation="20dp"
-    android:layout_marginBottom="45dp"
-    android:layout_height="45dp">
+        </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="monospace"
-        android:text="Login"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-</RelativeLayout>
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginbutton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginHorizontal="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="monospace"
+            android:text="@string/login"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
+    </LinearLayout>
 
 
 </androidx.core.widget.NestedScrollView>
