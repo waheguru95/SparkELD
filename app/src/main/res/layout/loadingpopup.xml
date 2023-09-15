@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="30dp"
-    android:backgroundTint="#fff"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_60sdp"
+    android:layout_height="@dimen/_60sdp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:backgroundTint="@color/white"
+    android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="20"
-        android:padding="10dp"
-        >
-        <com.tuyenmonkey.mkloader.MKLoader
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:visibility="visible"
-            app:mk_color="#ED663B"
-           app:mk_type="ThreePulse" />
-
-    </LinearLayout>
 
 
-
-</androidx.cardview.widget.CardView>
+    <com.tuyenmonkey.mkloader.MKLoader
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        app:mk_color="@color/primaryColor"
+        app:mk_type="ClassicSpinner" />
+</com.google.android.material.card.MaterialCardView>

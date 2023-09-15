@@ -29,7 +29,6 @@ public class ForgotPasswordActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
         toolbar = findViewById(R.id.toolbar);
         btnSubmit = findViewById(R.id.btn_submit);
         setAppBarTitle();

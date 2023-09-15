@@ -12,11 +12,16 @@
     <string name="email_id_hint">Email Id</string>
     <string name="driver_id">Driver ID</string>
     <string name="password">Password</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="forgot_password">Forgot password ?</string>
     <string name="forgot_password_">Forgot password</string>
+    <string name="reset_password">Reset password</string>
     <string name="enter_the_registered_email_and_we_will_send_you_an_otp_to_reset_your_password">Enter the registered email id and we will send you an OTP to reset your password.</string>
+    <string name="we_have_sent_otp_on_your_email_id">We send you a code to verify your email id and reset your password</string>
     <string name="remember_me">Remember Me</string>
     <string name="login">Login</string>
     <string name="submit">Submit</string>
+    <string name="enter_otp">Enter OTP</string>
     <integer name="btnPlusView">1</integer>
 </resources>
