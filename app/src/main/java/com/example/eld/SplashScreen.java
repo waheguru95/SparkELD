@@ -15,7 +15,7 @@ import com.example.eld.activity.BaseActivity;
 import com.example.eld.activity.DashBoardScreen;
 
 
-public class Splash_Screen extends BaseActivity {
+public class SplashScreen extends BaseActivity {
     private static int splash=2000;
     ImageView inneranimation;
     TextView first;
@@ -41,10 +41,10 @@ public class Splash_Screen extends BaseActivity {
             @Override
             public void run() {
                 if(helperClass.getAuthenticToken().isEmpty()){
-                    startActivity(new Intent(Splash_Screen.this, LoginActivity.class));
+                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                     finish();
                 }else {
-                    startActivity(new Intent(Splash_Screen.this, DashBoardScreen.class));
+                    startActivity(new Intent(SplashScreen.this, DashBoardScreen.class));
                     finish();
                 }
             }
