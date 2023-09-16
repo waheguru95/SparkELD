@@ -16,13 +16,17 @@ import androidx.annotation.NonNull;
 import com.example.eld.activity.BaseActivity;
 import com.example.eld.activity.DashBoardScreen;
 import com.example.eld.activity.ForgotPasswordActivity;
+import com.example.eld.models.DriverProfileModel;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
 import com.example.eld.network.dto.login.response.LoginResponseModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 
 import okhttp3.ResponseBody;
@@ -91,6 +95,7 @@ public class LoginActivity extends BaseActivity {
                             LoginResponseModel loginRequestModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
                             helperClass.setEmail(loginRequestModel.getData().getEmail());
                             helperClass.setId("" + loginRequestModel.getData().getId());
+                            callGetDriverDetailsApi(helperClass.getID());
                             helperClass.setFirstLogin(true);
                             startActivity(new Intent(LoginActivity.this, DashBoardScreen.class));
                             finish();
@@ -114,18 +119,30 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void callGetDriverDetailsApi() {
+    private void callGetDriverDetailsApi(String driverId) {
         if (helperClass.getNetworkInfo()) {
             showLoader();
-            Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(1);
+            Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(driverId);
+           // Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(1);
             driverProfileCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         if (response.isSuccessful()) {
                             ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+                                try {
+                                    String profileJson = responseBody.string();
+                                    Type modelType = new TypeToken<DriverProfileModel>() {}.getType();
+                                    Gson gson = new Gson();
+                                     DriverProfileModel driverProfileModel = gson.fromJson(profileJson, modelType);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
                         } else {
-                            onAPIErrorMessageReceived(response.errorBody().string().toString());
+                            onAPIErrorMessageReceived(response.errorBody().toString());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

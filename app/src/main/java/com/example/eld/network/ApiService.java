@@ -50,5 +50,5 @@ public interface ApiService {
 
     //https://eld-k7sg.onrender.com/api/driver/driverProfile?id=1'
     @GET("api/driver/driverProfile")
-    Call<ResponseBody> getDriverProfile(@Query("id") int id);
+    Call<ResponseBody> getDriverProfile(@Query("id") String id);
 }

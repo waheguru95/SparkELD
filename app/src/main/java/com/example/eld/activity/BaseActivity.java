@@ -72,4 +72,8 @@ public class BaseActivity extends AppCompatActivity {
     public void showNoInternetConnectionError() {
         Toast.makeText(this, "Check network connection", Toast.LENGTH_SHORT).show();
     }
+
+    public void showError(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
 }
