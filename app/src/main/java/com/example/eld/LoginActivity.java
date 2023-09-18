@@ -135,7 +135,7 @@ public class LoginActivity extends BaseActivity {
                                     String profileJson = responseBody.string();
                                     Type modelType = new TypeToken<DriverProfileModel>() {}.getType();
                                     Gson gson = new Gson();
-                                     DriverProfileModel driverProfileModel = gson.fromJson(profileJson, modelType);
+                                    DriverProfileModel driverProfileModel = gson.fromJson(profileJson, modelType);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
