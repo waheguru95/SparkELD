@@ -1,5 +1,7 @@
 package com.example.eld.network;
 
+import com.example.eld.network.dto.login.request.ChangePasswordRequestModel;
+import com.example.eld.network.dto.login.request.ForgotPasswordModel;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,6 +16,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 //: https://eld-k7sg.onrender.com/api/login/checkLogin
@@ -35,9 +38,11 @@ public interface ApiService {
 
     );
 
-    @Headers("Content-Type: application/json")
-    @POST("api/reset/sendOtp")
-    Call<JsonObject> sendOtp(@Body JsonObject requestBody);
+    @POST("reset/sendOtp")
+    Call<JsonObject> sendOtp(@Body ForgotPasswordModel requestBody);
+
+    @PUT("reset/changePassword")
+    Call<JsonObject> changePassword(@Body ChangePasswordRequestModel requestBody);
 
     @POST("getuserstatus.php")
     Call<JsonObject> getstatus(

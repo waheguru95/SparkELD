@@ -1,17 +1,11 @@
 package com.example.eld.models;
 
+import com.example.eld.network.dto.common.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class DriverProfileModel {
-
-    @SerializedName("statusCode")
-    private int statusCode;
-
-    @SerializedName("message")
-    private String message;
-
+public class DriverProfileModel extends BaseModel {
     @SerializedName("data")
     private List<VehicleDataModel> data;
 

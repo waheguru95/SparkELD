@@ -3,6 +3,7 @@ package com.example.eld.utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import com.example.eld.models.DriverProfileModel;
 import com.google.gson.Gson;
 
 public class Helperclass {
@@ -24,6 +25,8 @@ public class Helperclass {
 
     private String SPEED_START_TIME = "speed_start_time";
     private final Gson gson = new Gson();
+
+    private String DRIVER_PROFILE ="driverProfile";
 
     public Helperclass(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
@@ -67,8 +70,8 @@ public class Helperclass {
         return sharedPreferences.getString(EMAIL, "");
     }
 
-    public void setEmail(String EMAIL) {
-        sharedPreferences.edit().putString(EMAIL, EMAIL).apply();
+    public void setEmail(String email) {
+        sharedPreferences.edit().putString(EMAIL, email).apply();
     }
 
     public Boolean getFirstLogin() {
@@ -133,6 +136,13 @@ public class Helperclass {
 
     public void setSPEED_START_TIME(Long speed_start_time) {
         sharedPreferences.edit().putLong(SPEED_START_TIME, speed_start_time).apply();
+    }
+
+    public String getDriverProfile() {
+        return sharedPreferences.getString(DRIVER_PROFILE, "");
+    }
+    public void setDriverProfile(String driverProfile) {
+        sharedPreferences.edit().putString(DRIVER_PROFILE, driverProfile).apply();
     }
 
     public Gson getGson() {

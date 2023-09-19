@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,9 +23,9 @@ import org.json.JSONObject;
 
 public class BaseActivity extends AppCompatActivity {
 
-  public  Helperclass helperClass;
-  public ApiService apiService;
-  private Dialog apiLoaderDialog;
+    public Helperclass helperClass;
+    public ApiService apiService;
+    private Dialog apiLoaderDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,7 +74,10 @@ public class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, "Check network connection", Toast.LENGTH_SHORT).show();
     }
 
-    public void showError(String errorMessage) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    public void showToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
+
 }

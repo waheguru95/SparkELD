@@ -1,10 +1,7 @@
 package com.example.eld;
 
 import android.content.Intent;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -23,10 +20,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 
 import okhttp3.ResponseBody;
@@ -100,7 +95,7 @@ public class LoginActivity extends BaseActivity {
                             startActivity(new Intent(LoginActivity.this, DashBoardScreen.class));
                             finish();
                         } else {
-                            onAPIErrorMessageReceived(response.errorBody().string().toString());
+                            onAPIErrorMessageReceived(response.errorBody().string());
                         }
                     } catch (Exception e) {
                         hideLoader();
@@ -123,7 +118,7 @@ public class LoginActivity extends BaseActivity {
         if (helperClass.getNetworkInfo()) {
             showLoader();
             Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(driverId);
-           // Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(1);
+            // Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(1);
             driverProfileCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -133,9 +128,11 @@ public class LoginActivity extends BaseActivity {
                             if (responseBody != null) {
                                 try {
                                     String profileJson = responseBody.string();
-                                    Type modelType = new TypeToken<DriverProfileModel>() {}.getType();
                                     Gson gson = new Gson();
-                                    DriverProfileModel driverProfileModel = gson.fromJson(profileJson, modelType);
+                                    DriverProfileModel driverProfileModel = gson.fromJson(profileJson, DriverProfileModel.class);
+                                    String driverJson = gson.toJson(driverProfileModel);
+                                    System.out.println("this is json for subscription" + driverJson);
+                                    helperClass.setDriverProfile(driverJson);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -148,6 +145,7 @@ public class LoginActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     hideLoader();

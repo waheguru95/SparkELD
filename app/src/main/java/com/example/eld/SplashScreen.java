@@ -16,7 +16,7 @@ import com.example.eld.activity.DashBoardScreen;
 
 
 public class SplashScreen extends BaseActivity {
-    private static int splash=2000;
+    private static final int splash=2000;
     ImageView inneranimation;
     TextView first;
 
@@ -24,29 +24,26 @@ public class SplashScreen extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splesh_screen);
+        setContentView(R.layout.activity_splash_screen);
 
         final BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
 //        bAdapter.enable();
 
-        inneranimation=findViewById(R.id.imageg);
-        first=findViewById(R.id.first);
+        inneranimation=findViewById(R.id.image);
+        first=findViewById(R.id.appname);
 
         Animation animation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blink);
         inneranimation.startAnimation(animation);
         first.startAnimation(animation);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(helperClass.getAuthenticToken().isEmpty()){
-                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
-                    finish();
-                }else {
-                    startActivity(new Intent(SplashScreen.this, DashBoardScreen.class));
-                    finish();
-                }
+        new Handler().postDelayed(() -> {
+            if(helperClass.getAuthenticToken().isEmpty()){
+                startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+                finish();
+            }else {
+                startActivity(new Intent(SplashScreen.this, DashBoardScreen.class));
+                finish();
             }
         },splash);
     }

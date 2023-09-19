@@ -9,7 +9,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.eld.R;
+import com.example.eld.network.dto.login.request.ForgotPasswordModel;
+import com.example.eld.network.dto.login.request.LoginRequestModel;
+import com.example.eld.network.dto.login.response.ForgotPasswordResponseModel;
+import com.example.eld.network.dto.login.response.LoginResponseModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -38,8 +43,9 @@ public class ForgotPasswordActivity extends BaseActivity {
     private void setListeners() {
         btnSubmit.setOnClickListener(v -> {
             if (TextUtils.isEmpty(et_emailId.getText().toString())) {
-                showError("Please enter registered Email Id!");
+                showToast("Please enter registered Email Id!");
             } else {
+                helperClass.setEmail(et_emailId.getText().toString());
                 sendOtp(et_emailId.getText().toString());
             }
         });
@@ -54,13 +60,14 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     public void sendOtp(String email) {
         JsonObject requestBody = new JsonObject();
-        requestBody.addProperty("email", email);
-        Call<JsonObject> call = apiService.sendOtp(requestBody);
+        Call<JsonObject> call = apiService.sendOtp(new ForgotPasswordModel(email.trim()));
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                hideLoader();
                 if (response.isSuccessful()) {
-                    JsonObject result = response.body();
+                     ForgotPasswordResponseModel forgotPasswordResponseModel = new Gson().fromJson(response.body().toString(), ForgotPasswordResponseModel.class);
+                    showToast(forgotPasswordResponseModel.getMessage());
                     Intent resetPasswordIntent = new Intent(ForgotPasswordActivity.this, ResetPasswordActivity.class);
                     ForgotPasswordActivity.this.startActivity(resetPasswordIntent);
                 } else {

@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">EDriveBook</string>
+    <string name="app_name">eDriveBook</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ok">OK</string>
     <string name="driving">Driving</string>
     <string name="no">No</string>
     <string name="still_you_are_drive">Still you are driving or not kindly update your status</string>
-    <string name="spark_eld">Spark ELD</string>
+    <string name="spark_eld">eDriveBook</string>
     <string name="enter_email_for_otp">Enter your email id to reset your password</string>
     <string name="enter_email_heading_for_otp">Enter your Email Id</string>
     <string name="email_id_hint">Email Id</string>
