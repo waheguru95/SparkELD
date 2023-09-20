@@ -23,5 +23,8 @@
     <string name="login">Login</string>
     <string name="submit">Submit</string>
     <string name="enter_otp">Enter OTP</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
+    <string name="your_name">Your name</string>
+    <string name="do_you_want_to_exit_this_app">Are you sure you want to exit from app?</string>
     <integer name="btnPlusView">1</integer>
 </resources>

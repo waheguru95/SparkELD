@@ -46,7 +46,7 @@ import com.example.eld.alert.FiveMinuteN;
 import com.example.eld.alert.ResetDataReceiver;
 import com.example.eld.utils.TimestampConverter;
 import com.example.eld.fragments.Certify_fragment;
-import com.example.eld.fragments.Deshboard_fragment;
+import com.example.eld.fragments.DashboardFragment;
 import com.example.eld.fragments.Logs_fragment;
 import com.example.eld.fragments.Reports_fragment;
 import com.example.eld.utils.Breakhelper;
@@ -179,7 +179,7 @@ public class DashBoardScreen extends BaseActivity {
     public Shifthelper shifthelper;
     public Yardmoveshelper yardmoveshelper;
     public PersonalHelper personalHelper;
-    Deshboard_fragment myFragment;
+    DashboardFragment myFragment;
     BluetoothAdapter bAdapter = null;
     BottomNavigationView bottomNavigationView;
     ImageView side_menu, notification;
@@ -515,10 +515,10 @@ public class DashBoardScreen extends BaseActivity {
                 Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(intent, 0);
             } else if (status.equals("Connected")) {
-                confirmation_logout.setContentView(R.layout.logout_dilog);
+                confirmation_logout.setContentView(R.layout.dialog_logout);
                 confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                CardView yes = confirmation_logout.findViewById(R.id.yeslogout);
-                CardView no = confirmation_logout.findViewById(R.id.no);
+                CardView yes = confirmation_logout.findViewById(R.id.btnLogout);
+                CardView no = confirmation_logout.findViewById(R.id.btnCancel);
                 TextView text = confirmation_logout.findViewById(R.id.logoputtext);
                 text.setText("Do you want to Disconnect the device?");
 
@@ -575,14 +575,14 @@ public class DashBoardScreen extends BaseActivity {
             }
         });
         helperClass.setDASHBOARD(true);
-        myFragment = new Deshboard_fragment();
+        myFragment = new DashboardFragment();
         controlfunction(myFragment);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.myhome:
-                        myFragment = new Deshboard_fragment();
+                        myFragment = new DashboardFragment();
                         helperClass.setDASHBOARD(true);
                         controlfunction(myFragment);
                         break;

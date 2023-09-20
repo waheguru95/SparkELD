@@ -39,8 +39,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
-            android:name=".ResetPasswordActivity"
-            android:exported="false" />
+            android:name=".activity.ResetPasswordActivity"
+            android:exported="false"
+            android:screenOrientation="behind"/>
         <activity
             android:name=".activity.Dvir2_screen"
             android:exported="false">
@@ -103,9 +104,6 @@
 
         <activity
             android:name=".activity.ForgotPasswordActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.ResetPasswordActivity"
             android:exported="true" />
 
     </application>
