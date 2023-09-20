@@ -54,7 +54,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.Faq_screen"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="behind"/>
         <activity
             android:name=".activity.Privacy_policy_screen"
             android:exported="false" />
@@ -65,11 +66,13 @@
             android:name=".activity.DVIR_screen"
             android:exported="false" />
         <activity
-            android:name=".activity.Setting_screen"
-            android:exported="false" />
+            android:name=".activity.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="behind"/>
         <activity
             android:name=".activity.Manual_screen"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="behind"/>
         <activity
             android:name=".activity.About_screen"
             android:exported="false" />
@@ -78,10 +81,20 @@
             android:exported="false" />
         <activity
             android:name=".activity.DashBoardScreen"
-            android:exported="false" />
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />-->
+<!--                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity
             android:name=".SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
@@ -92,7 +105,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="behind"/>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -104,7 +118,8 @@
 
         <activity
             android:name=".activity.ForgotPasswordActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="behind"/>
 
     </application>
 

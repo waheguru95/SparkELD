@@ -28,7 +28,7 @@ import com.example.eld.activity.Connect_with_bluetooth;
 import com.example.eld.activity.DashBoardScreen;
 import com.example.eld.activity.Dvir2_screen;
 import com.example.eld.activity.Manual_screen;
-import com.example.eld.activity.Setting_screen;
+import com.example.eld.activity.SettingsActivity;
 import com.example.eld.utils.Constants;
 import com.example.eld.utils.Helperclass;
 import com.google.android.material.button.MaterialButton;
@@ -102,7 +102,7 @@ public class SideNavigationFragment extends Fragment {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Setting_screen.class));
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
             }
         });
         manual.setOnClickListener(new View.OnClickListener() {
