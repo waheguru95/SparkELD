@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Recording HOS"
-        android:textColor="#ED663B"
+        android:textColor="@color/primaryColor"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:layout_marginStart="10dp"

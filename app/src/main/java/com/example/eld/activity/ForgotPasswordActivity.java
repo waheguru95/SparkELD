@@ -46,6 +46,7 @@ public class ForgotPasswordActivity extends BaseActivity {
                 showToast("Please enter registered Email Id!");
             } else {
                 helperClass.setEmail(et_emailId.getText().toString());
+                showLoader();
                 sendOtp(et_emailId.getText().toString());
             }
         });

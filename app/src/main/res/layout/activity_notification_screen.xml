@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_baseline_keyboard_backspace_24"
-            android:tint="#ED663B"
+            android:tint="@color/primaryColor"
             tools:ignore="UseAppTint" />
 
     </RelativeLayout>

@@ -17,6 +17,7 @@ import com.example.eld.R;
 import com.example.eld.network.ApiService;
 import com.example.eld.network.RetrofitClient;
 import com.example.eld.utils.Helperclass;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +79,8 @@ public class BaseActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
+        //Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+
     }
 
 }

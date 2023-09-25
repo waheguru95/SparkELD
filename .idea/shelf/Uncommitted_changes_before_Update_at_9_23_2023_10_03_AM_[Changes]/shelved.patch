@@ -1,0 +1,44 @@
+Index: app/src/main/res/layout/logout_dilog.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.cardview.widget.CardView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"300dp\"\r\n    android:layout_height=\"wrap_content\"\r\n    app:cardCornerRadius=\"10dp\"\r\n    android:backgroundTint=\"#000\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n    <androidx.cardview.widget.CardView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_margin=\"2dp\"\r\n        android:backgroundTint=\"#fff\"\r\n        android:foreground=\"?android:attr/selectableItemBackground\"\r\n        android:clickable=\"true\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        >\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:orientation=\"vertical\"\r\n            >\r\n            <TextView\r\n                android:id=\"@+id/logoputtext\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Do you want to logout?\"\r\n                android:textAlignment=\"center\"\r\n                android:layout_marginTop=\"15dp\"\r\n                android:textSize=\"20sp\"\r\n                android:textColor=\"#000\"/>\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:weightSum=\"20\"\r\n                android:layout_marginBottom=\"20dp\"\r\n                android:layout_marginTop=\"30dp\"\r\n                android:orientation=\"horizontal\"\r\n                >\r\n                <androidx.cardview.widget.CardView\r\n                    android:id=\"@+id/no\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_weight=\"10\"\r\n                    android:layout_marginTop=\"5dp\"\r\n                    android:layout_marginBottom=\"5dp\"\r\n                    android:layout_marginStart=\"10dp\"\r\n                    android:layout_marginEnd=\"20dp\"\r\n                    app:cardBackgroundColor=\"#fdad03\"\r\n                    app:cardCornerRadius=\"15dp\"\r\n                    >\r\n                    <androidx.cardview.widget.CardView\r\n                        android:layout_width=\"match_parent\"\r\n                        app:cardBackgroundColor=\"#fff\"\r\n                        android:layout_margin=\"1dp\"\r\n                        app:cardCornerRadius=\"15dp\"\r\n                        android:layout_height=\"match_parent\">\r\n                        <RelativeLayout\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"match_parent\">\r\n\r\n                            <TextView\r\n                                android:layout_width=\"wrap_content\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:layout_centerHorizontal=\"true\"\r\n                                android:layout_marginTop=\"9dp\"\r\n                                android:layout_marginBottom=\"9dp\"\r\n                                android:text=\"No\"\r\n                                android:textColor=\"#fdad03\"\r\n                                android:textStyle=\"bold\" />\r\n\r\n                        </RelativeLayout>\r\n\r\n                    </androidx.cardview.widget.CardView>\r\n\r\n\r\n                </androidx.cardview.widget.CardView>\r\n\r\n                <androidx.cardview.widget.CardView\r\n                    android:id=\"@+id/yeslogout\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_marginStart=\"20dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_weight=\"10\"\r\n                    android:layout_marginTop=\"5dp\"\r\n                    android:layout_marginBottom=\"5dp\"\r\n                    android:layout_marginEnd=\"10dp\"\r\n                    app:cardBackgroundColor=\"#ED663B\"\r\n                    app:cardCornerRadius=\"15dp\"\r\n                    >\r\n                    <androidx.cardview.widget.CardView\r\n                        android:layout_width=\"match_parent\"\r\n                        app:cardBackgroundColor=\"#fff\"\r\n                        android:layout_margin=\"1dp\"\r\n                        app:cardCornerRadius=\"15dp\"\r\n                        android:layout_height=\"match_parent\">\r\n                        <RelativeLayout\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"match_parent\">\r\n\r\n                            <TextView\r\n                                android:layout_width=\"wrap_content\"\r\n                                android:layout_height=\"wrap_content\"\r\n                                android:layout_centerHorizontal=\"true\"\r\n                                android:layout_marginTop=\"9dp\"\r\n                                android:layout_marginBottom=\"9dp\"\r\n                                android:text=\"Yes\"\r\n                                android:textColor=\"#ED663B\"\r\n                                android:textStyle=\"bold\" />\r\n\r\n                        </RelativeLayout>\r\n\r\n                    </androidx.cardview.widget.CardView>\r\n\r\n\r\n                </androidx.cardview.widget.CardView>\r\n\r\n\r\n\r\n            </LinearLayout>\r\n\r\n\r\n        </LinearLayout>\r\n\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n</androidx.cardview.widget.CardView>
+===================================================================
+diff --git a/app/src/main/res/layout/logout_dilog.xml b/app/src/main/res/layout/logout_dilog.xml
+--- a/app/src/main/res/layout/logout_dilog.xml	
++++ b/app/src/main/res/layout/logout_dilog.xml	
+@@ -46,7 +46,7 @@
+                     android:layout_marginBottom="5dp"
+                     android:layout_marginStart="10dp"
+                     android:layout_marginEnd="20dp"
+-                    app:cardBackgroundColor="#fdad03"
++                    app:cardBackgroundColor="@color/primaryColor"
+                     app:cardCornerRadius="15dp"
+                     >
+                     <androidx.cardview.widget.CardView
+@@ -66,7 +66,7 @@
+                                 android:layout_marginTop="9dp"
+                                 android:layout_marginBottom="9dp"
+                                 android:text="No"
+-                                android:textColor="#fdad03"
++                                android:textColor="@color/primaryColor"
+                                 android:textStyle="bold" />
+ 
+                         </RelativeLayout>
+@@ -85,7 +85,7 @@
+                     android:layout_marginTop="5dp"
+                     android:layout_marginBottom="5dp"
+                     android:layout_marginEnd="10dp"
+-                    app:cardBackgroundColor="#ED663B"
++                    app:cardBackgroundColor="@color/primaryColor"
+                     app:cardCornerRadius="15dp"
+                     >
+                     <androidx.cardview.widget.CardView
+@@ -105,7 +105,7 @@
+                                 android:layout_marginTop="9dp"
+                                 android:layout_marginBottom="9dp"
+                                 android:text="Yes"
+-                                android:textColor="#ED663B"
++                                android:textColor="@color/primaryColor"
+                                 android:textStyle="bold" />
+ 
+                         </RelativeLayout>

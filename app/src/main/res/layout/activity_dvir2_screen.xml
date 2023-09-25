@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_baseline_keyboard_backspace_24"
-                android:tint="#ED663B"
+                android:tint="@color/primaryColor"
                 tools:ignore="UseAppTint" />
 
         </RelativeLayout>
@@ -77,7 +77,7 @@
                         android:id="@+id/edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="#ED663B"
+                        app:cardBackgroundColor="@color/primaryColor"
                         app:cardCornerRadius="5dp"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
@@ -142,7 +142,7 @@
             android:id="@+id/adddefectes"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:cardBackgroundColor="#ED663B"
+            app:cardBackgroundColor="@color/primaryColor"
             app:cardCornerRadius="40dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"

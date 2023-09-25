@@ -3,7 +3,6 @@ package com.example.eld.utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-import com.example.eld.models.DriverProfileModel;
 import com.google.gson.Gson;
 
 public class Helperclass {
@@ -26,8 +25,10 @@ public class Helperclass {
     private String SPEED_START_TIME = "speed_start_time";
     private final Gson gson = new Gson();
 
-    private String DRIVER_PROFILE ="driverProfile";
-
+    private String DRIVER_PROFILE = "driverProfile";
+    private String PASSWORD = "password";
+    private String REMEMBER_ME = "remember_me";
+    private String DRIVER_USER_ID = "driver_user_id";
     public Helperclass(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -74,6 +75,15 @@ public class Helperclass {
         sharedPreferences.edit().putString(EMAIL, email).apply();
     }
 
+    public String getPASSWORD() {
+        return sharedPreferences.getString(PASSWORD, "");
+    }
+
+    public void setPASSWORD(String password) {
+        sharedPreferences.edit().putString(PASSWORD, password).apply();
+
+    }
+
     public Boolean getFirstLogin() {
         return sharedPreferences.getBoolean(FIRST_LOGIN, false);
     }
@@ -114,13 +124,14 @@ public class Helperclass {
         sharedPreferences.edit().putBoolean(STATUS_CHANGE, statusChange).apply();
     }
 
-    public String getID() {
-        return sharedPreferences.getString(ID, "");
+    public int getID() {
+        return sharedPreferences.getInt(ID, 0);
     }
 
-    public void setId(String ID) {
-        sharedPreferences.edit().putString(ID, ID).apply();
+    public void setId(int id) {
+        sharedPreferences.edit().putInt(ID, id).apply();
     }
+
 
     public boolean getNetworkInfo() {
         return sharedPreferences.getBoolean(NETWORK_INFO, true);
@@ -141,8 +152,27 @@ public class Helperclass {
     public String getDriverProfile() {
         return sharedPreferences.getString(DRIVER_PROFILE, "");
     }
+
     public void setDriverProfile(String driverProfile) {
         sharedPreferences.edit().putString(DRIVER_PROFILE, driverProfile).apply();
+    }
+
+    public boolean getREMEMBER_ME() {
+        return sharedPreferences.getBoolean(REMEMBER_ME, false);
+
+    }
+
+    public void setREMEMBER_ME(boolean remember_me) {
+        sharedPreferences.edit().putBoolean(REMEMBER_ME, remember_me).apply();
+    }
+
+    public String getDRIVER_USER_ID() {
+        return sharedPreferences.getString(DRIVER_USER_ID, "");
+
+    }
+
+    public void setDRIVER_USER_ID(String driver_user_id) {
+        sharedPreferences.edit().putString(DRIVER_USER_ID, driver_user_id).apply();
     }
 
     public Gson getGson() {

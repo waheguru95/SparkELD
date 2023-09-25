@@ -42,7 +42,7 @@
                         android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                         android:src="@drawable/streeing"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         android:layout_marginStart="10dp"
                         tools:ignore="UseAppTint" />
 
@@ -83,7 +83,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_baseline_toggle_on_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         android:layout_marginStart="10dp"
                         tools:ignore="UseAppTint" />
 
@@ -124,7 +124,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_baseline_airline_seat_individual_suite_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         android:layout_marginStart="10dp"
                         tools:ignore="UseAppTint" />
 
@@ -165,7 +165,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_baseline_toggle_off_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         android:layout_marginStart="10dp"
                         tools:ignore="UseAppTint" />
 
@@ -206,7 +206,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_baseline_fire_truck_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         android:layout_marginStart="10dp"
                         tools:ignore="UseAppTint" />
 
@@ -248,7 +248,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_baseline_person_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         android:layout_marginStart="10dp"
                         tools:ignore="UseAppTint" />
 

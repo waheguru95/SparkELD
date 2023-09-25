@@ -1,0 +1,204 @@
+
+g
+java:S1192—"PDefine a constant instead of duplicating this literal "Enter something" 3 times.(é÷Ë‡
+e
+java:S1192½"IDefine a constant instead of duplicating this literal "00:00:00" 4 times.(©çŞ³şÿÿÿÿ
+e
+java:S1192À	"ODefine a constant instead of duplicating this literal "%02d:%02d:%02d" 6 times.(¾±—8
+]
+java:S1192†"FDefine a constant instead of duplicating this literal "CLOCK" 3 times.(ìïæ
+i
+java:S1192o"NDefine a constant instead of duplicating this literal "%d:%02d:%02d" 20 times.(åíáûıÿÿÿÿ
+k	java:S117?"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶æˆÉÿÿÿÿÿ
+D
+java:S1604’"(Make this anonymous inner class a lambda(û¦éÒúÿÿÿÿ
+D
+java:S1604¡"(Make this anonymous inner class a lambda(ê¢›ııÿÿÿÿ
+D
+java:S1604‡"(Make this anonymous inner class a lambda(Øş§ùÿÿÿÿ
+D
+java:S1604¸"(Make this anonymous inner class a lambda(û¦éÒúÿÿÿÿ
+D
+java:S1604È"(Make this anonymous inner class a lambda(ê¢›ııÿÿÿÿ
+D
+java:S1604­"(Make this anonymous inner class a lambda(àƒ¿«ûÿÿÿÿ
+D
+java:S1604İ"(Make this anonymous inner class a lambda(û¦éÒúÿÿÿÿ
+D
+java:S1604í"(Make this anonymous inner class a lambda(ê¢›ııÿÿÿÿ
+D
+java:S1604Ò"(Make this anonymous inner class a lambda(·‹úúøÿÿÿÿ
+D
+java:S1604"(Make this anonymous inner class a lambda(ãÅâøÿÿÿÿ
+D
+java:S1604Î"(Make this anonymous inner class a lambda(ªÛ¿œıÿÿÿÿ
+s
+java:S1104º"WMake driveHelper a static final constant or non-public and provide accessors if needed.(‰‰¾ıÿÿÿÿ
+m
+java:S1104¼"WMake breakhelper a static final constant or non-public and provide accessors if needed.(ÀÉØ=
+n
+java:S1104½"WMake shifthelper a static final constant or non-public and provide accessors if needed.(îÙÑ¶
+m
+java:S1104¾"VMake weekHelper a static final constant or non-public and provide accessors if needed.(–â¬±
+r
+java:S1104¿"[Make yardmoveshelper a static final constant or non-public and provide accessors if needed.(§ù²Š
+v
+java:S1104À"ZMake personalHelper a static final constant or non-public and provide accessors if needed.(¡åš‰üÿÿÿÿ
+\
+java:S2637ù"EThis method's return value is marked "@NotNull" but null is returned.(ëÎÙÓ
+a
+java:S2637”"EThis method's return value is marked "@NotNull" but null is returned.(èé‰°øÿÿÿÿ
+a
+java:S2637‹"EThis method's return value is marked "@NotNull" but null is returned.(®’‡ùÿÿÿÿ
+a
+java:S2637ç"EThis method's return value is marked "@NotNull" but null is returned.(º•Ã–şÿÿÿÿ
+\
+java:S2637‚"EThis method's return value is marked "@NotNull" but null is returned.(†‘Ü­
+y	java:S116³"^Rename this field "confirmation_logout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÓ±üÿÿÿÿ
+h	java:S116×"RRename this field "HashMap" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åóÿ›
+]
+java:S1659²"ADeclare "trip" and all following declarations on a separate line.(à‰ò¡úÿÿÿÿ
+_
+java:S1659´"CDeclare "tripno" and all following declarations on a separate line.(îà€ƒÿÿÿÿÿ
+`
+java:S1659¶"DDeclare "tripnoo" and all following declarations on a separate line.(½…±§ÿÿÿÿÿ
+a
+java:S1659·"JDeclare "shiftprogress" and all following declarations on a separate line.(øËÃï
+]
+java:S1659ß"FDeclare "shifttime" and all following declarations on a separate line.(ÿ·°ƒ
+m
+java:S3776?"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(¶æˆÉÿÿÿÿÿ
+H
+java:S1905†",Remove this unnecessary cast to "TimerTask".(÷İ¡Íûÿÿÿÿ
+C
+java:S1905Ö",Remove this unnecessary cast to "TimerTask".(ıçŞ
+H
+java:S1905",Remove this unnecessary cast to "TimerTask".(ÁÜˆøÿÿÿÿ
+R	java:S125»"<This block of commented-out lines of code should be removed.(¶ÔÂê
+\
+java:S1117ã"@Rename "driveHelper" which hides the field declared at line 314.(ôœˆÌıÿÿÿÿ
+W	java:S125ë"<This block of commented-out lines of code should be removed.(ÃÙ™ƒøÿÿÿÿ
+\
+java:S1117õ"@Rename "breakhelper" which hides the field declared at line 316.(É¾ßÕøÿÿÿÿ
+V
+java:S1117ş"@Rename "shifthelper" which hides the field declared at line 317.(æõ°
+`
+java:S1117‡"DRename "yardmoveshelper" which hides the field declared at line 319.(ª”şİıÿÿÿÿ
+Z
+java:S1117"CRename "personalHelper" which hides the field declared at line 320.(°Ó†
+i
+java:S3776 "RRefactor this method to reduce its Cognitive Complexity from 72 to the 15 allowed.(¡Œşø
+[
+java:S1854¶"?Remove this useless assignment to local variable "lineEntries".(ÍÓ¶Üşÿÿÿÿ
+W	java:S125º"<This block of commented-out lines of code should be removed.(œ­‰Ÿüÿÿÿÿ
+R	java:S125Í"<This block of commented-out lines of code should be removed.(©Ìÿ
+W	java:S125ã"<This block of commented-out lines of code should be removed.(¾Ç¢ïÿÿÿÿÿ
+S
+java:S1854š"<Remove this useless assignment to local variable "shipnorf".(×¾™£
+Q
+java:S1854™";Remove this useless assignment to local variable "tripnor".(‹ù¹
+B
+java:S1481™",Remove this unused "tripnor" local variable.(‹ù¹
+D
+java:S1481š"-Remove this unused "shipnorf" local variable.(×¾™£
+S
+java:S1854Á"<Remove this useless assignment to local variable "shipnorf".(×¾™£
+\
+java:S1854À"@Remove this useless assignment to local variable "codrivername".(÷“‰­üÿÿÿÿ
+M
+java:S1481À"1Remove this unused "codrivername" local variable.(÷“‰­üÿÿÿÿ
+D
+java:S1481Á"-Remove this unused "shipnorf" local variable.(×¾™£
+Q
+java:S1854å";Remove this useless assignment to local variable "tripnor".(‹ù¹
+\
+java:S1854ä"@Remove this useless assignment to local variable "codrivername".(÷“‰­üÿÿÿÿ
+M
+java:S1481ä"1Remove this unused "codrivername" local variable.(÷“‰­üÿÿÿÿ
+B
+java:S1481å",Remove this unused "tripnor" local variable.(‹ù¹
+H
+java:S1905‚",Remove this unnecessary cast to "TimerTask".(÷İ¡Íûÿÿÿÿ
+C
+java:S1905‘",Remove this unnecessary cast to "TimerTask".(ıçŞ
+H
+java:S1905Ÿ",Remove this unnecessary cast to "TimerTask".(ÁÜˆøÿÿÿÿ
+R	java:S125¢"<This block of commented-out lines of code should be removed.(¿„ì¾
+X
+java:S1117Í"<Rename "handler" which hides the field declared at line 345.(§çµüÿÿÿÿ
+X
+java:S1117"<Rename "handler" which hides the field declared at line 345.(§çµüÿÿÿÿ
+X
+java:S1117Ü"<Rename "handler" which hides the field declared at line 345.(§çµüÿÿÿÿ
+R	java:S125"<This block of commented-out lines of code should be removed.(òµ‚¨
+\
+java:S1117¶"@Rename "lineEntries" which hides the field declared at line 344.(ÍÓ¶Üşÿÿÿÿ
+L
+java:S1481¶"0Remove this unused "lineEntries" local variable.(ÍÓ¶Üşÿÿÿÿ
+W	java:S125…	"<This block of commented-out lines of code should be removed.(´Šğ¢ıÿÿÿÿ
+W	java:S125°	"<This block of commented-out lines of code should be removed.(‹ˆÇôùÿÿÿÿ
+R	java:S125Ä	"<This block of commented-out lines of code should be removed.(ôéÌÂ
+˜
+java:S1186ò	"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¤İÁ¶
+˜
+java:S1186”
+"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‰ç¹×
+
+java:S1186¶
+"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦¢ïùÿÿÿÿ
+
+java:S1186Õ
+"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹€ÿËùÿÿÿÿ
+I
+java:S3985Ë
+"-Remove this unused private "TimeTasky" class.(©ƒŸóùÿÿÿÿ
+
+java:S1186ô
+"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(şï¶•üÿÿÿÿ
+I
+java:S3985ê
+"-Remove this unused private "TimeTaskp" class.(°ÏÑ½üÿÿÿÿ
+i
+java:S3776û
+"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(öÿÕÅ
+X
+java:S1117Š"<Rename "handler" which hides the field declared at line 345.(§çµüÿÿÿÿ
+>
+java:S3398¿
+""Move this method into "TimeTasky".(—ÙÔúÿÿÿÿ
+9
+java:S3398Ş
+""Move this method into "TimeTaskp".(ŸŸš©
+E
+java:S1068Ã".Remove this unused "sleeptimer" private field.(¼²Œ¤
+A
+java:S1068Æ"*Remove this unused "ytimer" private field.(¤ª´²
+@
+java:S1068Ç"*Remove this unused "ptimer" private field.(±ÒŸ8
+B
+java:S1068×"+Remove this unused "HashMap" private field.(åóÿ›
+E
+java:S1068—")Remove this unused "timer" private field.(õÜàşúÿÿÿÿ
+J
+java:S1144î".Remove this unused private "showchart" method.(ùÛº»şÿÿÿÿ
+A
+java:S1144Ÿ	"*Remove this unused private "stopy" method.(ƒáúº
+A
+java:S1144£	"+Remove this unused private "starty" method.(¦‰
+A
+java:S1144§	"*Remove this unused private "stopp" method.(‹ñ´ë
+G
+java:S1144«	"+Remove this unused private "startp" method.(Ö¬ÀÎúÿÿÿÿ
+M
+java:S1144·	"1Remove this unused private "timeFromLong" method.(¼à˜ïıÿÿÿÿ
+M
+java:S1144º
+"1Remove this unused private "yrestarttime" method.(‚À‹šÿÿÿÿÿ
+M
+java:S1144Ù
+"1Remove this unused private "prestarttime" method.(ëÎµÚúÿÿÿÿ
+E
+java:S1144æ
+".Remove this unused private "makeTimep" method.(ÖÁÂÑ
+ß
+java:S6541 "ÇA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 475 to 64, Complexity from 18 to 14, Nesting Level from 5 to 2, Number of Variables from 146 to 6.(¡Œşø

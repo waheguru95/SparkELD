@@ -2,6 +2,7 @@ package com.example.eld;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -47,13 +48,21 @@ public class LoginActivity extends BaseActivity {
         etDriverId = findViewById(R.id.driverid);
 
         setListener();
+        boolean rememberMe = helperClass.getREMEMBER_ME();
+
+        if (rememberMe) {
+            String driverUserId = helperClass.getDRIVER_USER_ID();
+            String password =helperClass.getPASSWORD();
+            etDriverId.setText(driverUserId);
+            paswordedit.setText(password);
+            cbRememberMe.setChecked(true);
+        }
     }
 
     private void setListener() {
         btnLogin.setOnClickListener(v -> {
             String driverId = etDriverId.getText().toString().trim();
             String password = paswordedit.getText().toString();
-
             if (driverId.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Enter Driver ID", Toast.LENGTH_SHORT).show();
             } else if (password.isEmpty()) {
@@ -79,22 +88,27 @@ public class LoginActivity extends BaseActivity {
     private void callLoginUserApi(String driverId, String password) {
         if (helperClass.getNetworkInfo()) {
             showLoader();
-
             Call<JsonElement> call = apiService.loginUser(new LoginRequestModel(driverId, password));
             call.enqueue(new Callback<JsonElement>() {
                 @Override
                 public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {
                     try {
-                        hideLoader();
                         if (response.code() == HttpURLConnection.HTTP_OK) {
                             LoginResponseModel loginRequestModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
+                            helperClass.setDRIVER_USER_ID(etDriverId.getText().toString());
                             helperClass.setEmail(loginRequestModel.getData().getEmail());
-                            helperClass.setId("" + loginRequestModel.getData().getId());
-                            callGetDriverDetailsApi(helperClass.getID());
+                            helperClass.setPASSWORD(paswordedit.getText().toString());
+                            helperClass.setId(loginRequestModel.getData().getId());
+                            Log.d("driver id",""+helperClass.getID());
+                            callGetDriverDetailsApi(loginRequestModel.getData().getId());
                             helperClass.setFirstLogin(true);
-                            startActivity(new Intent(LoginActivity.this, DashBoardScreen.class));
-                            finish();
+                            if (cbRememberMe.isChecked()) {
+                                helperClass.setREMEMBER_ME(true);
+                            }else{
+                                helperClass.setREMEMBER_ME(false);
+                            }
                         } else {
+                            hideLoader();
                             onAPIErrorMessageReceived(response.errorBody().string());
                         }
                     } catch (Exception e) {
@@ -114,15 +128,14 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void callGetDriverDetailsApi(String driverId) {
+    private void callGetDriverDetailsApi(int driverId) {
         if (helperClass.getNetworkInfo()) {
-            showLoader();
             Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(driverId);
-            // Call<ResponseBody> driverProfileCall = apiService.getDriverProfile(1);
             driverProfileCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
+                        hideLoader();
                         if (response.isSuccessful()) {
                             ResponseBody responseBody = response.body();
                             if (responseBody != null) {
@@ -133,6 +146,8 @@ public class LoginActivity extends BaseActivity {
                                     String driverJson = gson.toJson(driverProfileModel);
                                     System.out.println("this is json for subscription" + driverJson);
                                     helperClass.setDriverProfile(driverJson);
+                                    startActivity(new Intent(LoginActivity.this, DashBoardScreen.class));
+                                    finish();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -142,6 +157,7 @@ public class LoginActivity extends BaseActivity {
                             onAPIErrorMessageReceived(response.errorBody().toString());
                         }
                     } catch (Exception e) {
+                        hideLoader();
                         e.printStackTrace();
                     }
                 }
@@ -155,7 +171,6 @@ public class LoginActivity extends BaseActivity {
         } else {
             showNoInternetConnectionError();
         }
-
     }
 
     @Override
@@ -167,8 +182,5 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(this, "Please press back again to exit", Toast.LENGTH_SHORT).show();
         }
         backpresstime = System.currentTimeMillis();
-
     }
-
-
 }

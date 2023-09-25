@@ -60,7 +60,6 @@ import kotlin.jvm.internal.Intrinsics;
 @SuppressWarnings("deprecation")
 public class DashboardFragment extends Fragment {
 
-
     public void changeDriveandBreakUI(boolean drive, boolean Bbreak) {
         // Change the UI as needed
         Log.i("TAG", "==========SHIVANI=========" + driveHelper.drivetimerCounting());

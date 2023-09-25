@@ -41,17 +41,22 @@ public class ResetPasswordActivity extends BaseActivity {
             String password = et_newPassword.getText().toString();
             String confirmPassword = et_comfirmPassword.getText().toString();
             if (TextUtils.isEmpty(otp)) {
-                et_newPassword.setError("OTP is required");
+                et_otp.setError("OTP is required");
                 return;
             }
             if (TextUtils.isEmpty(password)) {
                 et_newPassword.setError("Password is required");
                 return;
             }
+            if (password.length()<=8) {
+                et_newPassword.setError("Password is too short. It must be at least 8 characters long.");
+                return;
+            }
             if (TextUtils.isEmpty(confirmPassword)) {
                 et_comfirmPassword.setError("Confirm password is required");
                 return;
             }
+
             if (password.equals(confirmPassword)) {
                 changePassword(et_otp.getText().toString().trim(), helperClass.getEmail(), et_newPassword.getText().toString());
             } else {
@@ -79,8 +84,10 @@ public class ResetPasswordActivity extends BaseActivity {
                     ChangePasswordResponseModel changePasswordResponseModel = new Gson().fromJson(response.body().toString(), ChangePasswordResponseModel.class);
                     showToast(changePasswordResponseModel.getMessage());
                     Intent loginIntent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
+                    loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ResetPasswordActivity.this.startActivity(loginIntent);
                     finish();
+
                 } else {
                     try {
                         onAPIErrorMessageReceived(response.errorBody().string().toString());
@@ -96,5 +103,8 @@ public class ResetPasswordActivity extends BaseActivity {
                 t.printStackTrace();
             }
         });
+    }
+    public boolean isPasswordValid(String password) {
+        return password.length() >= 8;
     }
 }

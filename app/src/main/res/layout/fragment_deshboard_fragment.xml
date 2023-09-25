@@ -296,7 +296,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_baseline_edit_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         tools:ignore="UseAppTint" />
                 </RelativeLayout>
 
@@ -339,7 +339,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_baseline_edit_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         tools:ignore="UseAppTint" />
                 </RelativeLayout>
 
@@ -381,7 +381,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_baseline_edit_24"
-                        android:tint="#ED663B"
+                        android:tint="@color/primaryColor"
                         tools:ignore="UseAppTint" />
 
 

@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_baseline_menu_24"
-                android:tint="#ED663B"
+                android:tint="@color/primaryColor"
                 tools:ignore="UseAppTint" />
 
             <ImageView
@@ -45,7 +45,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_baseline_notifications_24"
-                android:tint="#ED663B"
+                android:tint="@color/primaryColor"
                 tools:ignore="UseAppTint" />
         </RelativeLayout>
 
@@ -58,8 +58,8 @@
             android:background="#fff"
             app:itemHorizontalTranslationEnabled="true"
             app:itemIconSize="28dp"
-            app:itemIconTint="#ED663B"
-            app:itemTextColor="#ED663B"
+            app:itemIconTint="@color/primaryColor"
+            app:itemTextColor="@color/primaryColor"
             app:menu="@menu/nevigationmenu" />
 
 
@@ -101,7 +101,7 @@
                 android:id="@+id/deviceid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text=""
+                android:text="cc"
                 android:textAlignment="center"
                 android:textColor="#454545"
                 android:layout_marginTop="5dp"
@@ -148,7 +148,7 @@
                             android:layout_height="45dp"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            app:cardBackgroundColor="#ED663B"
+                            app:cardBackgroundColor="@color/primaryColor"
                             app:cardCornerRadius="50dp">
 
                             <TextView

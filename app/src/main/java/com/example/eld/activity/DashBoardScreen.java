@@ -44,7 +44,6 @@ import androidx.work.WorkManager;
 import com.example.eld.R;
 import com.example.eld.alert.FiveMinuteN;
 import com.example.eld.alert.ResetDataReceiver;
-import com.example.eld.utils.TimestampConverter;
 import com.example.eld.fragments.Certify_fragment;
 import com.example.eld.fragments.DashboardFragment;
 import com.example.eld.fragments.Logs_fragment;
@@ -55,6 +54,7 @@ import com.example.eld.utils.Helper;
 import com.example.eld.utils.OffDutyHelper;
 import com.example.eld.utils.PersonalHelper;
 import com.example.eld.utils.Shifthelper;
+import com.example.eld.utils.TimestampConverter;
 import com.example.eld.utils.WeekHelper;
 import com.example.eld.utils.Yardmoveshelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -97,79 +97,6 @@ public class DashBoardScreen extends BaseActivity {
     private final Timer ytimer = new Timer();
     private final Timer ptimer = new Timer();
     private final Set<EldBroadcastTypes> subscribedRecords = EnumSet.of(EldBroadcastTypes.ELD_BUFFER_RECORD, EldBroadcastTypes.ELD_CACHED_RECORD, EldBroadcastTypes.ELD_FUEL_RECORD, EldBroadcastTypes.ELD_DATA_RECORD, EldBroadcastTypes.ELD_DRIVER_BEHAVIOR_RECORD, EldBroadcastTypes.ELD_EMISSIONS_PARAMETERS_RECORD, EldBroadcastTypes.ELD_ENGINE_PARAMETERS_RECORD, EldBroadcastTypes.ELD_TRANSMISSION_PARAMETERS_RECORD);
-    //    private final EldBleScanCallback bleScanCallback = new EldBleScanCallback() {
-//        @Override
-//        public void onScanResult(EldScanObject device) {
-//            final String strDevice;
-//            if (device != null) {
-//                strDevice = device.getDeviceId();
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        conectionstatus.setText("Connecting..");
-//
-//                    }
-//                });
-//                EldBleError res = mEldManager.ConnectToEld(bleDataCallback, subscribedRecords, bleConnectionStateChangeCallback);
-//                if (res != EldBleError.SUCCESS) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            conectionstatus.setText("Failed");
-//
-//                        }
-//                    });
-//                }
-//            } else {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        conectionstatus.setText("No Device");
-//
-//                    }
-//                });
-//            }
-//        }
-//
-//        @Override
-//        public void onScanResult(ArrayList deviceList) {
-//            Log.d("BLETEST", "BleScanCallback multiple");
-//            final String strDevice;
-//            EldScanObject so;
-//            if (deviceList != null) {
-//                so = (EldScanObject) deviceList.get(0);
-//                strDevice = so.getDeviceId();
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        //conectionstatus.setText("Connecting..");
-//                        conectionstatus.setText("FOUND ELD " + strDevice + ", CONNECTING");
-//
-//                    }
-//                });
-//                EldBleError res = mEldManager.ConnectToEld(bleDataCallback, subscribedRecords, bleConnectionStateChangeCallback, strDevice);
-//                if (res != EldBleError.SUCCESS) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            conectionstatus.setText("Failed");
-//
-//                        }
-//                    });
-//                }
-//
-//            } else {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        //AGAIN COLLING HERE
-//                        conectionstatus.setText("No Device");
-//                        mEldManager.EnableBluetooth(REQUEST_BT_ENABLE);
-//                    }
-//                });
-//            }
-//        }
-//    };
     private final Handler hourlyhandler = new Handler();
     public DriveHelper driveHelper;
     public OffDutyHelper offDutyHelper;
@@ -205,33 +132,33 @@ public class DashBoardScreen extends BaseActivity {
     // ---------NEW PARAMEERS---------------//
     String status = "";
     String orign = "NA";//NA
-    private final Runnable logRunnable = new Runnable() {
-        @Override
-        public void run() {
-            String daa = datat.getText().toString();
-            locationn = locationnnv.getText().toString();
-            if (daa.equals("")) {
-                if (daa.equals("")) {
-
-                } else {
-                    String[] units = daa.split(",");
-                    Log.d("TAG", " =========units[4]========== " + units[4]);
-                    if (units.length > 10) {
-                        if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
-                        if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
-
-                    }
-
-                }
-                //float y = y;// pervious y value will send
-                status = "INT";
-                orign = "Auto";
-                inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
-
-            }
-            hourlyhandler.postDelayed(this, 15 * 60 * 1000); // schedule the next execution after 1 hour
-        }
-    };
+//    private final Runnable logRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            String daa = datat.getText().toString();
+//            locationn = locationnnv.getText().toString();
+//            if (daa.equals("")) {
+//                if (daa.equals("")) {
+//
+//                } else {
+//                    String[] units = daa.split(",");
+//                    Log.d("TAG", " =========units[4]========== " + units[4]);
+//                    if (units.length > 10) {
+//                        if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
+//                        if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
+//
+//                    }
+//
+//                }
+//                //float y = y;// pervious y value will send
+//                status = "INT";
+//                orign = "Auto";
+//                inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+//
+//            }
+//            hourlyhandler.postDelayed(this, 15 * 60 * 1000); // schedule the next execution after 1 hour
+//        }
+//    };
     String graph = "logs";//NA
     TextView driveingtiming, ondutytiming, sleeptiming, offdutyting, yardtiming, personaltiming, conectionstatus, singalstatus, fullstatus;
     ImageView onblue, offblue;
@@ -525,13 +452,6 @@ public class DashBoardScreen extends BaseActivity {
                 yes.setOnClickListener(v1 -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
                         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                            // TODO: Consider calling
-                            //    ActivityCompat#requestPermissions
-                            // here to request the missing permissions, and then overriding
-                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                            //                                          int[] grantResults)
-                            // to handle the case where the user grants the permission. See the documentation
-                            // for ActivityCompat#requestPermissions for more details.
                             return;
                         }
                         bAdapter.disable();
@@ -610,12 +530,8 @@ public class DashBoardScreen extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deshboard_screen);
-// Create a new instance of WorkManager
+        setContentView(R.layout.activity_dashboard_screen);
         workManager = WorkManager.getInstance();
-
-//        ResetDataAlarm();
-
         initview();
 
         changestatus.setOnClickListener(new View.OnClickListener() {

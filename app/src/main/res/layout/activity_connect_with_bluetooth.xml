@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_baseline_keyboard_backspace_24"
-            android:tint="#ED663B"
+            android:tint="@color/primaryColor"
             tools:ignore="UseAppTint" />
 
     </RelativeLayout>
@@ -44,7 +44,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="#ED663B"
+            app:cardBackgroundColor="@color/primaryColor"
             app:cardCornerRadius="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -101,7 +101,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="5dp"
-                app:cardBackgroundColor="#ED663B"
+                app:cardBackgroundColor="@color/primaryColor"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -130,7 +130,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="5dp"
-                app:cardBackgroundColor="#ED663B"
+                app:cardBackgroundColor="@color/primaryColor"
                 app:cardCornerRadius="5dp">
 
                 <androidx.cardview.widget.CardView
@@ -178,7 +178,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="5dp"
-                app:cardBackgroundColor="#ED663B"
+                app:cardBackgroundColor="@color/primaryColor"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -207,7 +207,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="5dp"
-                app:cardBackgroundColor="#ED663B"
+                app:cardBackgroundColor="@color/primaryColor"
                 app:cardCornerRadius="5dp">
 
             <androidx.cardview.widget.CardView
@@ -249,7 +249,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="5dp"
-                app:cardBackgroundColor="#ED663B"
+                app:cardBackgroundColor="@color/primaryColor"
                 app:cardCornerRadius="5dp">
 
                 <LinearLayout
@@ -277,7 +277,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="5dp"
-                app:cardBackgroundColor="#ED663B"
+                app:cardBackgroundColor="@color/primaryColor"
                 app:cardCornerRadius="5dp">
 
                 <androidx.cardview.widget.CardView
@@ -322,7 +322,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:visibility="gone"
-            app:mk_color="#ED663B"
+            app:mk_color="@color/primaryColor"
             app:mk_type="ThreePulse" />
 
 <androidx.recyclerview.widget.RecyclerView

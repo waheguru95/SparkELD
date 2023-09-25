@@ -1,0 +1,436 @@
+
+F
+java:S3740¬"/Provide the parametrized type for this generic.(‹¤·
+F
+java:S3740¬"/Provide the parametrized type for this generic.(‹¤·
+c
+java:S1192Ã"GDefine a constant instead of duplicating this literal "Manual" 7 times.(‰†¾şÿÿÿÿ
+d
+java:S1192¤"HDefine a constant instead of duplicating this literal "on duty" 5 times.(ş¡áüÿÿÿÿ
+c
+java:S1192¬"GDefine a constant instead of duplicating this literal "Drive" 10 times.(•ÊƒÅşÿÿÿÿ
+g
+java:S1192Ú"PDefine a constant instead of duplicating this literal "Enter something" 3 times.(µµÇé
+d
+java:S1192î"FDefine a constant instead of duplicating this literal "E_OFF" 3 times.(¤Ù¯‘8Á´Ü›¬1
+y
+java:S1192Í"]Define a constant instead of duplicating this literal "You are already in this mode" 8 times.(À³Æşÿÿÿÿ
+e
+java:S1192½"ODefine a constant instead of duplicating this literal "%02d:%02d:%02d" 6 times.(¾±—8
+]
+java:S1192Ö"FDefine a constant instead of duplicating this literal "CLOCK" 5 times.(¼éƒñ
+_
+java:S1192İ"IDefine a constant instead of duplicating this literal "Off duty" 6 times.(ÓëA
+f
+java:S1192å"ODefine a constant instead of duplicating this literal "Your reason - " 3 times.(ìÙ¼Œ
+j
+java:S1192ó"NDefine a constant instead of duplicating this literal "%d:%02d:%02d" 10 times.(åíáûıÿÿÿÿ
+R
+java:S1066"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8Ë´Ü›¬1
+R
+java:S1066”"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8Ì´Ü›¬1
+R
+java:S1066Ó"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8Î´Ü›¬1
+R
+java:S1066Ø"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8Ï´Ü›¬1
+s	java:S117Ê"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÑÛìüÿÿÿÿ8Õ´Ü›¬1
+l	java:S117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇÔ½×üÿÿÿÿ
+l	java:S117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇÔ½×üÿÿÿÿ
+l	java:S117ª"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š…•Ğüÿÿÿÿ
+K
+java:S1604­"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ8Ø´Ü›¬1
+D
+java:S1604á"(Make this anonymous inner class a lambda(â½™÷ûÿÿÿÿ
+?
+java:S1604ç"(Make this anonymous inner class a lambda(®¡˜Ì
+K
+java:S1604ô"(Make this anonymous inner class a lambda(“µ³Ğıÿÿÿÿ8Ú´Ü›¬1
+?
+java:S1604§"(Make this anonymous inner class a lambda(í·Œş
+D
+java:S1604ÿ"(Make this anonymous inner class a lambda(ê¢›ııÿÿÿÿ
+D
+java:S1604œ"(Make this anonymous inner class a lambda(û¦éÒúÿÿÿÿ
+D
+java:S1604Ç"(Make this anonymous inner class a lambda(ê¢›ııÿÿÿÿ
+D
+java:S1604‹"(Make this anonymous inner class a lambda(ÿÚöµûÿÿÿÿ
+>
+java:S1604Ô"(Make this anonymous inner class a lambda(¢Ù†$
+D
+java:S1604ø"(Make this anonymous inner class a lambda(±¿¢Ûÿÿÿÿÿ
+?
+java:S1604 "(Make this anonymous inner class a lambda(Îşã÷
+D
+java:S1604™"(Make this anonymous inner class a lambda(à½Øøÿÿÿÿ
+D
+java:S1604ø"(Make this anonymous inner class a lambda(û¦éÒúÿÿÿÿ
+D
+java:S1604£"(Make this anonymous inner class a lambda(ê¢›ııÿÿÿÿ
+E
+java:S1604ì"(Make this anonymous inner class a lambda(¬Ù·c8ß´Ü›¬1
+F
+java:S1604¯"(Make this anonymous inner class a lambda(í·Œş8à´Ü›¬1
+{
+java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "miles".(·Ë²‘8å´Ü›¬1
+y
+java:S1104e"WMake driveHelper a static final constant or non-public and provide accessors if needed.(‰‰¾ıÿÿÿÿ8é´Ü›¬1
+{
+java:S1104f"YMake offDutyHelper a static final constant or non-public and provide accessors if needed.(Í°íúÿÿÿÿ8ê´Ü›¬1
+s
+java:S1104g"VMake weekHelper a static final constant or non-public and provide accessors if needed.(–â¬±8ë´Ü›¬1
+p
+java:S1104h"SMake heplper a static final constant or non-public and provide accessors if needed.(’Ùˆİ8ì´Ü›¬1
+s
+java:S1104i"WMake breakhelper a static final constant or non-public and provide accessors if needed.(ÀÉØ=8ì´Ü›¬1
+t
+java:S1104j"WMake shifthelper a static final constant or non-public and provide accessors if needed.(îÙÑ¶8í´Ü›¬1
+x
+java:S1104k"[Make yardmoveshelper a static final constant or non-public and provide accessors if needed.(§ù²Š8ï´Ü›¬1
+|
+java:S1104l"ZMake personalHelper a static final constant or non-public and provide accessors if needed.(¡åš‰üÿÿÿÿ8ğ´Ü›¬1
+D
+java:S5411Ï"(Use a primitive boolean expression here.(Î«”òşÿÿÿÿ
+h
+java:S2637·"EThis method's return value is marked "@NotNull" but null is returned.(ÇĞÕÿÿÿÿÿ8Í¾Ü›¬1
+c
+java:S2637É"EThis method's return value is marked "@NotNull" but null is returned.(†‘Ü­8Î¾Ü›¬1
+h
+java:S2637Û"EThis method's return value is marked "@NotNull" but null is returned.(èé‰°øÿÿÿÿ8Ï¾Ü›¬1
+h
+java:S2637Ò"EThis method's return value is marked "@NotNull" but null is returned.(®’‡ùÿÿÿÿ8Ï¾Ü›¬1
+c
+java:S2637®"EThis method's return value is marked "@NotNull" but null is returned.(²ËßŒ8Ï¾Ü›¬1
+c
+java:S2637À"EThis method's return value is marked "@NotNull" but null is returned.(ëÎÙÓ8Ğ¾Ü›¬1
+p	java:S116p"TRename this field "side_menu" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ú½§¨8Õ¾Ü›¬1
+z	java:S116t"^Rename this field "confirmation_logout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇëËˆ8Ö¾Ü›¬1
+s	java:S116t"WRename this field "status_dilog" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇëËˆ8Ö¾Ü›¬1
+l	java:S116|"QRename this field "VIN_no" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈÃŒ8×¾Ü›¬1
+G
+java:S1659p"*Declare "notification" on a separate line.(ú½§¨8ã¾Ü›¬1
+G
+java:S1659t"*Declare "status_dilog" on a separate line.(ÇëËˆ8ä¾Ü›¬1
+a
+java:S1659|"EDeclare "deviceid" and all following declarations on a separate line.(ÈÃŒ8ä¾Ü›¬1
+l
+java:S1659£"IDeclare "ondutytiming" and all following declarations on a separate line.(ıÎä»üÿÿÿÿ8å¾Ü›¬1
+H
+java:S1659¤"%Declare "offblue" on a separate line.(‚ƒÇæıÿÿÿÿ8å¾Ü›¬1
+W	java:S107¦"<Method has 9 parameters, which is greater than 7 authorized.(ÇÔ½×üÿÿÿÿ
+J
+java:S1874d"/Remove this use of "Handler"; it is deprecated.(„ı ‚şÿÿÿÿ
+Y	java:S125‡"<This block of commented-out lines of code should be removed.(°Á’Ÿ8‡¿Ü›¬1
+\
+java:S1858Ù"E"units" is an array of strings, there's no need to call "toString()".(©”¤Ú
+\
+java:S1858Ş"E"units" is an array of strings, there's no need to call "toString()".(Û§éö
+\
+java:S1858ß"E"units" is an array of strings, there's no need to call "toString()".(ŞªÑ€
+\
+java:S1858à"E"units" is an array of strings, there's no need to call "toString()".(ó¬”
+a
+java:S1858æ"E"units" is an array of strings, there's no need to call "toString()".(ÄˆÚÌıÿÿÿÿ
+^	java:S125ç"<This block of commented-out lines of code should be removed.(îøåëûÿÿÿÿ8š¿Ü›¬1
+a
+java:S1858ì"E"units" is an array of strings, there's no need to call "toString()".(Ï¾ô§şÿÿÿÿ
+\
+java:S1858í"E"units" is an array of strings, there's no need to call "toString()".(¸¯­¡
+a
+java:S1858ñ"E"units" is an array of strings, there's no need to call "toString()".(ÄˆÚÌıÿÿÿÿ
+^	java:S125ò"<This block of commented-out lines of code should be removed.(îøåëûÿÿÿÿ8¡¿Ü›¬1
+a
+java:S1858÷"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ
+\
+java:S1858ø"E"units" is an array of strings, there's no need to call "toString()".(Îí‡ì
+\
+java:S1858ù"E"units" is an array of strings, there's no need to call "toString()".(È»š
+a
+java:S1858ú"E"units" is an array of strings, there's no need to call "toString()".(ÀÉïøÿÿÿÿÿ
+\
+java:S1858û"E"units" is an array of strings, there's no need to call "toString()".(ïìÀº
+\
+java:S1858ü"E"units" is an array of strings, there's no need to call "toString()".(¥â¥ë
+Z
+java:S1874€"7Remove this use of "getFromLocation"; it is deprecated.(ğ·µøÿÿÿÿ8¨¿Ü›¬1
+Y	java:S125Ÿ"<This block of commented-out lines of code should be removed.(Í¤”8«¿Ü›¬1
+^	java:S125¥"<This block of commented-out lines of code should be removed.(ÌÔŒùşÿÿÿÿ8«¿Ü›¬1
+\
+java:S1117¼"@Rename "breakhelper" which hides the field declared at line 105.(É¾ßÕøÿÿÿÿ
+V
+java:S1117Å"@Rename "shifthelper" which hides the field declared at line 106.(æõ°
+`
+java:S1117Î"DRename "yardmoveshelper" which hides the field declared at line 107.(ª”şİıÿÿÿÿ
+Z
+java:S1117×"CRename "personalHelper" which hides the field declared at line 108.(°Ó†
+u
+java:S3776Ş"RRefactor this method to reduce its Cognitive Complexity from 48 to the 15 allowed.(…ïòüüÿÿÿÿ8³¿Ü›¬1
+\
+java:S1874‰"9Remove this use of "getDefaultAdapter"; it is deprecated.(İÉ·†ùÿÿÿÿ8»¿Ü›¬1
+Y	java:S125›"<This block of commented-out lines of code should be removed.(í™ÄØ8½¿Ü›¬1
+^	java:S125¡"<This block of commented-out lines of code should be removed.(×‰Œ³øÿÿÿÿ8¾¿Ü›¬1
+a
+java:S1874»">Remove this use of "startActivityForResult"; it is deprecated.(ëÇÍáøÿÿÿÿ8Æ¿Ü›¬1
+z
+java:S3252Æ"WUse static access with "androidx.core.content.ContextCompat" for "checkSelfPermission".(ÜÉÂ†üÿÿÿÿ8È¿Ü›¬1
+M
+java:S1874É"/Remove this use of "disable"; it is deprecated.(Ç´Ÿ‘8É¿Ü›¬1
+D	java:S131÷""Add a default case to this switch.(øå´¡ÿÿÿÿÿ8Ú¿Ü›¬1
+v
+java:S3776“"SRefactor this method to reduce its Cognitive Complexity from 181 to the 15 allowed.(¨Œşÿÿÿÿ8å¿Ü›¬1
+V
+java:S1874–"3Remove this use of "getInstance"; it is deprecated.(ˆ™˜Ìùÿÿÿÿ8ç¿Ü›¬1
+\
+java:S1858º"E"units" is an array of strings, there's no need to call "toString()".(İö¦½
+a
+java:S1858¼"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ
+M
+java:S1117Á"6Rename "y" which hides the field declared at line 125.(úÌÉŸ
+\
+java:S1858î"E"units" is an array of strings, there's no need to call "toString()".(İö¦½
+a
+java:S1858ğ"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ
+\
+java:S1858´"E"units" is an array of strings, there's no need to call "toString()".(İö¦½
+a
+java:S1858¶"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ
+M
+java:S1117¼"6Rename "y" which hides the field declared at line 125.(Š€Òò
+R
+java:S1117à"6Rename "y" which hides the field declared at line 125.(€Ç¬ëıÿÿÿÿ
+W
+java:S1117á";Rename "status" which hides the field declared at line 133.(Êêışÿÿÿÿ
+?	java:S108å")Either remove or fill this block of code.(–¹¦
+\
+java:S1858ê"E"units" is an array of strings, there's no need to call "toString()".(İö¦½
+a
+java:S1858ì"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ
+M
+java:S1117‡"6Rename "y" which hides the field declared at line 125.(úÌÉŸ
+?	java:S108‰")Either remove or fill this block of code.(–¹¦
+\
+java:S1858"E"units" is an array of strings, there's no need to call "toString()".(İö¦½
+a
+java:S1858"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ
+M
+java:S1117°"6Rename "y" which hides the field declared at line 125.(úÌÉŸ
+?	java:S108²")Either remove or fill this block of code.(–¹¦
+c
+java:S1858·"E"units" is an array of strings, there's no need to call "toString()".(İö¦½8’ÀÜ›¬1
+h
+java:S1858¹"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ8”ÀÜ›¬1
+\
+java:S1117Í"@Rename "driveHelper" which hides the field declared at line 101.(ôœˆÌıÿÿÿÿ
+^
+java:S1117Î"BRename "offDutyHelper" which hides the field declared at line 102.(’öâÇúÿÿÿÿ
+X
+java:S1117Ï"<Rename "heplper" which hides the field declared at line 104.(œÿ¼®üÿÿÿÿ
+]
+java:S1117Ğ"@Rename "shifthelper" which hides the field declared at line 106.(æõ°8–ÀÜ›¬1
+c
+java:S1117Ñ"@Rename "breakhelper" which hides the field declared at line 105.(É¾ßÕøÿÿÿÿ8–ÀÜ›¬1
+g
+java:S1117Ò"DRename "yardmoveshelper" which hides the field declared at line 107.(ª”şİıÿÿÿÿ8—ÀÜ›¬1
+a
+java:S1117Ó"CRename "personalHelper" which hides the field declared at line 108.(°Ó†8—ÀÜ›¬1
+W	java:S125İ"<This block of commented-out lines of code should be removed.(•Î¾Ñÿÿÿÿÿ
+K
+java:S1874ç"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117ó"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+P
+java:S1117ı"9Rename "time" which hides the field declared at line 165.(®õÂš
+K
+java:S1874"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+U
+java:S1117«"9Rename "time" which hides the field declared at line 165.(§ƒ¥÷ÿÿÿÿÿ
+K
+java:S1874¿"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117Í"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+U
+java:S1117Ù"9Rename "time" which hides the field declared at line 165.(–‰´’ÿÿÿÿÿ
+W	java:S125ã"<This block of commented-out lines of code should be removed.(àéè«úÿÿÿÿ
+U
+java:S1117ğ"9Rename "time" which hides the field declared at line 165.(ùó…¦úÿÿÿÿ
+P
+java:S1117‡"9Rename "time" which hides the field declared at line 165.(Ã±Ê
+P
+java:S1117š"9Rename "time" which hides the field declared at line 165.(¢¤
+K
+java:S1172¦"/Remove this unused method parameter "dateTime".(ÇÔ½×üÿÿÿÿ
+W	java:S125¶"<This block of commented-out lines of code should be removed.(ù£üùÿÿÿÿ
+f
+java:S1874º"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿ
+f
+java:S1874Ï"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ÉÎÍïıÿÿÿÿ
+V
+java:S1161Ï":Add the "@Override" annotation above this method signature(ÉÎÍïıÿÿÿÿ
+W	java:S125Õ"<This block of commented-out lines of code should be removed.(Ò‹©şÿÿÿÿ
+d	java:S100Ü"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿøˆ
+W	java:S125İ"<This block of commented-out lines of code should be removed.(Ÿ™†·ÿÿÿÿÿ
+W	java:S125ğ"<This block of commented-out lines of code should be removed.(ÂñÅŸşÿÿÿÿ
+n
+java:S3776÷"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¸£°‰üÿÿÿÿ
+R	java:S125û"<This block of commented-out lines of code should be removed.(à”Ê„
+K
+java:S1874›	"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117§	"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+n
+java:S3776¾	"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¿“‹‰ÿÿÿÿÿ
+R	java:S125Ã	"<This block of commented-out lines of code should be removed.(Ÿä
+K
+java:S1874æ	"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117ó	"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+W	java:S125ù	"<This block of commented-out lines of code should be removed.(ÔĞ—şÿÿÿÿ
+W	java:S125’
+"<This block of commented-out lines of code should be removed.(‡¯Á—ùÿÿÿÿ
+R	java:S125§
+"<This block of commented-out lines of code should be removed.(Õğå
+K
+java:S1874Ó
+"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117á
+"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+K
+java:S1874‰"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117—"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+i
+java:S3776®"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¥’±¤
+Q	java:S125°"<This block of commented-out lines of code should be removed.(êèŞ5
+K
+java:S1874Ô"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117â"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+n
+java:S3776ó"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ôúêºüÿÿÿÿ
+K
+java:S1874—"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ
+U
+java:S1117¥"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+i	java:S100ª"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š…•Ğüÿÿÿÿ
+n
+java:S3776ª"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Š…•Ğüÿÿÿÿ
+U
+java:S1854¬">Remove this useless assignment to local variable "totalMiles".(ûóß†
+h
+java:S1858¾"E"units" is an array of strings, there's no need to call "toString()".(£¼Û³ıÿÿÿÿ8‰ÁÜ›¬1
+c
+java:S1858¿"E"units" is an array of strings, there's no need to call "toString()".(òáäµ8ŠÁÜ›¬1
+M
+java:S1117Ã"6Rename "y" which hides the field declared at line 125.(úÌÉŸ
+h
+java:S1858á"E"units" is an array of strings, there's no need to call "toString()".(£¼Û³ıÿÿÿÿ8ÁÜ›¬1
+c
+java:S1858â"E"units" is an array of strings, there's no need to call "toString()".(òáäµ8ÁÜ›¬1
+M
+java:S1117æ"6Rename "y" which hides the field declared at line 125.(úÌÉŸ
+i
+java:S3776ş"RRefactor this method to reduce its Cognitive Complexity from 86 to the 15 allowed.(ä§Œ™
+R
+java:S1117—"6Rename "y" which hides the field declared at line 125.(ıˆõªøÿÿÿÿ
+h
+java:S1858™"E"units" is an array of strings, there's no need to call "toString()".(£¼Û³ıÿÿÿÿ8™ÁÜ›¬1
+c
+java:S1858š"E"units" is an array of strings, there's no need to call "toString()".(òáäµ8šÁÜ›¬1
+R	java:S125·"<This block of commented-out lines of code should be removed.(ˆæö½
+h
+java:S1858Í"E"units" is an array of strings, there's no need to call "toString()".(£¼Û³ıÿÿÿÿ8¢ÁÜ›¬1
+c
+java:S1858Î"E"units" is an array of strings, there's no need to call "toString()".(òáäµ8£ÁÜ›¬1
+R
+java:S1117Ñ"6Rename "y" which hides the field declared at line 125.(©ÒÏ‹øÿÿÿÿ
+R	java:S125€"<This block of commented-out lines of code should be removed.(®•Áø
+R
+java:S1117•"6Rename "y" which hides the field declared at line 125.(©ÒÏ‹øÿÿÿÿ
+h
+java:S1858—"E"units" is an array of strings, there's no need to call "toString()".(£¼Û³ıÿÿÿÿ8ªÁÜ›¬1
+c
+java:S1858˜"E"units" is an array of strings, there's no need to call "toString()".(òáäµ8«ÁÜ›¬1
+d	java:S100ã"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ìş¸
+i
+java:S3776ã"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(§ìş¸
+c
+java:S1858"E"units" is an array of strings, there's no need to call "toString()".(İö¦½8¼ÁÜ›¬1
+h
+java:S1858’"E"units" is an array of strings, there's no need to call "toString()".(¶ÒƒÃúÿÿÿÿ8¼ÁÜ›¬1
+M
+java:S1117™"6Rename "y" which hides the field declared at line 125.(Š€Òò
+N
+java:S1874»"7Remove this use of "getRunningTasks"; it is deprecated.(•¯Ö¥
+?
+java:S1185È"(Remove this method to simply inherit it.(ÍÙ÷¢
+i
+java:S3776Í"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(àØ¾À
+R
+java:S1117İ"6Rename "y" which hides the field declared at line 125.(ıˆõªøÿÿÿÿ
+R
+java:S1874‘"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ8ÌÁÜ›¬1
+U
+java:S1117Ÿ"9Rename "time" which hides the field declared at line 165.(åíáûıÿÿÿÿ
+M
+java:S1117¸"6Rename "y" which hides the field declared at line 125.(¿¼Ó¨
+d	java:S100¾"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿ÁÆà
+
+java:S1186é"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¡¿Œâûÿÿÿÿ
+P
+java:S1117ï"9Rename "time" which hides the field declared at line 165.(µ„»
+
+java:S1186÷"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ìí¸©üÿÿÿÿ
+O
+java:S1117ı"9Rename "time" which hides the field declared at line 165.(†ÉÇM
+˜
+java:S1186‰"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(²ÈßÛ
+O
+java:S1117"9Rename "time" which hides the field declared at line 165.(†ÉÇM
+
+java:S1186œ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(§ïÕøÿÿÿÿ
+O
+java:S1117¢"9Rename "time" which hides the field declared at line 165.(†ÉÇM
+
+java:S1186­"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹€ÿËùÿÿÿÿ
+P
+java:S1117³"9Rename "time" which hides the field declared at line 165.(‹šé¿
+
+java:S1186º"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(şï¶•üÿÿÿÿ
+U
+java:S1117Á"9Rename "time" which hides the field declared at line 165.(ã”ºÿÿÿÿÿ
+V
+java:S3398ş"?Move this method into the anonymous class declared at line 200.(ä§Œ™
+R
+java:S1068c"5Remove this unused "subscribedRecords" private field.(÷À•è8åÁÜ›¬1
+S
+java:S1068d"1Remove this unused "hourlyhandler" private field.(„ı ‚şÿÿÿÿ8åÁÜ›¬1
+Z
+java:S1068¦"7Remove this unused "periodicWorkRequest" private field.(Ü›Ù×şÿÿÿÿ8åÁÜ›¬1
+g
+java:S1068ª"DRemove this unused "bleConnectionStateChangeCallback" private field.(ßëâÚşÿÿÿÿ8åÁÜ›¬1
+J
+java:S1068Ã",Remove this unused "mHandler" private field.(€£öò8åÁÜ›¬1
+K
+java:S1068Ä"-Remove this unused "mRunnable" private field.(çšµÈ8åÁÜ›¬1
+K
+java:S1068Å"-Remove this unused "lastSpeed" private field.(úÓã¶8åÁÜ›¬1
+W
+java:S1068Æ"4Remove this unused "activityLauncher" private field.(×ãÆ¿şÿÿÿÿ8åÁÜ›¬1
+V
+java:S1068È"3Remove this unused "bleDataCallback" private field.(êôèùÿÿÿÿÿ8åÁÜ›¬1
+J
+java:S1144†
+"3Remove this unused private "startstopbreak" method.(×üúó
+E
+java:S1144¦".Remove this unused private "makeTimep" method.(ÖÁÂÑ
+I
+java:S1144ª"-Remove this unused private "Fivemile" method.(Š…•Ğüÿÿÿÿ
+I
+java:S1144Ó"-Remove this unused private "setAlarm" method.(Í½ŠÌøÿÿÿÿ
+ë
+java:S6541“"ÇA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 437 to 64, Complexity from 20 to 14, Nesting Level from 11 to 2, Number of Variables from 81 to 6.(¨Œşÿÿÿÿ8èÁÜ›¬1
+Ş
+java:S6541ş"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 153 to 64, Complexity from 29 to 14, Nesting Level from 6 to 2, Number of Variables from 13 to 6.(ä§Œ™

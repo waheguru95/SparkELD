@@ -26,8 +26,6 @@ public interface ApiService {
     @POST("login/checkLogin")
     Call<JsonElement> loginUser(@Body LoginRequestModel requestModel);
 
-
-
     @FormUrlEncoded
     @POST("adduserstatus.php")
     Call<JsonObject> addstatus(@Header("Authorization")String token,
@@ -35,7 +33,6 @@ public interface ApiService {
                                 @Field("date") String date,
                                 @Field("xvalues") String xvalues,
                                 @Field("yvalues") String yvalues
-
     );
 
     @POST("reset/sendOtp")
@@ -52,8 +49,6 @@ public interface ApiService {
     @GET("driver/listUser")
     Call<JsonObject> getUserDetails(@Header("Authorization")String token
     );
-
-    //https://eld-k7sg.onrender.com/api/driver/driverProfile?id=1'
-    @GET("api/driver/driverProfile")
-    Call<ResponseBody> getDriverProfile(@Query("id") String id);
+    @GET("driver/driverProfile")
+    Call<ResponseBody> getDriverProfile(@Query("id") int id);
 }
