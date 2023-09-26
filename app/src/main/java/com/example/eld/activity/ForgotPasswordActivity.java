@@ -3,10 +3,13 @@ package com.example.eld.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import com.example.eld.R;
 import com.example.eld.network.dto.login.request.ForgotPasswordModel;
@@ -58,7 +61,20 @@ public class ForgotPasswordActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getParentActivityIntent() == null) {
+                    Log.i(ResetPasswordActivity.class.getName(), "You have forgotten to specify the parentActivityName in the AndroidManifest!");
+                    onBackPressed();
+                } else {
+                    NavUtils.navigateUpFromSameTask(this);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
+        }}
     public void sendOtp(String email) {
         JsonObject requestBody = new JsonObject();
         Call<JsonObject> call = apiService.sendOtp(new ForgotPasswordModel(email.trim()));

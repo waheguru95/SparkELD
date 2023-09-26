@@ -148,6 +148,7 @@ public class SideNavigationFragment extends Fragment {
         TextView text = logoutDialog.findViewById(R.id.logoputtext);
         if (isLogout) {
             text.setText(R.string.are_you_sure_you_want_to_logout);
+            helperClass.setREMEMBER_ME(false);
         } else {
             text.setText(R.string.do_you_want_to_exit_this_app);
         }

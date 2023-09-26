@@ -37,8 +37,9 @@ public class SplashScreen extends BaseActivity {
         first.startAnimation(animation);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         new Handler().postDelayed(() -> {
-            if(helperClass.getAuthenticToken().isEmpty()){
+            if(!helperClass.getREMEMBER_ME()){
                 startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                 finish();
             }else {

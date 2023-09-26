@@ -50,13 +50,13 @@ public class LoginActivity extends BaseActivity {
         setListener();
         boolean rememberMe = helperClass.getREMEMBER_ME();
 
-        if (rememberMe) {
-            String driverUserId = helperClass.getDRIVER_USER_ID();
-            String password =helperClass.getPASSWORD();
-            etDriverId.setText(driverUserId);
-            paswordedit.setText(password);
-            cbRememberMe.setChecked(true);
-        }
+//        if (rememberMe) {
+//            String driverUserId = helperClass.getDRIVER_USER_ID();
+//            String password =helperClass.getPASSWORD();
+//            etDriverId.setText(driverUserId);
+//            paswordedit.setText(password);
+//            cbRememberMe.setChecked(true);
+//        }
     }
 
     private void setListener() {

@@ -3,9 +3,12 @@ package com.example.eld.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import com.example.eld.LoginActivity;
 import com.example.eld.R;
@@ -42,22 +45,27 @@ public class ResetPasswordActivity extends BaseActivity {
             String confirmPassword = et_comfirmPassword.getText().toString();
             if (TextUtils.isEmpty(otp)) {
                 et_otp.setError("OTP is required");
+                et_otp.requestFocus();
                 return;
             }
             if (TextUtils.isEmpty(password)) {
                 et_newPassword.setError("Password is required");
+                et_newPassword.requestFocus();
                 return;
             }
-            if (password.length()<=8) {
+            if (!(password.length()>=8)) {
                 et_newPassword.setError("Password is too short. It must be at least 8 characters long.");
+                et_newPassword.requestFocus();
                 return;
             }
             if (TextUtils.isEmpty(confirmPassword)) {
                 et_comfirmPassword.setError("Confirm password is required");
+                et_comfirmPassword.requestFocus();
                 return;
             }
 
             if (password.equals(confirmPassword)) {
+                showLoader();
                 changePassword(et_otp.getText().toString().trim(), helperClass.getEmail(), et_newPassword.getText().toString());
             } else {
                 showToast("Passwords do not match");
@@ -71,9 +79,24 @@ public class ResetPasswordActivity extends BaseActivity {
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getParentActivityIntent() == null) {
+                    Log.i(ResetPasswordActivity.class.getName(), "You have forgotten to specify the parentActivityName in the AndroidManifest!");
+                    onBackPressed();
+                } else {
+                    NavUtils.navigateUpFromSameTask(this);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
+        }}
     public void changePassword(String otp, String email, String newPassword) {
         Call<JsonObject> call = apiService.changePassword(new ChangePasswordRequestModel(email.trim(), otp, newPassword));
         call.enqueue(new Callback<JsonObject>() {
@@ -99,6 +122,7 @@ public class ResetPasswordActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                hideLoader();
                 // Handle failure
                 t.printStackTrace();
             }
