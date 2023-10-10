@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.eld.activity.BaseActivity;
-import com.example.eld.activity.DashBoardScreen;
+import com.example.eld.activity.DashboardActivity;
 import com.example.eld.activity.ForgotPasswordActivity;
 import com.example.eld.models.DriverProfileModel;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
@@ -95,6 +95,7 @@ public class LoginActivity extends BaseActivity {
                     try {
                         if (response.code() == HttpURLConnection.HTTP_OK) {
                             LoginResponseModel loginRequestModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
+                            helperClass.setLoginStatus(true);
                             helperClass.setDRIVER_USER_ID(etDriverId.getText().toString());
                             helperClass.setEmail(loginRequestModel.getData().getEmail());
                             helperClass.setPASSWORD(paswordedit.getText().toString());
@@ -102,11 +103,7 @@ public class LoginActivity extends BaseActivity {
                             Log.d("driver id",""+helperClass.getID());
                             callGetDriverDetailsApi(loginRequestModel.getData().getId());
                             helperClass.setFirstLogin(true);
-                            if (cbRememberMe.isChecked()) {
-                                helperClass.setREMEMBER_ME(true);
-                            }else{
-                                helperClass.setREMEMBER_ME(false);
-                            }
+                            helperClass.setREMEMBER_ME(cbRememberMe.isChecked());
                         } else {
                             hideLoader();
                             onAPIErrorMessageReceived(response.errorBody().string());
@@ -145,14 +142,13 @@ public class LoginActivity extends BaseActivity {
                                     DriverProfileModel driverProfileModel = gson.fromJson(profileJson, DriverProfileModel.class);
                                     String driverJson = gson.toJson(driverProfileModel);
                                     System.out.println("this is json for subscription" + driverJson);
-                                    helperClass.setDriverProfile(driverJson);
-                                    startActivity(new Intent(LoginActivity.this, DashBoardScreen.class));
+                                    helperClass.setDriverProfile(profileJson);
+                                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                                     finish();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             }
-
                         } else {
                             onAPIErrorMessageReceived(response.errorBody().toString());
                         }

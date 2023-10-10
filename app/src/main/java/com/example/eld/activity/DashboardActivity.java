@@ -46,8 +46,9 @@ import com.example.eld.alert.FiveMinuteN;
 import com.example.eld.alert.ResetDataReceiver;
 import com.example.eld.fragments.Certify_fragment;
 import com.example.eld.fragments.DashboardFragment;
-import com.example.eld.fragments.Logs_fragment;
+import com.example.eld.fragments.LogsFragment;
 import com.example.eld.fragments.Reports_fragment;
+import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestBody;
 import com.example.eld.utils.Breakhelper;
 import com.example.eld.utils.DriveHelper;
 import com.example.eld.utils.Helper;
@@ -83,8 +84,12 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import kotlin.jvm.internal.Intrinsics;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class DashBoardScreen extends BaseActivity {
+public class DashboardActivity extends BaseActivity {
 
     private static final int REQUEST_BASE = 100;
     private static final int REQUEST_BT_ENABLE = REQUEST_BASE + 1;
@@ -113,14 +118,14 @@ public class DashBoardScreen extends BaseActivity {
     DrawerLayout drawerLayout;
     CardView changestatus;
     CardView onoffbluetooth;
-    Dialog confirmation_logout, status_dilog;
-    String locationn;
+    Dialog confirmation_logout, driverWorkstatusDialog;
+    String location;
     FirebaseFirestore firebaseFirestore;
     TextView locationnnv;
-    Double lattitube = 0.0;
-    Double logitude = 0.0;
-    Double getodometer = 0.0;
-    Double enginhour = 0.0;
+    Double latitude = 0.0;
+    Double longitude = 0.0;
+    Double getOdometer = 0.0;
+    Double engineHours = 0.0;
     TextView VIN_no, deviceid, datat;
     float y;
     long drivesec;
@@ -136,7 +141,7 @@ public class DashBoardScreen extends BaseActivity {
 //        @Override
 //        public void run() {
 //            String daa = datat.getText().toString();
-//            locationn = locationnnv.getText().toString();
+//            location = locationnnv.getText().toString();
 //            if (daa.equals("")) {
 //                if (daa.equals("")) {
 //
@@ -144,8 +149,8 @@ public class DashBoardScreen extends BaseActivity {
 //                    String[] units = daa.split(",");
 //                    Log.d("TAG", " =========units[4]========== " + units[4]);
 //                    if (units.length > 10) {
-//                        if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
-//                        if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
+//                        if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
+//                        if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
 //
 //                    }
 //
@@ -153,7 +158,7 @@ public class DashBoardScreen extends BaseActivity {
 //                //float y = y;// pervious y value will send
 //                status = "INT";
 //                orign = "Auto";
-//                inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+//                inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 //
 //            }
 //            hourlyhandler.postDelayed(this, 15 * 60 * 1000); // schedule the next execution after 1 hour
@@ -245,18 +250,18 @@ public class DashBoardScreen extends BaseActivity {
                                     }
                                 }
                                 if (!units[6].toString().isEmpty())
-                                    enginhour = Double.parseDouble(units[6].toString());
+                                    engineHours = Double.parseDouble(units[6].toString());
                                 if (!units[11].toString().isEmpty() && units[11].length() > 0)
-                                    lattitube = Double.parseDouble(units[11].toString());
+                                    latitude = Double.parseDouble(units[11].toString());
                                 if (!units[12].toString().isEmpty() && units[11].length() > 0)
-                                    logitude = Double.parseDouble(units[12].toString());
-                                if (lattitube != 0.0 && logitude != 0.0) {
+                                    longitude = Double.parseDouble(units[12].toString());
+                                if (latitude != 0.0 && longitude != 0.0) {
                                     Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                                     try {
-                                        List<Address> addresses = geocoder.getFromLocation(lattitube, logitude, 1);
+                                        List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                                         Address obj = addresses.get(0);
-                                        locationn = obj.getLocality() + "," + obj.getAdminArea();
-                                        locationnnv.setText(locationn);
+                                        location = obj.getLocality() + "," + obj.getAdminArea();
+                                        locationnnv.setText(location);
 
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -265,7 +270,7 @@ public class DashBoardScreen extends BaseActivity {
                                 checkDrivingCondition(Double.parseDouble(units[3]));
 
                             } else {
-                                locationn = "Location Not Available";
+                                location = "Location Not Available";
                             }
                         }
                     }
@@ -380,7 +385,7 @@ public class DashBoardScreen extends BaseActivity {
         yardmoveshelper = new Yardmoveshelper(getApplicationContext());
         personalHelper = new PersonalHelper(getApplicationContext());
         confirmation_logout = new Dialog(this);
-        status_dilog = new Dialog(this);
+        driverWorkstatusDialog = new Dialog(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
@@ -463,14 +468,14 @@ public class DashBoardScreen extends BaseActivity {
                 confirmation_logout.show();
             } else if (status.equals("No Device")) {
                 //request android 12 runtime bluetooth permissions
-                if (ContextCompat.checkSelfPermission(DashBoardScreen.this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
+                if (ContextCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        ActivityCompat.requestPermissions(DashBoardScreen.this, new String[]{Manifest.permission.BLUETOOTH_SCAN}, 2);
+                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.BLUETOOTH_SCAN}, 2);
                     }
                 }
-                if (ContextCompat.checkSelfPermission(DashBoardScreen.this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED) {
+                if (ContextCompat.checkSelfPermission(DashboardActivity.this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        ActivityCompat.requestPermissions(DashBoardScreen.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+                        ActivityCompat.requestPermissions(DashboardActivity.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
                     }
                 }
                 conectionstatus.setText("SCANNING...");
@@ -481,7 +486,7 @@ public class DashBoardScreen extends BaseActivity {
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DashBoardScreen.this, Notification_screen.class));
+                startActivity(new Intent(DashboardActivity.this, Notification_screen.class));
             }
         });
         side_menu.setOnClickListener(new View.OnClickListener() {
@@ -508,7 +513,7 @@ public class DashBoardScreen extends BaseActivity {
                         break;
                     case R.id.logs:
                         helperClass.setDASHBOARD(true);
-                        controlfunction(new Logs_fragment());
+                        controlfunction(new LogsFragment());
                         break;
                     case R.id.certfy:
                         helperClass.setDASHBOARD(true);
@@ -537,21 +542,21 @@ public class DashBoardScreen extends BaseActivity {
         changestatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                status_dilog.setContentView(R.layout.change_status_dilog);
-                status_dilog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                status_dilog.setCancelable(true);
+                driverWorkstatusDialog.setContentView(R.layout.change_status_dilog);
+                driverWorkstatusDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                driverWorkstatusDialog.setCancelable(true);
 
-                CardView drive = status_dilog.findViewById(R.id.drive);
-                CardView onduty = status_dilog.findViewById(R.id.onduty);
-                CardView sleep = status_dilog.findViewById(R.id.sleep);
-                CardView offduty = status_dilog.findViewById(R.id.offduty);
-                CardView yard = status_dilog.findViewById(R.id.yard);
-                CardView personaluse = status_dilog.findViewById(R.id.personaluse);
+                CardView drive = driverWorkstatusDialog.findViewById(R.id.drive);
+                CardView onduty = driverWorkstatusDialog.findViewById(R.id.onduty);
+                CardView sleep = driverWorkstatusDialog.findViewById(R.id.sleep);
+                CardView offduty = driverWorkstatusDialog.findViewById(R.id.offduty);
+                CardView yard = driverWorkstatusDialog.findViewById(R.id.yard);
+                CardView personaluse = driverWorkstatusDialog.findViewById(R.id.personaluse);
 
                 drive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        status_dilog.dismiss();
+                        driverWorkstatusDialog.dismiss();
                         singalstatus.setText("D");
                         fullstatus.setText("Drive");
                         driveingtiming.setVisibility(View.VISIBLE);
@@ -560,7 +565,7 @@ public class DashBoardScreen extends BaseActivity {
                         offdutyting.setVisibility(View.GONE);
                         yardtiming.setVisibility(View.GONE);
                         personaltiming.setVisibility(View.GONE);
-                        locationn = locationnnv.getText().toString();
+                        location = locationnnv.getText().toString();
 
                         String daa = datat.getText().toString();
 
@@ -568,9 +573,9 @@ public class DashBoardScreen extends BaseActivity {
                             String[] units = daa.split(",");
                             if (units.length > 10) {
                                 if (!units[4].toString().isEmpty())
-                                    getodometer = Double.valueOf(units[4]);
+                                    getOdometer = Double.valueOf(units[4]);
                                 if (!units[6].toString().isEmpty())
-                                    enginhour = Double.valueOf(units[6]);
+                                    engineHours = Double.valueOf(units[6]);
 
                             }
                         }
@@ -578,17 +583,17 @@ public class DashBoardScreen extends BaseActivity {
                         status = "Drive";
                         orign = "Manual";
 
-                        inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                        inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
                         startStopDriveAction();
 
                     }
                 });
                 offduty.setOnClickListener(v1 -> {
                     if (offDutyHelper.offdutytimerCounting()) {
-                        status_dilog.dismiss();
+                        driverWorkstatusDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
                     } else {
-                        status_dilog.dismiss();
+                        driverWorkstatusDialog.dismiss();
                         confirmation_logout.setContentView(R.layout.edit_dialog);
                         confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         CardView yes = confirmation_logout.findViewById(R.id.yes);
@@ -613,16 +618,16 @@ public class DashBoardScreen extends BaseActivity {
                                 Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
 
                                 confirmation_logout.dismiss();
-                                locationn = locationnnv.getText().toString();
+                                location = locationnnv.getText().toString();
                                 String daa = datat.getText().toString();
 
                                 if (!daa.equals("")) {
                                     String[] units = daa.split(",");
                                     if (units.length > 10) {
                                         if (!units[4].toString().isEmpty())
-                                            getodometer = Double.valueOf(units[4]);
+                                            getOdometer = Double.valueOf(units[4]);
                                         if (!units[6].toString().isEmpty())
-                                            enginhour = Double.valueOf(units[6]);
+                                            engineHours = Double.valueOf(units[6]);
 
                                     }
                                 }
@@ -631,7 +636,7 @@ public class DashBoardScreen extends BaseActivity {
                                 status = "OFFD";
                                 orign = "Manual";
 
-                                inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                                inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
                                 startstopOFFDuty();
 
                             }
@@ -640,7 +645,7 @@ public class DashBoardScreen extends BaseActivity {
                             @Override
                             public void onClick(View v1) {
                                 confirmation_logout.dismiss();
-                                status_dilog.show();
+                                driverWorkstatusDialog.show();
                             }
                         });
                         confirmation_logout.setCancelable(false);
@@ -653,10 +658,10 @@ public class DashBoardScreen extends BaseActivity {
                     public void onClick(View v) {
 
                         if (shifthelper.shifttimerCounting()) {
-                            status_dilog.dismiss();
+                            driverWorkstatusDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
                         } else {
-                            status_dilog.dismiss();
+                            driverWorkstatusDialog.dismiss();
                             confirmation_logout.setContentView(R.layout.edit_dialog);
                             confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                             CardView yes = confirmation_logout.findViewById(R.id.yes);
@@ -683,16 +688,16 @@ public class DashBoardScreen extends BaseActivity {
                                         Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
                                         confirmation_logout.dismiss();
 
-                                        locationn = locationnnv.getText().toString();
+                                        location = locationnnv.getText().toString();
                                         String daa = datat.getText().toString();
 
                                         if (!daa.equals("")) {
                                             String[] units = daa.split(",");
                                             if (units.length > 10) {
                                                 if (!units[4].toString().isEmpty())
-                                                    getodometer = Double.valueOf(units[4]);
+                                                    getOdometer = Double.valueOf(units[4]);
                                                 if (!units[6].toString().isEmpty())
-                                                    enginhour = Double.valueOf(units[6]);
+                                                    engineHours = Double.valueOf(units[6]);
 
                                             }
                                         }
@@ -701,7 +706,7 @@ public class DashBoardScreen extends BaseActivity {
                                         status = "OND";
                                         orign = "Manual";
 
-                                        inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                                        inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
                                         startstopshift(true);
 
 
@@ -712,7 +717,7 @@ public class DashBoardScreen extends BaseActivity {
                                 @Override
                                 public void onClick(View v) {
                                     confirmation_logout.dismiss();
-                                    status_dilog.show();
+                                    driverWorkstatusDialog.show();
                                 }
                             });
                             confirmation_logout.setCancelable(false);
@@ -724,7 +729,7 @@ public class DashBoardScreen extends BaseActivity {
                 sleep.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        status_dilog.dismiss();
+                        driverWorkstatusDialog.dismiss();
                         singalstatus.setText("SB");
                         fullstatus.setText("Sleep berth");
                         driveingtiming.setVisibility(View.GONE);
@@ -735,7 +740,7 @@ public class DashBoardScreen extends BaseActivity {
                         personaltiming.setVisibility(View.GONE);
                         float y = 3f;
                         String status = "Sleep";
-                        locationn = locationnnv.getText().toString();
+                        location = locationnnv.getText().toString();
                         String daa = datat.getText().toString();
 
                         if (daa.equals("")) {
@@ -744,15 +749,15 @@ public class DashBoardScreen extends BaseActivity {
                             String[] units = daa.split(",");
                             if (units.length > 10) {
                                 if (!units[4].toString().isEmpty())
-                                    getodometer = Double.valueOf(units[4]);
+                                    getOdometer = Double.valueOf(units[4]);
                                 if (!units[6].toString().isEmpty())
-                                    enginhour = Double.valueOf(units[6]);
+                                    engineHours = Double.valueOf(units[6]);
 
                             }
                         }
                         orign = "Manual";
 
-                        inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                        inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
                         startstopsleep();
 
                     }
@@ -760,7 +765,7 @@ public class DashBoardScreen extends BaseActivity {
                 yard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        status_dilog.dismiss();
+                        driverWorkstatusDialog.dismiss();
 
                         singalstatus.setText("YM");
                         fullstatus.setText("Yard move");
@@ -770,7 +775,7 @@ public class DashBoardScreen extends BaseActivity {
                         offdutyting.setVisibility(View.GONE);
                         yardtiming.setVisibility(View.VISIBLE);
                         personaltiming.setVisibility(View.GONE);
-                        locationn = locationnnv.getText().toString();
+                        location = locationnnv.getText().toString();
                         String daa = datat.getText().toString();
                         float y = 2f;
                         status = "YM";
@@ -780,15 +785,15 @@ public class DashBoardScreen extends BaseActivity {
                             String[] units = daa.split(",");
                             if (units.length > 10) {
                                 if (!units[4].toString().isEmpty())
-                                    getodometer = Double.valueOf(units[4]);
+                                    getOdometer = Double.valueOf(units[4]);
                                 if (!units[6].toString().isEmpty())
-                                    enginhour = Double.valueOf(units[6]);
+                                    engineHours = Double.valueOf(units[6]);
 
                             }
                         }
                         orign = "Manual";
 
-                        inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                        inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
                         startstopy();
 
                         helperClass.setIS_DRIVING(false);
@@ -800,7 +805,7 @@ public class DashBoardScreen extends BaseActivity {
                 personaluse.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        status_dilog.dismiss();
+                        driverWorkstatusDialog.dismiss();
 
                         singalstatus.setText("PU");
                         fullstatus.setText("Personal use");
@@ -810,7 +815,7 @@ public class DashBoardScreen extends BaseActivity {
                         offdutyting.setVisibility(View.GONE);
                         yardtiming.setVisibility(View.GONE);
                         personaltiming.setVisibility(View.VISIBLE);
-                        locationn = locationnnv.getText().toString();
+                        location = locationnnv.getText().toString();
                         String daa = datat.getText().toString();
 
                         float y = 2f;
@@ -821,23 +826,23 @@ public class DashBoardScreen extends BaseActivity {
                             String[] units = daa.split(",");
                             if (units.length > 10) {
                                 if (!units[4].toString().isEmpty())
-                                    getodometer = Double.valueOf(units[4]);
+                                    getOdometer = Double.valueOf(units[4]);
                                 if (!units[6].toString().isEmpty())
-                                    enginhour = Double.valueOf(units[6]);
+                                    engineHours = Double.valueOf(units[6]);
 
                             }
                         }
 
                         orign = "Manual";
 
-                        inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                        inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 
                         startstopp();
                         helperClass.setIS_DRIVING(false);
                         helperClass.setODOMETER("");
                     }
                 });
-                status_dilog.show();
+                driverWorkstatusDialog.show();
             }
         });
 
@@ -1059,8 +1064,8 @@ public class DashBoardScreen extends BaseActivity {
 
     }
 
-    private void inserdata(String x_axis, float y_axis, String dateTime, String status, String locationn, Double getodometer, Double enginhour, String orign, String graph) {
-        Double odoo = (getodometer * 1000) / 1609.344;
+    private void inserdata(String x_axis, float y_axis, String dateTime, String status, String location, Double getOdometer, Double engineHours, String orign, String graph) {
+        Double odoo = (getOdometer * 1000) / 1609.344;
         DecimalFormat df = new DecimalFormat("#");
         y = y_axis;
         Log.d("TAG", " =========x=========> " + x_axis);
@@ -1070,9 +1075,9 @@ public class DashBoardScreen extends BaseActivity {
         hashMap.put("y", y_axis + "");
         hashMap.put("time", FieldValue.serverTimestamp());
         hashMap.put("status", status);
-        hashMap.put("location", locationn);
+        hashMap.put("location", location);
         hashMap.put("odometer", df.format(odoo) + "");
-        hashMap.put("eh", enginhour + "");
+        hashMap.put("eh", engineHours + "");
         hashMap.put("orign", orign + "");
         hashMap.put("graph", graph);
 //        firebaseFirestore.collection(helperClass.getid(getApplicationContext())).add(hashMap);
@@ -1716,15 +1721,15 @@ public class DashBoardScreen extends BaseActivity {
                 helperClass.setIS_DRIVING(true);
                 helperClass.setODOMETER("");
                 value = true;
-                locationn = locationnnv.getText().toString();
+                location = locationnnv.getText().toString();
 
                 String daa = datat.getText().toString();
 
                 if (!daa.equals("")) {
                     String[] units = daa.split(",");
                     if (units.length > 10) {
-                        if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
-                        if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
+                        if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
+                        if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
                     }
 
                 }
@@ -1732,7 +1737,7 @@ public class DashBoardScreen extends BaseActivity {
                 status = "Drive";
                 orign = "Auto";
 
-                inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 
                 startStopDriveAction();
 //testing here
@@ -1751,15 +1756,15 @@ public class DashBoardScreen extends BaseActivity {
         if (speedkph >= 8.04672) {
             helperClass.setIS_DRIVING(true);
             helperClass.setODOMETER("");
-            locationn = locationnnv.getText().toString();
+            location = locationnnv.getText().toString();
 
             String daa = datat.getText().toString();
 
             if (!daa.equals("")) {
                 String[] units = daa.split(",");
                 if (units.length > 10) {
-                    if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
-                    if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
+                    if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
+                    if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
                 }
 
             }
@@ -1767,7 +1772,7 @@ public class DashBoardScreen extends BaseActivity {
             status = "Drive";
             orign = "Auto";
 
-            inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+            inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 
             singalstatus.setText("D");
             fullstatus.setText("Drive");
@@ -1808,19 +1813,19 @@ public class DashBoardScreen extends BaseActivity {
 
                     //CREATE second log of Engine state
                     String daa = datat.getText().toString();
-                    locationn = locationnnv.getText().toString();
+                    location = locationnnv.getText().toString();
 
                     String[] units = daa.split(",");
                     if (units.length > 7) {
                         float y = 4f;
                         orign = "Auto";
-                        if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
-                        if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
+                        if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
+                        if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
 
                         helperClass.setSaveStatus(status);
                         helperClass.setStatusChange(true);
 
-                        inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                        inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 //STOP  E_OFF START OFFD
 
                         singalstatus.setText("OFF");
@@ -1861,13 +1866,13 @@ public class DashBoardScreen extends BaseActivity {
             if (!status.equalsIgnoreCase(helperClass.getSaveStatus())) {
                 //CREATE second log of Engine state
                 String daa = datat.getText().toString();
-                locationn = locationnnv.getText().toString();
+                location = locationnnv.getText().toString();
 
                 String[] units = daa.split(",");
                 if (units.length > 6) {
                     orign = "Auto";
-                    if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
-                    if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
+                    if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
+                    if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
                     helperClass.setSaveStatus(status);
                     helperClass.setStatusChange(true);
                     float y = 0f;
@@ -1899,7 +1904,7 @@ public class DashBoardScreen extends BaseActivity {
 
                     }
 
-                    inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                    inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 
 
                 }
@@ -1908,7 +1913,7 @@ public class DashBoardScreen extends BaseActivity {
                 Log.d("TAG", " =========NO CHANGE IN STATUS========== " + status);
 
                 String daa = datat.getText().toString();
-                locationn = locationnnv.getText().toString();
+                location = locationnnv.getText().toString();
                 if (!daa.equals("")) {
                     String[] units = daa.split(",");
                     if (units.length > 6) {
@@ -1934,14 +1939,14 @@ public class DashBoardScreen extends BaseActivity {
 
                 //CREATE second log of Engine state
                 String daa = datat.getText().toString();
-                locationn = locationnnv.getText().toString();
+                location = locationnnv.getText().toString();
 
                 String[] units = daa.split(",");
                 if (units.length > 12) {
                     float y = 0f;
                     orign = "Auto";
-                    if (!units[4].toString().isEmpty()) getodometer = Double.valueOf(units[4]);
-                    if (!units[6].toString().isEmpty()) enginhour = Double.valueOf(units[6]);
+                    if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
+                    if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
                     helperClass.setSaveStatus(status);
                     helperClass.setStatusChange(true);
 
@@ -1987,7 +1992,7 @@ public class DashBoardScreen extends BaseActivity {
 //testing here
 
                     }
-                    inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                    inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
                 }
 
             }
@@ -2017,18 +2022,17 @@ public class DashBoardScreen extends BaseActivity {
     }
 
     public void dialog_StillDriving() {
-
-        status_dilog.setContentView(R.layout.change_status_notification);
-        status_dilog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        status_dilog.setCancelable(true);
-        status_dilog.show();
-        CardView no = status_dilog.findViewById(R.id.no);
-        CardView drive = status_dilog.findViewById(R.id.drive);
+        driverWorkstatusDialog.setContentView(R.layout.change_status_notification);
+        driverWorkstatusDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        driverWorkstatusDialog.setCancelable(true);
+        driverWorkstatusDialog.show();
+        CardView no = driverWorkstatusDialog.findViewById(R.id.no);
+        CardView drive = driverWorkstatusDialog.findViewById(R.id.drive);
 
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                status_dilog.dismiss();
+                driverWorkstatusDialog.dismiss();
                 confirmation_logout.setContentView(R.layout.edit_dialog);
                 confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 CardView yes = confirmation_logout.findViewById(R.id.yes);
@@ -2055,16 +2059,16 @@ public class DashBoardScreen extends BaseActivity {
                             Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
                             confirmation_logout.dismiss();
 
-                            locationn = locationnnv.getText().toString();
+                            location = locationnnv.getText().toString();
                             String daa = datat.getText().toString();
 
                             if (!daa.equals("")) {
                                 String[] units = daa.split(",");
                                 if (units.length > 10) {
                                     if (!units[4].toString().isEmpty())
-                                        getodometer = Double.valueOf(units[4]);
+                                        getOdometer = Double.valueOf(units[4]);
                                     if (!units[6].toString().isEmpty())
-                                        enginhour = Double.valueOf(units[6]);
+                                        engineHours = Double.valueOf(units[6]);
 
                                 }
                             }
@@ -2074,7 +2078,7 @@ public class DashBoardScreen extends BaseActivity {
                             status = "OND";
                             orign = "Manual";
                             helperClass.setIS_DRIVING(false);
-                            inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+                            inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
                             startstopshift(true);
 
                         }
@@ -2084,7 +2088,7 @@ public class DashBoardScreen extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         confirmation_logout.dismiss();
-                        status_dilog.show();
+                        driverWorkstatusDialog.show();
                     }
                 });
                 confirmation_logout.setCancelable(false);
@@ -2096,7 +2100,7 @@ public class DashBoardScreen extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                status_dilog.dismiss();
+                driverWorkstatusDialog.dismiss();
             }
         });
 
@@ -2127,14 +2131,14 @@ public class DashBoardScreen extends BaseActivity {
         if (helperClass.getFirstLogin()) {
 
             String daa = datat.getText().toString();
-            locationn = locationnnv.getText().toString();
+            location = locationnnv.getText().toString();
 
             if (!daa.equals("")) {
                 String[] units = daa.split(",");
                 Log.d("TAG", " =========OFFD========== " + units[4]);
                 if (units.length > 11) {
-                    if (!units[4].isEmpty()) getodometer = Double.valueOf(units[4]);
-                    if (!units[6].isEmpty()) enginhour = Double.valueOf(units[6]);
+                    if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
+                    if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
                 }
             }
 
@@ -2142,7 +2146,7 @@ public class DashBoardScreen extends BaseActivity {
             status = "OFFD";
             orign = "Auto";
 
-            inserdata(getDateTime(), y, getDateTime(), status, locationn, getodometer, enginhour, orign, "logs");
+            inserdata(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
             helperClass.setFirstLogin(false);
 
             singalstatus.setText("OFF");
@@ -2218,20 +2222,20 @@ public class DashBoardScreen extends BaseActivity {
 
 
         String daa = datat.getText().toString();
-        locationn = locationnnv.getText().toString();
+        location = locationnnv.getText().toString();
 
         if (!daa.equals("")) {
             String[] units = daa.split(",");
             Log.d("TAG", " =========OFFD========== " + units[4]);
             if (units.length > 11) {
-                if (!units[4].isEmpty()) getodometer = Double.valueOf(units[4]);
-                if (!units[6].isEmpty()) enginhour = Double.valueOf(units[6]);
+                if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
+                if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
             }
         }
 
         float y = this.y;
         orign = "Auto";
-        inserdata(getDateTime(), y, getDateTime(), "INT", locationn, getodometer, enginhour, orign, "logs");
+        inserdata(getDateTime(), y, getDateTime(), "INT", location, getOdometer, engineHours, orign, "logs");
 
     }
 
@@ -2374,4 +2378,56 @@ public class DashBoardScreen extends BaseActivity {
 
     }
 
+    private void callAddAttendanceRecord(String status, String attendanceType) {
+        AddAttendanceRecordRequestBody requestBody = new AddAttendanceRecordRequestBody();
+        requestBody.setStatus(status);
+        requestBody.setVin(helperClass.getDriverProfile().getData().get(0).getVinNo());
+        requestBody.setSpeed(String.valueOf(lastSpeed));
+        requestBody.setOdometer(String.valueOf(getOdometer));
+        requestBody.setEngineHours(String.valueOf(engineHours));
+        requestBody.setLatitude(String.valueOf(latitude));
+        requestBody.setLongitude(String.valueOf(longitude));
+        requestBody.setLocation(String.valueOf(location));
+        requestBody.setAttendenceType(attendanceType);
+        requestBody.setUserId(helperClass.getID());
+        requestBody.setRecordDate(getDateTime());
+
+        if (helperClass.getNetworkInfo()) {
+            Call<ResponseBody> addAttendanceRecordCall = apiService.addAttendanceRecord(requestBody);
+            addAttendanceRecordCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        hideLoader();
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+                                try {
+                                    String profileJson = responseBody.string();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            onAPIErrorMessageReceived(response.errorBody().toString());
+                        }
+                    } catch (Exception e) {
+                        hideLoader();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    hideLoader();
+                    Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            showNoInternetConnectionError();
+        }
+    }
+
+    
 }

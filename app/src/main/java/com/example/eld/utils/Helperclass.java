@@ -3,12 +3,13 @@ package com.example.eld.utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import com.example.eld.models.DriverProfileModel;
 import com.google.gson.Gson;
 
 public class Helperclass {
     Activity activity;
     private final SharedPreferences sharedPreferences;
-    private String AUTHENTIC_TOKEN = "authentic_token";
+    private final String AUTHENTIC_TOKEN = "authentic_token";
     private String LATTITUDE = "lattitude";
     private String LONGITUDE = "longitude";
     private String ODOMETER = "odometer";
@@ -29,6 +30,7 @@ public class Helperclass {
     private String PASSWORD = "password";
     private String REMEMBER_ME = "remember_me";
     private String DRIVER_USER_ID = "driver_user_id";
+    private static final String LOGIN_STATUS = "login_status";
     public Helperclass(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -57,6 +59,14 @@ public class Helperclass {
 
     public void setLONGITUDE(String LONGITUDE) {
         sharedPreferences.edit().putString(LONGITUDE, LONGITUDE).apply();
+    }
+
+    public boolean getLoginStatus() {
+        return sharedPreferences.getBoolean(LOGIN_STATUS, false);
+    }
+
+    public void setLoginStatus(boolean loginStatus) {
+        sharedPreferences.edit().putBoolean(LOGIN_STATUS, loginStatus).apply();
     }
 
     public String getODOMETER() {
@@ -149,8 +159,9 @@ public class Helperclass {
         sharedPreferences.edit().putLong(SPEED_START_TIME, speed_start_time).apply();
     }
 
-    public String getDriverProfile() {
-        return sharedPreferences.getString(DRIVER_PROFILE, "");
+    public DriverProfileModel getDriverProfile() {
+        String data = sharedPreferences.getString(DRIVER_PROFILE, "");
+        return new Gson().fromJson(data, DriverProfileModel.class);
     }
 
     public void setDriverProfile(String driverProfile) {

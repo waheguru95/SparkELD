@@ -17,7 +17,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.eld.R;
-import com.example.eld.activity.DashBoardScreen;
+import com.example.eld.activity.DashboardActivity;
 
 
 public class FiveMinuteN extends Worker {
@@ -62,7 +62,7 @@ public class FiveMinuteN extends Worker {
     }
 
     private void sendNotification() {
-        Intent intent = new Intent(getApplicationContext(), DashBoardScreen.class);
+        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         // Add extras to the intent
         intent.putExtra("condition", true);

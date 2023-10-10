@@ -1,5 +1,6 @@
 package com.example.eld.network;
 
+import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestBody;
 import com.example.eld.network.dto.login.request.ChangePasswordRequestModel;
 import com.example.eld.network.dto.login.request.ForgotPasswordModel;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
@@ -45,10 +46,12 @@ public interface ApiService {
     Call<JsonObject> getstatus(
             @Header("Authorization")String token);
 
-    @FormUrlEncoded
-    @GET("driver/listUser")
-    Call<JsonObject> getUserDetails(@Header("Authorization")String token
-    );
     @GET("driver/driverProfile")
     Call<ResponseBody> getDriverProfile(@Query("id") int id);
+
+    @POST("driver/addAttendenceRecord")
+    Call<ResponseBody> addAttendanceRecord(@Body AddAttendanceRecordRequestBody requestBody);
+
+    @GET("driver/getAttendenceRecord")
+    Call<ResponseBody> getAttendanceRecord(@Query("userId") String userId, @Query("fromdate") String fromDate);
 }

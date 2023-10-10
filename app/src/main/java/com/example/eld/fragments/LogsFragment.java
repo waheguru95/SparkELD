@@ -2,6 +2,7 @@ package com.example.eld.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,6 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eld.Event_adpter;
 import com.example.eld.Eventmodel;
 import com.example.eld.R;
+import com.example.eld.activity.BaseActivity;
+import com.example.eld.activity.DashboardActivity;
+import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestBody;
 import com.example.eld.utils.TimestampConverter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -43,13 +47,19 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class Logs_fragment extends Fragment {
+
+public class LogsFragment extends Fragment {
 
     CardView filterrr, privios, next;
     String formattedDatee;
@@ -72,6 +82,13 @@ public class Logs_fragment extends Fragment {
     ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
     LineData lineData;
     Timestamp stimestamp, ltimestamp;
+    private BaseActivity baseActivity;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        baseActivity = ((DashboardActivity)context);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +101,7 @@ public class Logs_fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        callGetAttendanceRecord();
         lineEntries = new ArrayList<>();
 
         filterrr = view.findViewById(R.id.filterrr);
@@ -367,8 +385,45 @@ public class Logs_fragment extends Fragment {
            // Toast.makeText(getContext(), "Graph runing", Toast.LENGTH_SHORT).show();
             handler.post(runnable);
         }
-
     }
 
+    private void callGetAttendanceRecord() {
+        if (baseActivity.helperClass.getNetworkInfo()) {
+            Call<ResponseBody> addAttendanceRecordCall = baseActivity.apiService
+                    .getAttendanceRecord(String.valueOf(baseActivity.helperClass.getID()), "");
+            addAttendanceRecordCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        baseActivity.hideLoader();
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+                                try {
+                                    String profileJson = responseBody.string();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            baseActivity.onAPIErrorMessageReceived(response.errorBody().toString());
+                        }
+                    } catch (Exception e) {
+                        baseActivity.hideLoader();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    baseActivity.hideLoader();
+                    Toast.makeText(baseActivity, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            baseActivity.showNoInternetConnectionError();
+        }
+    }
 
 }

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.eld.activity.BaseActivity;
-import com.example.eld.activity.DashBoardScreen;
+import com.example.eld.activity.DashboardActivity;
 
 
 public class SplashScreen extends BaseActivity {
@@ -39,11 +39,11 @@ public class SplashScreen extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         new Handler().postDelayed(() -> {
-            if(!helperClass.getREMEMBER_ME()){
+            if(!helperClass.getLoginStatus()){
                 startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                 finish();
             }else {
-                startActivity(new Intent(SplashScreen.this, DashBoardScreen.class));
+                startActivity(new Intent(SplashScreen.this, DashboardActivity.class));
                 finish();
             }
         },splash);
