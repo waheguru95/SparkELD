@@ -96,6 +96,7 @@ public class LogsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_logs_fragment, container, false);
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
