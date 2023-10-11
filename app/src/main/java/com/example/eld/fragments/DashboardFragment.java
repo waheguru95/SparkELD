@@ -545,6 +545,8 @@ public class DashboardFragment extends BaseFragment {
 
                     codriver.setText(drivername);
                     confirmation_logout.dismiss();
+                    //TODO
+                    callUpdateCoDriverAPI(drivername,"");
                 }
             });
             cancel.setOnClickListener(v12 -> confirmation_logout.dismiss());
@@ -575,7 +577,10 @@ public class DashboardFragment extends BaseFragment {
                             String shipnorf = shipno.getText().toString();
 
                             tripno.setText(tripnoo);
+                            //TODO
+                            callUpdateTripNoAPI(tripnoo,"");
                             confirmation_logout.dismiss();
+
                         }
                     }
                 });
@@ -613,6 +618,9 @@ public class DashboardFragment extends BaseFragment {
 
                             shipno.setText(shiping);
                             confirmation_logout.dismiss();
+                            //TODO
+                            callUpdateShippingAddressAPI(shiping,"");
+
                         }
                     }
                 });
