@@ -25,8 +25,8 @@ import com.example.eld.Event_adpter;
 import com.example.eld.Eventmodel;
 import com.example.eld.R;
 import com.example.eld.activity.BaseActivity;
-import com.example.eld.activity.DashboardActivity;
-import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestBody;
+
+import com.example.eld.activity.DashboardScreen;
 import com.example.eld.utils.TimestampConverter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -87,7 +87,7 @@ public class LogsFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        baseActivity = ((DashboardActivity)context);
+        baseActivity = ((DashboardScreen)context);
     }
 
     @Override

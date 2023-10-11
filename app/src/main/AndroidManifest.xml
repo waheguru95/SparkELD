@@ -80,11 +80,11 @@
             android:name=".activity.Connect_with_bluetooth"
             android:exported="false" />
         <activity
-            android:name=".activity.DashboardActivity"
+            android:name=".activity.DashboardScreen"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.DashboardActivity" />
+                android:value=".activity.DashboardScreen" />
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />-->

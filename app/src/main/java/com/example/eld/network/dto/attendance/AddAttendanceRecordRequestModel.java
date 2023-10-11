@@ -3,7 +3,7 @@ package com.example.eld.network.dto.attendance;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AddAttendanceRecordRequestBody {
+public class AddAttendanceRecordRequestModel {
     @SerializedName("Status")
     @Expose
     private String status;
@@ -37,6 +37,18 @@ public class AddAttendanceRecordRequestBody {
     @SerializedName("RecordDate")
     @Expose
     private String recordDate;
+
+    @SerializedName("coDriver")
+    @Expose
+    private String coDriver;
+    @SerializedName("tripNo")
+    @Expose
+    private String tripNo;
+
+    @SerializedName("shippingAddress")
+    @Expose
+    private String shippingAddress;
+
 
     public String getStatus() {
         return status;
@@ -125,4 +137,27 @@ public class AddAttendanceRecordRequestBody {
     public void setRecordDate(String recordDate) {
         this.recordDate = recordDate;
     }
+    public String getCoDriver() {
+        return coDriver;
+    }
+
+    public void setCoDriver(String coDriver) {
+        this.coDriver = coDriver;
+    }
+    public String getTripNo() {
+        return tripNo;
+    }
+
+    public void setTripNo(String tripNo) {
+        this.tripNo = tripNo;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
 }

@@ -29,3 +29,9 @@ o
 ?app/src/main/java/com/example/eld/activity/DashBoardScreen.java,f\b\fb2d43e709c6c145e914e449dd97aa1f9d5f9740
 u
 Eapp/src/main/java/com/example/eld/activity/ResetPasswordActivity.java,4\6\4653db7ac36000923060b0dd82fa7fe336f33c69
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+c
+3app/src/main/java/com/example/eld/SplashScreen.java,4\9\49c582bafdedefac5eeadd5e8a98a9c98ac7c9dd
+w
+Gapp/src/main/java/com/example/eld/fragments/SideNavigationFragment.java,2\c\2c35312fd30c185b25de0b0152bb32211ad05e7c

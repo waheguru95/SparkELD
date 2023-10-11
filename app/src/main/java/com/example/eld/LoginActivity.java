@@ -12,7 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.eld.activity.BaseActivity;
-import com.example.eld.activity.DashboardActivity;
+
+import com.example.eld.activity.DashboardScreen;
 import com.example.eld.activity.ForgotPasswordActivity;
 import com.example.eld.models.DriverProfileModel;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
@@ -143,7 +144,7 @@ public class LoginActivity extends BaseActivity {
                                     String driverJson = gson.toJson(driverProfileModel);
                                     System.out.println("this is json for subscription" + driverJson);
                                     helperClass.setDriverProfile(profileJson);
-                                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, DashboardScreen.class));
                                     finish();
                                 } catch (IOException e) {
                                     e.printStackTrace();

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.eld.activity.BaseActivity;
-import com.example.eld.activity.DashboardActivity;
+import com.example.eld.activity.DashboardScreen;
 
 
 public class SplashScreen extends BaseActivity {
@@ -43,7 +43,7 @@ public class SplashScreen extends BaseActivity {
                 startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                 finish();
             }else {
-                startActivity(new Intent(SplashScreen.this, DashboardActivity.class));
+                startActivity(new Intent(SplashScreen.this, DashboardScreen.class));
                 finish();
             }
         },splash);

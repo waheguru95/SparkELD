@@ -1,9 +1,12 @@
 package com.example.eld.network;
 
-import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestBody;
+import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestModel;
 import com.example.eld.network.dto.login.request.ChangePasswordRequestModel;
 import com.example.eld.network.dto.login.request.ForgotPasswordModel;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
+import com.example.eld.network.dto.login.request.UpdateCoDriverModel;
+import com.example.eld.network.dto.login.request.UpdateShippingAddressModel;
+import com.example.eld.network.dto.login.request.UpdateTripNoModel;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -15,7 +18,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -50,8 +52,17 @@ public interface ApiService {
     Call<ResponseBody> getDriverProfile(@Query("id") int id);
 
     @POST("driver/addAttendenceRecord")
-    Call<ResponseBody> addAttendanceRecord(@Body AddAttendanceRecordRequestBody requestBody);
+    Call<ResponseBody> addAttendanceRecord(@Body AddAttendanceRecordRequestModel requestBody);
 
     @GET("driver/getAttendenceRecord")
     Call<ResponseBody> getAttendanceRecord(@Query("userId") String userId, @Query("fromdate") String fromDate);
+
+   @PUT ("driver/updateCoDriver")
+   Call<ResponseBody> updateCoDriver(@Body UpdateCoDriverModel requestBody);
+
+    @PUT ("driver/updateShippingAddress")
+    Call<ResponseBody> updateShippingAddress(@Body UpdateShippingAddressModel requestBody);
+    @PUT ("driver/updateTripNo")
+    Call<ResponseBody> updateTripNo(@Body UpdateTripNoModel requestBody);
+
 }

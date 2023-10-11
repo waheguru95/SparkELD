@@ -27,6 +27,10 @@ import androidx.fragment.app.Fragment;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.eld.Eventmodel;
 import com.example.eld.R;
+import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestModel;
+import com.example.eld.network.dto.login.request.UpdateCoDriverModel;
+import com.example.eld.network.dto.login.request.UpdateShippingAddressModel;
+import com.example.eld.network.dto.login.request.UpdateTripNoModel;
 import com.example.eld.utils.Breakhelper;
 import com.example.eld.utils.DriveHelper;
 import com.example.eld.utils.PersonalHelper;
@@ -47,6 +51,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,10 +60,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import kotlin.jvm.internal.Intrinsics;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 @SuppressWarnings("deprecation")
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends BaseFragment {
+
 
     public void changeDriveandBreakUI(boolean drive, boolean Bbreak) {
         // Change the UI as needed
@@ -516,42 +526,30 @@ public class DashboardFragment extends Fragment {
         });*/
 
 
-        editdriver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmation_logout.setContentView(R.layout.edit_dialog);
-                confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                CardView yes = confirmation_logout.findViewById(R.id.yes);
-                CardView cancel = confirmation_logout.findViewById(R.id.cancel);
-                TextView text = confirmation_logout.findViewById(R.id.dialog_title);
-                EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
-                text.setText("Co driver");
+        editdriver.setOnClickListener(v -> {
+            confirmation_logout.setContentView(R.layout.edit_dialog);
+            confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CardView updateBtn = confirmation_logout.findViewById(R.id.update);
+            CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+            TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+            EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+            text.setText("Co driver");
 
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        drivername = edittextedit.getText().toString();
-                        if (drivername.equals("")) {
-                            Toast.makeText(getActivity(), "Enter something", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String tripnor = tripno.getText().toString();
-                            String shipnorf = shipno.getText().toString();
+            updateBtn.setOnClickListener(v1 -> {
+                drivername = edittextedit.getText().toString();
+                if (drivername.equals("")) {
+                    Toast.makeText(getActivity(), "Enter something", Toast.LENGTH_SHORT).show();
+                } else {
+                    String tripnor = tripno.getText().toString();
+                    String shipnorf = shipno.getText().toString();
 
-                            codriver.setText(drivername);
-                            confirmation_logout.dismiss();
-                        }
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmation_logout.dismiss();
-
-                    }
-                });
-                confirmation_logout.setCancelable(false);
-                confirmation_logout.show();
-            }
+                    codriver.setText(drivername);
+                    confirmation_logout.dismiss();
+                }
+            });
+            cancel.setOnClickListener(v12 -> confirmation_logout.dismiss());
+            confirmation_logout.setCancelable(false);
+            confirmation_logout.show();
         });
 
         trip.setOnClickListener(new View.OnClickListener() {
@@ -559,13 +557,13 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 confirmation_logout.setContentView(R.layout.edit_dialog);
                 confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                CardView yes = confirmation_logout.findViewById(R.id.yes);
+                CardView updateBtn = confirmation_logout.findViewById(R.id.update);
                 CardView cancel = confirmation_logout.findViewById(R.id.cancel);
                 TextView text = confirmation_logout.findViewById(R.id.dialog_title);
                 EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
                 text.setText("Trip number");
 
-                yes.setOnClickListener(new View.OnClickListener() {
+                updateBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tripnoo = edittextedit.getText().toString();
@@ -596,13 +594,13 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 confirmation_logout.setContentView(R.layout.edit_dialog);
                 confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                CardView yes = confirmation_logout.findViewById(R.id.yes);
+                CardView updateBtn = confirmation_logout.findViewById(R.id.update);
                 CardView cancel = confirmation_logout.findViewById(R.id.cancel);
                 TextView text = confirmation_logout.findViewById(R.id.dialog_title);
                 EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
                 text.setText("Shipping address");
 
-                yes.setOnClickListener(new View.OnClickListener() {
+                updateBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         shiping = edittextedit.getText().toString();
@@ -1153,15 +1151,13 @@ public class DashboardFragment extends Fragment {
     }
 
 
-/*
     private final void stopsleep() {
-        heplper.setTimerCountinge(false);
+     //   heplper.setTimerCountinge(false);
     }
 
     private final void startsleep() {
-        heplper.setTimerCountinge(true);
+     //   heplper.setTimerCountinge(true);
     }
-*/
 
 
     private final void stopbreak() {
@@ -1367,7 +1363,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private final Date prestarttime() {
-        long diff = personalHelper.pstartTimee().getTime() - personalHelper.pstopTimee().getTime();
+        long diff = personalHelper.pstartTimee().getTime() - personalHelper.pstopTime().getTime();
         return new Date(System.currentTimeMillis() + diff);
     }
 
@@ -1476,5 +1472,119 @@ public class DashboardFragment extends Fragment {
         });
     }
 
+    private void callUpdateCoDriverAPI(String coDriver, String id) {
+        UpdateCoDriverModel requestBody = new UpdateCoDriverModel(coDriver,id);
+        if (helperClass.getNetworkInfo()) {
+            Call<ResponseBody> updateCoDrivercall = apiService.updateCoDriver(requestBody);
+            updateCoDrivercall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        hideLoader();
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+                                try {
+                                    String profileJson = responseBody.string();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            onAPIErrorMessageReceived(response.errorBody().toString());
+                        }
+                    } catch (Exception e) {
+                        hideLoader();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    hideLoader();
+                    Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            showNoInternetConnectionError();
+        }
+    }
+    private void callUpdateTripNoAPI(String tripNo, String id) {
+        UpdateTripNoModel requestBody = new UpdateTripNoModel(tripNo,id);
+        if (helperClass.getNetworkInfo()) {
+            Call<ResponseBody> updateTripNoCall = apiService.updateTripNo(requestBody);
+            updateTripNoCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        hideLoader();
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+                                try {
+                                    String profileJson = responseBody.string();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            onAPIErrorMessageReceived(response.errorBody().toString());
+                        }
+                    } catch (Exception e) {
+                        hideLoader();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    hideLoader();
+                    Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            showNoInternetConnectionError();
+        }
+    }
+    private void callUpdateShippingAddressAPI(String shippingAddress, String id) {
+        UpdateShippingAddressModel requestBody = new UpdateShippingAddressModel(shippingAddress,id);
+        if (helperClass.getNetworkInfo()) {
+            Call<ResponseBody> updateShippingAddressCall = apiService.updateShippingAddress(requestBody);
+            updateShippingAddressCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        hideLoader();
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+                                try {
+                                    String profileJson = responseBody.string();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            onAPIErrorMessageReceived(response.errorBody().toString());
+                        }
+                    } catch (Exception e) {
+                        hideLoader();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    hideLoader();
+                    Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            showNoInternetConnectionError();
+        }
+    }
 
 }

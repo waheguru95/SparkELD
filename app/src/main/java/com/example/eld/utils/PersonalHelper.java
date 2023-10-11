@@ -18,8 +18,8 @@ public class PersonalHelper {
     private SharedPreferences sharedPref;
     private SimpleDateFormat dateFormat;
     private boolean ptimerCounting;
-    private Date pstartTimeee;
-    private Date pstopTimeee;
+    private Date pStartTime;
+    private Date pStopTime;
 
 
     @NotNull
@@ -27,10 +27,10 @@ public class PersonalHelper {
 
     @Nullable
     public final Date pstartTimee() {
-        return this.pstartTimeee;
+        return this.pStartTime;
     }
     public final void psetStartTimee(@Nullable Date datee) {
-        this.pstartTimeee = datee;
+        this.pStartTime = datee;
         SharedPreferences.Editor var2 = this.sharedPref.edit();
         boolean var4 = false;
         String stringDatee = datee == null ? null : this.dateFormat.format(datee);
@@ -38,11 +38,11 @@ public class PersonalHelper {
         var2.apply();
     }
     @Nullable
-    public final Date pstopTimee() {
-        return this.pstopTimeee;
+    public final Date pstopTime() {
+        return this.pStopTime;
     }
     public final void psetStopTimee(@Nullable Date datee) {
-        this.pstopTimeee = datee;
+        this.pStopTime = datee;
         SharedPreferences.Editor var2 = this.sharedPref.edit();
         boolean var4 = false;
         String stringDatee = datee == null ? null : this.dateFormat.format(datee);
@@ -69,7 +69,7 @@ public class PersonalHelper {
         String startString = this.sharedPref.getString("pstart", (String)null);
         if (startString != null) {
             try {
-                this.pstartTimeee = this.dateFormat.parse(startString);
+                this.pStartTime = this.dateFormat.parse(startString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -77,7 +77,7 @@ public class PersonalHelper {
         String stopString = this.sharedPref.getString("pstop", (String)null);
         if (stopString != null) {
             try {
-                this.pstopTimeee = this.dateFormat.parse(stopString);
+                this.pStopTime = this.dateFormat.parse(stopString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
