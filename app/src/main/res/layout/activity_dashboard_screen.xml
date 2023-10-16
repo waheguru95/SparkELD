@@ -152,7 +152,7 @@
                             app:cardCornerRadius="50dp">
 
                             <TextView
-                                android:id="@+id/singalstatus"
+                                android:id="@+id/signal_status"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"

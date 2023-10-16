@@ -19,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -59,7 +57,6 @@ import com.example.eld.utils.TimestampConverter;
 import com.example.eld.utils.WeekHelper;
 import com.example.eld.utils.Yardmoveshelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.iosix.eldblelib.EldBleConnectionStateChangeCallback;
@@ -118,7 +115,7 @@ public class DashboardScreen extends BaseActivity {
     DrawerLayout drawerLayout;
     CardView changestatus;
     CardView onoffbluetooth;
-    Dialog confirmation_logout, driverWorkstatusDialog;
+    Dialog confirmation_logout, driverWorkStatusDialog;
     String location;
     FirebaseFirestore firebaseFirestore;
     TextView locationnnv;
@@ -137,7 +134,7 @@ public class DashboardScreen extends BaseActivity {
     // ---------NEW PARAMEERS---------------//
     String status = "";
     String orign = "NA";//NA
-//    private final Runnable logRunnable = new Runnable() {
+    //    private final Runnable logRunnable = new Runnable() {
 //        @Override
 //        public void run() {
 //            String daa = datat.getText().toString();
@@ -165,7 +162,7 @@ public class DashboardScreen extends BaseActivity {
 //        }
 //    };
     String graph = "logs";//NA
-    TextView driveingtiming, ondutytiming, sleeptiming, offdutyting, yardtiming, personaltiming, conectionstatus, singalstatus, fullstatus;
+    TextView driveTimingView, onDutyTimingView, sleepTimingView, offDutyTimingView, yardTimingView, personalTimingView, conectionstatus, signalStatusView, fullStatusView;
     ImageView onblue, offblue;
     double time = 0.0;
     private PeriodicWorkRequest periodicWorkRequest;
@@ -175,24 +172,21 @@ public class DashboardScreen extends BaseActivity {
     private final EldBleConnectionStateChangeCallback bleConnectionStateChangeCallback = new EldBleConnectionStateChangeCallback() {
         @Override
         public void onConnectionStateChange(final int newState) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (newState == 0) {
-                        onblue.setVisibility(View.GONE);
-                        offblue.setVisibility(View.VISIBLE);
+            runOnUiThread(() -> {
+                if (newState == 0) {
+                    onblue.setVisibility(View.GONE);
+                    offblue.setVisibility(View.VISIBLE);
 
-                        conectionstatus.setText("Disconnected");
-                        deviceid.setText("Disconnected from ELD");
-                    } else if (newState == 2) {
-                        conectionstatus.setText("Connected");
-                        onblue.setVisibility(View.VISIBLE);
-                        offblue.setVisibility(View.GONE);
+                    conectionstatus.setText("Disconnected");
+                    deviceid.setText("Disconnected from ELD");
+                } else if (newState == 2) {
+                    conectionstatus.setText("Connected");
+                    onblue.setVisibility(View.VISIBLE);
+                    offblue.setVisibility(View.GONE);
 
-                        deviceid.setText(mEldManager.EldGetSerial());
-                    } else {
-                        conectionstatus.append("New State of connection " + Integer.toString(newState, 10) + "\n");
-                    }
+                    deviceid.setText(mEldManager.EldGetSerial());
+                } else {
+                    conectionstatus.append("New State of connection " + Integer.toString(newState, 10) + "\n");
                 }
             });
         }
@@ -205,77 +199,73 @@ public class DashboardScreen extends BaseActivity {
     private final EldBleDataCallback bleDataCallback = new EldBleDataCallback() {
         @Override
         public void OnDataRecord(final EldBroadcast dataRec, final EldBroadcastTypes RecordType) {
-            runOnUiThread(new Runnable() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void run() {
+            runOnUiThread(() -> {
 
-                    if (dataRec.getBroadcastString().length() > 0) {
-                        // Remove the "Data: " prefix from the string
-                        String[] dataParts = dataRec.getBroadcastString().split(": ");
-                        String dataValue = dataParts[1];
+                if (dataRec.getBroadcastString().length() > 0) {
+                    // Remove the "Data: " prefix from the string
+                    String[] dataParts = dataRec.getBroadcastString().split(": ");
+                    String dataValue = dataParts[1];
 
-                        Log.i("TAG", "======daa========" + dataValue);
-                        if (dataRec.getBroadcastString().contains("Data:")) {
-                            datat.setText(dataRec.getBroadcastString());
-                            String[] units = dataValue.split(",");
-                            Log.d("TAG", " =========E_ON_EOFF========== " + units[0].toString());
+                    Log.i("TAG", "======daa========" + dataValue);
+                    if (dataRec.getBroadcastString().contains("Data:")) {
+                        datat.setText(dataRec.getBroadcastString());
+                        String[] units = dataValue.split(",");
+                        Log.d("TAG", " =========E_ON_EOFF========== " + units[0].toString());
 
 
-                            if (units.length > 12) {
-                                if (!units[1].isEmpty())
-                                    VIN_no.setText("VIN: " + units[1].toString());
-                                if (units[0].toString().equalsIgnoreCase("1")) {
-                                    Log.d("TAG", " =========E_ON========== " + units[0].toString());
+                        if (units.length > 12) {
+                            if (!units[1].isEmpty())
+                                VIN_no.setText("VIN: " + units[1].toString());
+                            if (units[0].toString().equalsIgnoreCase("1")) {
+                                Log.d("TAG", " =========E_ON========== " + units[0].toString());
 
-                                    status = "E_ON";
+                                status = "E_ON";
 
 
-                                    helperClass.setStatusChange(true);
-                                    if (helperClass.getODOMETER().isEmpty() && !units[4].toString().isEmpty()) {
-                                        //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
-                                        double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
-                                        helperClass.setODOMETER(String.valueOf(speed));
+                                helperClass.setStatusChange(true);
+                                if (helperClass.getODOMETER().isEmpty() && !units[4].toString().isEmpty()) {
+                                    //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
+                                    double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
+                                    helperClass.setODOMETER(String.valueOf(speed));
 
-                                    }
-                                } else if (units[0].toString().equalsIgnoreCase("0")) {
-                                    Log.d("TAG", " =========E_OFF========== " + units[0].toString());
-                                    status = "E_OFF";
-
-                                    helperClass.setIS_DRIVING(false);
-                                    if (helperClass.getODOMETER().isEmpty() && !units[4].toString().isEmpty()) {
-                                        //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
-                                        double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
-                                        helperClass.setODOMETER(String.valueOf(speed));
-                                    }
                                 }
-                                if (!units[6].toString().isEmpty())
-                                    engineHours = Double.parseDouble(units[6].toString());
-                                if (!units[11].toString().isEmpty() && units[11].length() > 0)
-                                    latitude = Double.parseDouble(units[11].toString());
-                                if (!units[12].toString().isEmpty() && units[11].length() > 0)
-                                    longitude = Double.parseDouble(units[12].toString());
-                                if (latitude != 0.0 && longitude != 0.0) {
-                                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                                    try {
-                                        List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                                        Address obj = addresses.get(0);
-                                        location = obj.getLocality() + "," + obj.getAdminArea();
-                                        locationnnv.setText(location);
+                            } else if (units[0].equalsIgnoreCase("0")) {
+                                Log.d("TAG", " =========E_OFF========== " + units[0]);
+                                status = "E_OFF";
 
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                                helperClass.setIS_DRIVING(false);
+                                if (helperClass.getODOMETER().isEmpty() && !units[4].isEmpty()) {
+                                    //double odo = convertKmToMiles(Double.parseDouble(units[4])) + 5;
+                                    double speed = convertKmToMiles(Double.parseDouble(units[3])) + 5;
+                                    helperClass.setODOMETER(String.valueOf(speed));
                                 }
-                                checkDrivingCondition(Double.parseDouble(units[3]));
-
-                            } else {
-                                location = "Location Not Available";
                             }
+                            if (!units[6].isEmpty())
+                                engineHours = Double.parseDouble(units[6]);
+                            if (!units[11].isEmpty() && units[11].length() > 0)
+                                latitude = Double.parseDouble(units[11]);
+                            if (!units[12].isEmpty() && units[11].length() > 0)
+                                longitude = Double.parseDouble(units[12]);
+                            if (latitude != 0.0 && longitude != 0.0) {
+                                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                try {
+                                    List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                                    Address obj = addresses.get(0);
+                                    location = obj.getLocality() + "," + obj.getAdminArea();
+                                    locationnnv.setText(location);
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            checkDrivingCondition(Double.parseDouble(units[3]));
+
+                        } else {
+                            location = "Location Not Available";
                         }
                     }
-
                 }
+
             });
         }
     };
@@ -311,7 +301,7 @@ public class DashboardScreen extends BaseActivity {
     public final Helper getHeplper() {
         Helper helperr = this.heplper;
         if (helperr == null) {
-            Intrinsics.throwUninitializedPropertyAccessException("heplper");
+            Intrinsics.throwUninitializedPropertyAccessException("helper");
         }
         return helperr;
     }
@@ -361,14 +351,14 @@ public class DashboardScreen extends BaseActivity {
         changestatus = findViewById(R.id.changestatus);
         deviceid = findViewById(R.id.deviceid);
         VIN_no = findViewById(R.id.VIN_no);
-        driveingtiming = findViewById(R.id.driveingtiming);
-        ondutytiming = findViewById(R.id.ondutytiming);
-        sleeptiming = findViewById(R.id.sleeptiming);
-        offdutyting = findViewById(R.id.offdutytiming);
-        yardtiming = findViewById(R.id.yardtiming);
-        personaltiming = findViewById(R.id.personaltiming);
-        singalstatus = findViewById(R.id.singalstatus);
-        fullstatus = findViewById(R.id.fullstatus);
+        driveTimingView = findViewById(R.id.driveingtiming);
+        onDutyTimingView = findViewById(R.id.ondutytiming);
+        sleepTimingView = findViewById(R.id.sleeptiming);
+        offDutyTimingView = findViewById(R.id.offdutytiming);
+        yardTimingView = findViewById(R.id.yardtiming);
+        personalTimingView = findViewById(R.id.personaltiming);
+        signalStatusView = findViewById(R.id.signal_status);
+        fullStatusView = findViewById(R.id.fullstatus);
         onblue = findViewById(R.id.onblue);
         offblue = findViewById(R.id.offblue);
         onoffbluetooth = findViewById(R.id.onoffbluetooth);
@@ -385,7 +375,7 @@ public class DashboardScreen extends BaseActivity {
         yardmoveshelper = new Yardmoveshelper(getApplicationContext());
         personalHelper = new PersonalHelper(getApplicationContext());
         confirmation_logout = new Dialog(this);
-        driverWorkstatusDialog = new Dialog(this);
+        driverWorkStatusDialog = new Dialog(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
@@ -483,50 +473,39 @@ public class DashboardScreen extends BaseActivity {
             }
         });
 
-        notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DashboardScreen.this, Notification_screen.class));
-            }
-        });
-        side_menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                } else {
-                    drawerLayout.openDrawer(GravityCompat.START);
-                }
+        notification.setOnClickListener(v -> startActivity(new Intent(DashboardScreen.this, Notification_screen.class)));
+        side_menu.setOnClickListener(v -> {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
         helperClass.setDASHBOARD(true);
         myFragment = new DashboardFragment();
         controlfunction(myFragment);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.myhome:
-                        myFragment = new DashboardFragment();
-                        helperClass.setDASHBOARD(true);
-                        controlfunction(myFragment);
-                        break;
-                    case R.id.logs:
-                        helperClass.setDASHBOARD(true);
-                        controlfunction(new LogsFragment());
-                        break;
-                    case R.id.certfy:
-                        helperClass.setDASHBOARD(true);
-                        controlfunction(new Certify_fragment());
-                        break;
-                    case R.id.reports:
-                        helperClass.setDASHBOARD(true);
-                        controlfunction(new Reports_fragment());
-                        break;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.myhome:
+                    myFragment = new DashboardFragment();
+                    helperClass.setDASHBOARD(true);
+                    controlfunction(myFragment);
+                    break;
+                case R.id.logs:
+                    helperClass.setDASHBOARD(true);
+                    controlfunction(new LogsFragment());
+                    break;
+                case R.id.certfy:
+                    helperClass.setDASHBOARD(true);
+                    controlfunction(new Certify_fragment());
+                    break;
+                case R.id.reports:
+                    helperClass.setDASHBOARD(true);
+                    controlfunction(new Reports_fragment());
+                    break;
 
-                }
-                return true;
             }
+            return true;
         });
 
     }
@@ -539,527 +518,184 @@ public class DashboardScreen extends BaseActivity {
         workManager = WorkManager.getInstance();
         initview();
 
-        changestatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                driverWorkstatusDialog.setContentView(R.layout.change_status_dilog);
-                driverWorkstatusDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                driverWorkstatusDialog.setCancelable(true);
+        changestatus.setOnClickListener(v -> {
 
-                CardView drive = driverWorkstatusDialog.findViewById(R.id.drive);
-                CardView onduty = driverWorkstatusDialog.findViewById(R.id.onduty);
-                CardView sleep = driverWorkstatusDialog.findViewById(R.id.sleep);
-                CardView offduty = driverWorkstatusDialog.findViewById(R.id.offduty);
-                CardView yard = driverWorkstatusDialog.findViewById(R.id.yard);
-                CardView personaluse = driverWorkstatusDialog.findViewById(R.id.personaluse);
+            driverWorkStatusDialog.setContentView(R.layout.change_status_dilog);
+            driverWorkStatusDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            driverWorkStatusDialog.setCancelable(true);
 
-                drive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        driverWorkstatusDialog.dismiss();
-                        singalstatus.setText("D");
-                        fullstatus.setText("Drive");
-                        driveingtiming.setVisibility(View.VISIBLE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.GONE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
-                        location = locationnnv.getText().toString();
+            CardView drive = driverWorkStatusDialog.findViewById(R.id.drive);
+            CardView onDuty = driverWorkStatusDialog.findViewById(R.id.onduty);
+            CardView sleep = driverWorkStatusDialog.findViewById(R.id.sleep);
+            CardView offDuty = driverWorkStatusDialog.findViewById(R.id.offduty);
+            CardView yard = driverWorkStatusDialog.findViewById(R.id.yard);
+            CardView personalUse = driverWorkStatusDialog.findViewById(R.id.personaluse);
 
-                        String daa = datat.getText().toString();
-
-                        if (!daa.equals("")) {
-                            String[] units = daa.split(",");
-                            if (units.length > 10) {
-                                if (!units[4].toString().isEmpty())
-                                    getOdometer = Double.valueOf(units[4]);
-                                if (!units[6].toString().isEmpty())
-                                    engineHours = Double.valueOf(units[6]);
-
-                            }
-                        }
-                        float y = 2f;
-                        status = "Drive";
-                        orign = "Manual";
-
-                        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-                        startStopDriveAction();
-                       // callAddAttendanceRecord(status,);
-
-                    }
-                });
-                offduty.setOnClickListener(v1 -> {
-                    if (offDutyHelper.offdutytimerCounting()) {
-                        driverWorkstatusDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
-                    } else {
-                        driverWorkstatusDialog.dismiss();
-                        confirmation_logout.setContentView(R.layout.edit_dialog);
-                        confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        CardView upDateBtn = confirmation_logout.findViewById(R.id.update);
-                        CardView cancel = confirmation_logout.findViewById(R.id.cancel);
-                        TextView text = confirmation_logout.findViewById(R.id.dialog_title);
-                        EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
-                        text.setText("Off duty reason");
-                        upDateBtn.setOnClickListener(v11 -> {
-                            String result = edittextedit.getText().toString();
-                            if (result.equals("")) {
-                                Toast.makeText(getApplicationContext(), "Enter something", Toast.LENGTH_SHORT).show();
-                            } else {
-                                singalstatus.setText("OFF");
-                                fullstatus.setText("Off duty");
-                                driveingtiming.setVisibility(View.GONE);
-                                ondutytiming.setVisibility(View.GONE);
-                                sleeptiming.setVisibility(View.GONE);
-                                offdutyting.setVisibility(View.VISIBLE);
-                                yardtiming.setVisibility(View.GONE);
-                                personaltiming.setVisibility(View.GONE);
-
-                                Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
-
-                                confirmation_logout.dismiss();
-                                location = locationnnv.getText().toString();
-                                String daa = datat.getText().toString();
-
-                                if (!daa.equals("")) {
-                                    String[] units = daa.split(",");
-                                    if (units.length > 10) {
-                                        if (!units[4].toString().isEmpty())
-                                            getOdometer = Double.valueOf(units[4]);
-                                        if (!units[6].toString().isEmpty())
-                                            engineHours = Double.valueOf(units[6]);
-
-                                    }
-                                }
-
-                                float y = 4f;
-                                status = "OFFD";
-                                orign = "Manual";
-
-                                insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-                                startstopOFFDuty();
-
-                            }
-                        });
-                        cancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v1) {
-                                confirmation_logout.dismiss();
-                                driverWorkstatusDialog.show();
-                            }
-                        });
-                        confirmation_logout.setCancelable(false);
-                        confirmation_logout.show();
-                    }
-
-                });
-                onduty.setOnClickListener(v12 -> {
-
-                    if (shifthelper.shifttimerCounting()) {
-                        driverWorkstatusDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
-                    } else {
-                        driverWorkstatusDialog.dismiss();
-                        confirmation_logout.setContentView(R.layout.edit_dialog);
-                        confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        CardView yes = confirmation_logout.findViewById(R.id.update);
-                        CardView cancel = confirmation_logout.findViewById(R.id.cancel);
-                        TextView text = confirmation_logout.findViewById(R.id.dialog_title);
-                        EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
-                        text.setText("On duty reason");
-
-                        yes.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v12) {
-                                String result = edittextedit.getText().toString();
-                                if (result.equals("")) {
-                                    Toast.makeText(getApplicationContext(), "Enter something", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    singalstatus.setText("ON");
-                                    fullstatus.setText("on duty");
-                                    driveingtiming.setVisibility(View.GONE);
-                                    ondutytiming.setVisibility(View.VISIBLE);
-                                    sleeptiming.setVisibility(View.GONE);
-                                    offdutyting.setVisibility(View.GONE);
-                                    yardtiming.setVisibility(View.GONE);
-                                    personaltiming.setVisibility(View.GONE);
-                                    Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
-                                    confirmation_logout.dismiss();
-
-                                    location = locationnnv.getText().toString();
-                                    String daa = datat.getText().toString();
-
-                                    if (!daa.equals("")) {
-                                        String[] units = daa.split(",");
-                                        if (units.length > 10) {
-                                            if (!units[4].toString().isEmpty())
-                                                getOdometer = Double.valueOf(units[4]);
-                                            if (!units[6].toString().isEmpty())
-                                                engineHours = Double.valueOf(units[6]);
-
-                                        }
-                                    }
-
-                                    float y = 1f;
-                                    status = "OND";
-                                    orign = "Manual";
-
-                                    insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-                                    startstopshift(true);
-
-
-                                }
-                            }
-                        });
-                        cancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v12) {
-                                confirmation_logout.dismiss();
-                                driverWorkstatusDialog.show();
-                            }
-                        });
-                        confirmation_logout.setCancelable(false);
-                        confirmation_logout.show();
-                    }
-
-                });
-                sleep.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        driverWorkstatusDialog.dismiss();
-                        singalstatus.setText("SB");
-                        fullstatus.setText("Sleep berth");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.VISIBLE);
-                        offdutyting.setVisibility(View.GONE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
-                        float y = 3f;
-                        String status = "Sleep";
-                        location = locationnnv.getText().toString();
-                        String daa = datat.getText().toString();
-
-                        if (daa.equals("")) {
-
-                        } else {
-                            String[] units = daa.split(",");
-                            if (units.length > 10) {
-                                if (!units[4].toString().isEmpty())
-                                    getOdometer = Double.valueOf(units[4]);
-                                if (!units[6].toString().isEmpty())
-                                    engineHours = Double.valueOf(units[6]);
-
-                            }
-                        }
-                        orign = "Manual";
-
-                        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-                        startstopsleep();
-
-                    }
-                });
-                yard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        driverWorkstatusDialog.dismiss();
-
-                        singalstatus.setText("YM");
-                        fullstatus.setText("Yard move");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.GONE);
-                        yardtiming.setVisibility(View.VISIBLE);
-                        personaltiming.setVisibility(View.GONE);
-                        location = locationnnv.getText().toString();
-                        String daa = datat.getText().toString();
-                        float y = 2f;
-                        status = "YM";
-                        if (daa.equals("")) {
-
-                        } else {
-                            String[] units = daa.split(",");
-                            if (units.length > 10) {
-                                if (!units[4].toString().isEmpty())
-                                    getOdometer = Double.valueOf(units[4]);
-                                if (!units[6].toString().isEmpty())
-                                    engineHours = Double.valueOf(units[6]);
-
-                            }
-                        }
-                        orign = "Manual";
-
-                        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-                        startstopy();
-
-                        helperClass.setIS_DRIVING(false);
-                        helperClass.setODOMETER("");
-
-                    }
-                });
-
-                personaluse.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        driverWorkstatusDialog.dismiss();
-
-                        singalstatus.setText("PU");
-                        fullstatus.setText("Personal use");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.GONE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.VISIBLE);
-                        location = locationnnv.getText().toString();
-                        String daa = datat.getText().toString();
-
-                        float y = 2f;
-                        status = "PU";
-                        if (daa.equals("")) {
-
-                        } else {
-                            String[] units = daa.split(",");
-                            if (units.length > 10) {
-                                if (!units[4].toString().isEmpty())
-                                    getOdometer = Double.valueOf(units[4]);
-                                if (!units[6].toString().isEmpty())
-                                    engineHours = Double.valueOf(units[6]);
-
-                            }
-                        }
-
-                        orign = "Manual";
-
-                        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-
-                        startstopy();
-                        helperClass.setIS_DRIVING(false);
-                        helperClass.setODOMETER("");
-                    }
-                });
-                driverWorkstatusDialog.show();
-            }
+            setClickListeners(drive, onDuty, sleep, offDuty, yard, personalUse);
+            driverWorkStatusDialog.show();
         });
+    }
 
-
-        DriveHelper driveHelper = this.driveHelper;
-        OffDutyHelper offDutyHelper = this.offDutyHelper;
-        Helper heplper = this.heplper;
-        Shifthelper shifthelper = this.shifthelper;
-        Breakhelper breakhelper = this.breakhelper;
-        Yardmoveshelper yardmoveshelper = this.yardmoveshelper;
-        PersonalHelper personalHelper = this.personalHelper;
-
-
-        Log.d("CLOCK", "=====drivesec=====" + drivesec);
-        Log.d("CLOCK", "=====driveHelper=====" + driveHelper.drivetimerCounting());
-        Log.d("CLOCK", "=====offDutyHelper=====" + offDutyHelper.offdutytimerCounting());
-        Log.d("CLOCK", "=====breakhelper=====" + breakhelper.breaktimerCounting());
-        Log.d("CLOCK", "=====shifthelper=====" + shifthelper.shifttimerCounting());
-
-        if (driveHelper.drivetimerCounting()) {
-            //startDriveTimer();
-            singalstatus.setText("D");
-            fullstatus.setText("Drive");
-            driveingtiming.setVisibility(View.VISIBLE);
-            ondutytiming.setVisibility(View.GONE);
-            sleeptiming.setVisibility(View.GONE);
-            offdutyting.setVisibility(View.GONE);
-            personaltiming.setVisibility(View.GONE);
-            yardtiming.setVisibility(View.GONE);
-
-            final Handler handl = new Handler();
-            handl.post(new Runnable() {
-                @SuppressLint("NewApi")
-                @Override
-                public void run() {
-
-                    long driveprog = drivesec / 1000;
-                    int peogressss = (int) driveprog;
-
-                    int hours = peogressss / 3600;
-                    int minutes = (peogressss % 3600) / 60;
-                    int secs = peogressss % 60;
-                    String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
-                    driveingtiming.setText(time);
-
-                    handl.postDelayed(this, 1000);
-                }
-            });
-
-        } else {
-            stopDriveTimer();
-            if (driveHelper.startdriveTime() != null && driveHelper.stopdriveTime() != null) {
-                long time = (new Date()).getTime() - this.calcRestartTime().getTime();
-                timeStringFromLong(time);
-            }
+    private void setClickListeners(CardView... statusCards) {
+        for (CardView card : statusCards) {
+            card.setOnClickListener(view -> handleStatusChange(card));
         }
-        this.timedrive.scheduleAtFixedRate(new TimeDrive(), 0L, 500L);
+    }
 
-        if (shifthelper.shifttimerCounting()) {
-            startshift();
-            if (!driveHelper.drivetimerCounting()) {
-                singalstatus.setText("ON");
-                fullstatus.setText("on duty");
-                driveingtiming.setVisibility(View.GONE);
-                ondutytiming.setVisibility(View.VISIBLE);
-                sleeptiming.setVisibility(View.GONE);
-                offdutyting.setVisibility(View.GONE);
-                yardtiming.setVisibility(View.GONE);
-                personaltiming.setVisibility(View.GONE);
+    private void handleStatusChange(CardView card) {
+        driverWorkStatusDialog.dismiss();
+        String status = getStatusFromCard(card);
+        updateUIForStatus(status);
+        String location = locationnnv.getText().toString();
+        String data = datat.getText().toString();
+        orign = "manual";
 
-
-                final Handler handl = new Handler();
-                handl.post(new Runnable() {
-                    @SuppressLint("NewApi")
-                    @Override
-                    public void run() {
-
-                        long driveprog = ondutysec / 1000;
-                        int peogressss = (int) driveprog;
-
-
-                        int hours = peogressss / 3600;
-                        int minutes = (peogressss % 3600) / 60;
-                        int secs = peogressss % 60;
-
-                        String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
-
-
-                        ondutytiming.setText(time);
-                        handl.postDelayed(this, 1000);
-                    }
-                });
-            }
-
-
-        } else {
-            stopshift();
-            if (shifthelper.shiftstartTime() != null && shifthelper.shiftstopTime() != null) {
-                long time = (new Date()).getTime() - this.onrestarttime().getTime();
-                ontimeFromLong(time);
-
-            }
+        if (!data.isEmpty()) {
+            processData(data);
         }
-        this.ontimer.scheduleAtFixedRate(new TimeShift(), 0L, 500L);
+        if (status.equals("Drive")) {
+             insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+            startStopDriveAction();
+        } else if (status.equals("Off duty")) {
+            handleOffDuty();
+        } else if (status.equals("On duty")) {
+            handleOnDuty();
+        } else if (status.equals("Sleep berth")) {
+            handleSleepData();
+        } else if (status.equals("Yard move")) {
+            handleYardData();
+        } else if (status.equals("Personal use")) {
+            insertPersonalUseData();
 
-        if (offDutyHelper.offdutytimerCounting()) {
-            startoffdutyTimer();
-
-            singalstatus.setText("OFF");
-            fullstatus.setText("Off duty");
-            driveingtiming.setVisibility(View.GONE);
-            ondutytiming.setVisibility(View.GONE);
-            sleeptiming.setVisibility(View.GONE);
-            offdutyting.setVisibility(View.VISIBLE);
-            yardtiming.setVisibility(View.GONE);
-            personaltiming.setVisibility(View.GONE);
-
-
-            final Handler handl = new Handler();
-            handl.post(new Runnable() {
-                @SuppressLint("NewApi")
-                @Override
-                public void run() {
-
-                    long driveprog = offdutysec / 1000;
-                    int peogressss = (int) driveprog;
-
-
-                    int hours = peogressss / 3600;
-                    int minutes = (peogressss % 3600) / 60;
-                    int secs = peogressss % 60;
-
-                    String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
-
-
-                    offdutyting.setText(time);
-                    handl.postDelayed(this, 1000);
-                }
-            });
-
-
-        } else {
-            stopoffdutyTimer();
-            if (offDutyHelper.startoffdutyTime() != null && offDutyHelper.stopoffdutyTime() != null) {
-                long time = (new Date()).getTime() - this.offdutyrestarttime().getTime();
-                offtimeFromLong(time);
-
-            }
         }
-        this.offtimer.scheduleAtFixedRate(new TimeTaskoffduty(), 0L, 500L);
+    }
 
 
-        if (heplper.timerCountinge()) {
-
-            //startsleep();
-            singalstatus.setText("SB");
-            fullstatus.setText("Sleep berth");
-            driveingtiming.setVisibility(View.GONE);
-            ondutytiming.setVisibility(View.GONE);
-            sleeptiming.setVisibility(View.VISIBLE);
-            offdutyting.setVisibility(View.GONE);
-            yardtiming.setVisibility(View.GONE);
-            personaltiming.setVisibility(View.GONE);
-            startstopsleep();
-        } else {
-            stopsleep();
-            if (heplper.startTimee() != null && heplper.stopTimee() != null) {
-                long time = (new Date()).getTime() - this.restarttime().getTime();
-                timeFromLong(time);
-
-            }
+    private String getStatusFromCard(CardView card) {
+        int cardId = card.getId();
+        switch (cardId) {
+            case R.id.drive:
+                return "Drive";
+            case R.id.onduty:
+                return "On duty";
+            case R.id.sleep:
+                return "Sleep berth";
+            case R.id.offduty:
+                return "Off duty";
+            case R.id.yard:
+                return "Yard move";
+            case R.id.personaluse:
+                return "Personal use";
+            default:
+                return "Unknown";
         }
-        this.sleeptimer.scheduleAtFixedRate(new TimeTask(), 0L, 500L);
+    }
 
+    private void updateUIForStatus(String status) {
+        signalStatusView.setText(getStatusAbbreviation(status));
+        fullStatusView.setText(status);
+        updateTimingViewsForStatus(status);
+    }
 
-        if (yardmoveshelper.ytimerCountinge()) {
-
-            starty();
-            singalstatus.setText("YM");
-            fullstatus.setText("Yard move");
-            driveingtiming.setVisibility(View.GONE);
-            ondutytiming.setVisibility(View.GONE);
-            sleeptiming.setVisibility(View.GONE);
-            offdutyting.setVisibility(View.GONE);
-            yardtiming.setVisibility(View.VISIBLE);
-            personaltiming.setVisibility(View.GONE);
-        } else {
-
-            stopy();
-            if (yardmoveshelper.ystartTimee() != null && yardmoveshelper.ystopTimee() != null) {
-                long time = (new Date()).getTime() - this.yrestarttime().getTime();
-                ytimeFromLong(time);
-            }
+    private String getStatusAbbreviation(String status) {
+        String abbreviation = "";
+        switch (status) {
+            case "Drive":
+                abbreviation = "D";
+                break;
+            case "On duty":
+                abbreviation = "OD";
+                break;
+            case "Sleep berth":
+                abbreviation = "SB";
+                break;
+            case "Off duty":
+                abbreviation = "OFF";
+                break;
+            case "Yard move":
+                abbreviation = "YM";
+                break;
+            case "Personal use":
+                abbreviation = "PU";
+                break;
+            default:
+                abbreviation = "N/A";
+                break;
         }
-        this.ytimer.scheduleAtFixedRate(new TimeTasky(), 0L, 500L);
+        return abbreviation;
+    }
 
-        if (personalHelper.ptimerCountinge()) {
-            startp();
-            singalstatus.setText("PU");
-            fullstatus.setText("Personal use");
-            driveingtiming.setVisibility(View.GONE);
-            ondutytiming.setVisibility(View.GONE);
-            sleeptiming.setVisibility(View.GONE);
-            offdutyting.setVisibility(View.GONE);
-            yardtiming.setVisibility(View.GONE);
-            personaltiming.setVisibility(View.VISIBLE);
-        } else {
-            stopp();
-            if (personalHelper.pstartTimee() != null && personalHelper.pstopTime() != null) {
-                long time = (new Date()).getTime() - this.prestarttime().getTime();
-                ptimeFromLong(time);
-            }
+    private void updateTimingViewsForStatus(String status) {
+        switch (status) {
+            case "Drive":
+                setVisibility(driveTimingView, View.VISIBLE);
+                setVisibility(onDutyTimingView, View.GONE);
+                setVisibility(sleepTimingView, View.GONE);
+                setVisibility(offDutyTimingView, View.GONE);
+                setVisibility(yardTimingView, View.GONE);
+                setVisibility(personalTimingView, View.GONE);
+                break;
+            case "On duty":
+                setVisibility(driveTimingView, View.GONE);
+                setVisibility(onDutyTimingView, View.VISIBLE);
+                setVisibility(sleepTimingView, View.GONE);
+                setVisibility(offDutyTimingView, View.GONE);
+                setVisibility(yardTimingView, View.GONE);
+                setVisibility(personalTimingView, View.GONE);
+                break;
+            case "Sleep berth":
+                setVisibility(driveTimingView, View.GONE);
+                setVisibility(onDutyTimingView, View.GONE);
+                setVisibility(sleepTimingView, View.VISIBLE);
+                setVisibility(offDutyTimingView, View.GONE);
+                setVisibility(yardTimingView, View.GONE);
+                setVisibility(personalTimingView, View.GONE);
+                break;
+            case "Off duty":
+                setVisibility(driveTimingView, View.GONE);
+                setVisibility(onDutyTimingView, View.GONE);
+                setVisibility(sleepTimingView, View.GONE);
+                setVisibility(offDutyTimingView, View.VISIBLE);
+                setVisibility(yardTimingView, View.GONE);
+                setVisibility(personalTimingView, View.GONE);
+                break;
+            case "Yard move":
+                setVisibility(driveTimingView, View.GONE);
+                setVisibility(onDutyTimingView, View.GONE);
+                setVisibility(sleepTimingView, View.GONE);
+                setVisibility(offDutyTimingView, View.GONE);
+                setVisibility(yardTimingView, View.VISIBLE);
+                setVisibility(personalTimingView, View.GONE);
+                break;
+            case "Personal use":
+                setVisibility(driveTimingView, View.GONE);
+                setVisibility(onDutyTimingView, View.GONE);
+                setVisibility(sleepTimingView, View.GONE);
+                setVisibility(offDutyTimingView, View.GONE);
+                setVisibility(yardTimingView, View.GONE);
+                setVisibility(personalTimingView, View.VISIBLE);
+                break;
+            default:
+                // Handle an unrecognized status here
+                break;
         }
-        this.ptimer.scheduleAtFixedRate(new TimeTaskp(), 0L, 500L);
+    }
 
-        locationnnv.setText("Location Not Available");
-        VIN_no.setText("VIN: No Device");
-        createFirstLog();
+    // Helper function to set the visibility of a view
+    private void setVisibility(View view, int visibility) {
+        if (view != null) {
+            view.setVisibility(visibility);
+        }
+    }
 
+    private void processData(String data) {
+        String[] units = data.split(",");
+        if (units.length > 10) {
+            if (!units[4].isEmpty())
+                getOdometer = Double.valueOf(units[4]);
+            if (!units[6].isEmpty())
+                engineHours = Double.valueOf(units[6]);
+        }
     }
 
     private void insertData(String x_axis, float y_axis, String dateTime, String status, String location, Double getOdometer, Double engineHours, String orign, String graph) {
@@ -1080,6 +716,585 @@ public class DashboardScreen extends BaseActivity {
         hashMap.put("graph", graph);
 //        firebaseFirestore.collection(helperClass.getid(getApplicationContext())).add(hashMap);
     }
+
+    private void startStopDriveAction() {
+        if (driveHelper.drivetimerCounting()) {
+            handleDriveTimerRunning();
+        } else {
+            handleDriveTimerNotRunning();
+        }
+    }
+
+    private void handleDriveTimerRunning() {
+        driveHelper.setstopdriveTime(new Date());
+        Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+    }
+
+    private void handleDriveTimerNotRunning() {
+        if (driveHelper.stopdriveTime() != null) {
+            driveHelper.setstartdriveTime(calcRestartTime());
+            driveHelper.setstopdriveTime(null);
+        } else {
+            driveHelper.setstartdriveTime(new Date());
+        }
+
+        handleStopwatchTimers();
+        startDriveTimer();
+        startbreak();
+
+        updateDriveTimeUI();
+    }
+
+    private void handleStopwatchTimers() {
+        if (heplper.isTimerCounting()) {
+            heplper.setStopTime(new Date());
+            stopsleep();
+        }
+        if (yardmoveshelper.ytimerCountinge()) {
+            yardmoveshelper.ysetStopTimee(new Date());
+            stopy();
+        }
+        if (personalHelper.ptimerCountinge()) {
+            personalHelper.psetStopTimee(new Date());
+            stopp();
+        }
+
+        if (breakhelper.stopbreakTime() != null) {
+            breakhelper.setstartbreakTime(offrestarttime());
+            breakhelper.setstopbreakTime(null);
+        } else {
+            breakhelper.setstartbreakTime(new Date());
+        }
+    }
+
+    private void updateDriveTimeUI() {
+        final Handler handl = new Handler();
+        handl.post(new Runnable() {
+            @SuppressLint("NewApi")
+            @Override
+            public void run() {
+                long driveprog = drivesec / 1000;
+                int peogressss = (int) driveprog;
+
+                int hours = peogressss / 3600;
+                int minutes = (peogressss % 3600) / 60;
+                int secs = peogressss % 60;
+                String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
+                driveTimingView.setText(time);
+                handl.postDelayed(this, 1000);
+            }
+        });
+
+        if (helperClass.getDASHBOARD()) {
+            myFragment.changeDriveandBreakUI(true, true);
+        }
+    }
+
+    private void handleOffDuty() {
+        driverWorkStatusDialog.dismiss();
+        if (offDutyHelper.offdutytimerCounting()) {
+            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+        } else {
+            driverWorkStatusDialog.dismiss();
+            showOffDutyReasonDialog();
+        }
+    }
+
+
+    private void showOffDutyReasonDialog() {
+        confirmation_logout.setContentView(R.layout.edit_dialog);
+        confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        CardView updateButton = confirmation_logout.findViewById(R.id.update);
+        CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+        TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+        EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+        text.setText("Off duty reason");
+
+        updateButton.setOnClickListener(v -> {
+            String result = edittextedit.getText().toString();
+            if (result.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Enter off duty reason", Toast.LENGTH_SHORT).show();
+            } else {
+                handleOffDutyMode(result);
+            }
+        });
+
+        cancel.setOnClickListener(v -> {
+            confirmation_logout.dismiss();
+            driverWorkStatusDialog.show();
+        });
+
+        confirmation_logout.setCancelable(false);
+        confirmation_logout.show();
+    }
+
+    private void handleOffDutyMode(String reason) {
+        updateOffDutyUI();
+        confirmation_logout.dismiss();
+        location = locationnnv.getText().toString();
+        String data = datat.getText().toString();
+        processData(data);
+        float y = 4f;
+        status = "OFFD";
+        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+        Toast.makeText(getApplicationContext(), "Your` reason - " + reason, Toast.LENGTH_SHORT).show();
+        startstopOFFDuty();
+    }
+
+    private void updateOffDutyUI() {
+        // Set the signal status and full status
+        signalStatusView.setText("OFF");
+        fullStatusView.setText("Off Duty");
+
+        // Update the visibility of timing views
+        setVisibility(driveTimingView, View.GONE);
+        setVisibility(onDutyTimingView, View.GONE);
+        setVisibility(sleepTimingView, View.GONE);
+        setVisibility(offDutyTimingView, View.VISIBLE);
+        setVisibility(yardTimingView, View.GONE);
+        setVisibility(personalTimingView, View.GONE);
+    }
+
+    private void handleOnDuty() {
+        if (shifthelper.shifttimerCounting()) {
+            handleOnDutyAlreadyRunning();
+        } else {
+            driverWorkStatusDialog.dismiss();
+            showOnDutyReasonDialog();
+        }
+    }
+
+    private void handleOnDutyAlreadyRunning() {
+        // Shift timer is already running
+        driverWorkStatusDialog.dismiss();
+        Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showOnDutyReasonDialog() {
+        confirmation_logout.setContentView(R.layout.edit_dialog);
+        confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        CardView updateButton = confirmation_logout.findViewById(R.id.update);
+        CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+        TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+        EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+
+        text.setText("On duty reason");
+
+        updateButton.setOnClickListener(v -> {
+            String result = edittextedit.getText().toString();
+            if (result.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Enter something",Toast.LENGTH_SHORT).show();
+            } else {
+                handleOnDutyMode(result);
+            }
+        });
+
+        cancel.setOnClickListener(v -> {
+            confirmation_logout.dismiss();
+            driverWorkStatusDialog.show();
+        });
+
+        confirmation_logout.setCancelable(false);
+        confirmation_logout.show();
+    }
+
+    private void handleOnDutyMode(String reason) {
+        signalStatusView.setText("ON");
+        fullStatusView.setText("On duty");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.VISIBLE);
+        sleepTimingView.setVisibility(View.GONE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.GONE);
+        personalTimingView.setVisibility(View.GONE);
+
+        Toast.makeText(getApplicationContext(), "Your reason - " + reason, Toast.LENGTH_SHORT).show();
+
+        confirmation_logout.dismiss();
+
+        location = locationnnv.getText().toString();
+        String data = datat.getText().toString();
+
+        processData(data);
+        float y = 1f;
+        orign = "Manual";
+
+        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+        startstopshift(true);
+    }
+
+    private void handleSleepData() {
+        String dateTime = getDateTime();
+
+        // Update UI elements for Sleep Berth mode
+        signalStatusView.setText("SB");
+        fullStatusView.setText("Sleep Berth");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.VISIBLE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.GONE);
+        personalTimingView.setVisibility(View.GONE);
+
+        // Additional processing and data retrieval (location, odometer, engine hours, etc.)
+        location = locationnnv.getText().toString();
+        String data = datat.getText().toString();
+        processData(data);
+
+        // Define sleep-related parameters
+        float y = 3f;
+        status = "Sleep";
+        orign = "Manual";
+
+        // Insert sleep data into your data repository or database
+        insertData(dateTime, y, dateTime, status, location, getOdometer, engineHours, orign, "logs");
+
+        // Perform any additional actions specific to Sleep Berth mode
+        startStopSleep();
+    }
+
+    private void handleYardData() {
+        String dateTime = getDateTime();
+
+        // Update UI elements for Yard Move mode
+        signalStatusView.setText("YM");
+        fullStatusView.setText("Yard Move");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.GONE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.VISIBLE);
+        personalTimingView.setVisibility(View.GONE);
+
+        // Additional processing and data retrieval (location, odometer, engine hours, etc.)
+        location = locationnnv.getText().toString();
+        // Define yard move-related parameters
+        float y = 2f;
+        status = "YM";
+        orign = "Manual";
+
+        // Insert yard move data into your data repository or database
+        insertData(dateTime, y, dateTime, status, location, getOdometer, engineHours, orign, "logs");
+
+        // Perform any additional actions specific to Yard Move mode
+        startStopYard();
+
+        // If needed, update other variables or elements specific to Yard Move
+        helperClass.setIS_DRIVING(false);
+        helperClass.setODOMETER("");
+    }
+
+    private void insertPersonalUseData() {
+         String dateTime = getDateTime();
+
+        // Update UI elements for Personal Use mode
+        signalStatusView.setText("PU");
+        fullStatusView.setText("Personal Use");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.GONE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.GONE);
+        personalTimingView.setVisibility(View.VISIBLE);
+
+        // Additional processing and data retrieval (location, odometer, engine hours, etc.)
+        location = locationnnv.getText().toString();
+
+        // Define personal use-related parameters
+        float y = 2f;
+        status = "PU";
+        orign = "Manual";
+
+        // Insert personal use data into your data repository or database
+        insertData(dateTime, y, dateTime, status, location, getOdometer, engineHours, orign, "logs");
+
+        // Perform any additional actions specific to Personal Use mode
+        startStopPersonalTime();
+
+
+        // If needed, update other variables or elements specific to Personal Use
+        helperClass.setIS_DRIVING(false);
+        helperClass.setODOMETER("");
+    }
+
+            /*  drive.setOnClickListener(v16 ->
+
+    {
+        driverWorkStatusDialog.dismiss();
+        signalStatusView.setText("D");
+        fullStatusView.setText("Drive");
+        driveTimingView.setVisibility(View.VISIBLE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.GONE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.GONE);
+        personalTimingView.setVisibility(View.GONE);
+        location = locationnnv.getText().toString();
+
+        String daa = datat.getText().toString();
+
+        if (!daa.equals("")) {
+            String[] units = daa.split(",");
+            if (units.length > 10) {
+                if (!units[4].isEmpty())
+                    getOdometer = Double.valueOf(units[4]);
+                if (!units[6].isEmpty())
+                    engineHours = Double.valueOf(units[6]);
+
+            }
+        }
+        float y = 2f;
+        status = "Drive";
+        orign = "Manual";
+
+        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+        startStopDriveAction();
+        // callAddAttendanceRecord(status,);
+
+    });
+            offduty.setOnClickListener(v1 ->
+
+    {
+        if (offDutyHelper.offdutytimerCounting()) {
+            driverWorkStatusDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+        } else {
+            driverWorkStatusDialog.dismiss();
+            confirmation_logout.setContentView(R.layout.edit_dialog);
+            confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CardView upDateBtn = confirmation_logout.findViewById(R.id.update);
+            CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+            TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+            EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+            text.setText("Off duty reason");
+            upDateBtn.setOnClickListener(v11 -> {
+                String result = edittextedit.getText().toString();
+                if (result.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Enter something", Toast.LENGTH_SHORT).show();
+                } else {
+                    signalStatusView.setText("OFF");
+                    fullStatusView.setText("Off duty");
+                    driveTimingView.setVisibility(View.GONE);
+                    onDutyTimingView.setVisibility(View.GONE);
+                    sleepTimingView.setVisibility(View.GONE);
+                    offDutyTimingView.setVisibility(View.VISIBLE);
+                    yardTimingView.setVisibility(View.GONE);
+                    personalTimingView.setVisibility(View.GONE);
+
+                    Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
+
+                    confirmation_logout.dismiss();
+                    location = locationnnv.getText().toString();
+                    String daa = datat.getText().toString();
+
+                    if (!daa.equals("")) {
+                        String[] units = daa.split(",");
+                        if (units.length > 10) {
+                            if (!units[4].isEmpty())
+                                getOdometer = Double.valueOf(units[4]);
+                            if (!units[6].isEmpty())
+                                engineHours = Double.valueOf(units[6]);
+
+                        }
+                    }
+
+                    float y = 4f;
+                    status = "OFFD";
+                    orign = "Manual";
+
+                    insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+                    startstopOFFDuty();
+
+                }
+            });
+            cancel.setOnClickListener(v112 -> {
+                confirmation_logout.dismiss();
+                driverWorkStatusDialog.show();
+            });
+            confirmation_logout.setCancelable(false);
+            confirmation_logout.show();
+        }
+
+    });
+            onduty.setOnClickListener(v12 ->
+
+    {
+
+        if (shifthelper.shifttimerCounting()) {
+            driverWorkStatusDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+        } else {
+            driverWorkStatusDialog.dismiss();
+            confirmation_logout.setContentView(R.layout.edit_dialog);
+            confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CardView yes = confirmation_logout.findViewById(R.id.update);
+            CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+            TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+            EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+            text.setText("On duty reason");
+
+            yes.setOnClickListener(v121 -> {
+                String result = edittextedit.getText().toString();
+                if (result.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Enter something", Toast.LENGTH_SHORT).show();
+                } else {
+                    signalStatusView.setText("ON");
+                    fullStatusView.setText("on duty");
+                    driveTimingView.setVisibility(View.GONE);
+                    onDutyTimingView.setVisibility(View.VISIBLE);
+                    sleepTimingView.setVisibility(View.GONE);
+                    offDutyTimingView.setVisibility(View.GONE);
+                    yardTimingView.setVisibility(View.GONE);
+                    personalTimingView.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
+                    confirmation_logout.dismiss();
+
+                    location = locationnnv.getText().toString();
+                    String daa = datat.getText().toString();
+
+                    if (!daa.equals("")) {
+                        String[] units = daa.split(",");
+                        if (units.length > 10) {
+                            if (!units[4].isEmpty())
+                                getOdometer = Double.valueOf(units[4]);
+                            if (!units[6].isEmpty())
+                                engineHours = Double.valueOf(units[6]);
+
+                        }
+                    }
+
+                    float y = 1f;
+                    status = "OND";
+                    orign = "Manual";
+
+                    insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+                    startstopshift(true);
+                }
+            });
+            cancel.setOnClickListener(v1212 -> {
+                confirmation_logout.dismiss();
+                driverWorkStatusDialog.show();
+            });
+            confirmation_logout.setCancelable(false);
+            confirmation_logout.show();
+        }
+
+    });
+            sleep.setOnClickListener(v13 ->
+
+    {
+        driverWorkStatusDialog.dismiss();
+        signalStatusView.setText("SB");
+        fullStatusView.setText("Sleep berth");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.VISIBLE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.GONE);
+        personalTimingView.setVisibility(View.GONE);
+        float y = 3f;
+        String status = "Sleep";
+        location = locationnnv.getText().toString();
+        String daa = datat.getText().toString();
+
+        if (daa.equals("")) {
+
+        } else {
+            String[] units = daa.split(",");
+            if (units.length > 10) {
+                if (!units[4].isEmpty())
+                    getOdometer = Double.valueOf(units[4]);
+                if (!units[6].isEmpty())
+                    engineHours = Double.valueOf(units[6]);
+
+            }
+        }
+        orign = "Manual";
+
+        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+        startstopsleep();
+
+    });
+            yard.setOnClickListener(v14 ->
+
+    {
+        driverWorkStatusDialog.dismiss();
+
+        signalStatusView.setText("YM");
+        fullStatusView.setText("Yard move");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.GONE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.VISIBLE);
+        personalTimingView.setVisibility(View.GONE);
+        location = locationnnv.getText().toString();
+        String daa = datat.getText().toString();
+        float y = 2f;
+        status = "YM";
+        if (daa.equals("")) {
+
+        } else {
+            String[] units = daa.split(",");
+            if (units.length > 10) {
+                if (!units[4].isEmpty())
+                    getOdometer = Double.valueOf(units[4]);
+                if (!units[6].isEmpty())
+                    engineHours = Double.valueOf(units[6]);
+
+            }
+        }
+        orign = "Manual";
+
+        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+        startstopy();
+
+        helperClass.setIS_DRIVING(false);
+        helperClass.setODOMETER("");
+
+    });
+
+            personaluse.setOnClickListener(v15 ->
+
+    {
+        driverWorkStatusDialog.dismiss();
+
+        signalStatusView.setText("PU");
+        fullStatusView.setText("Personal use");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.GONE);
+        offDutyTimingView.setVisibility(View.GONE);
+        yardTimingView.setVisibility(View.GONE);
+        personalTimingView.setVisibility(View.VISIBLE);
+        location = locationnnv.getText().toString();
+        String daa = datat.getText().toString();
+
+        float y = 2f;
+        status = "PU";
+        if (daa.equals("")) {
+
+        } else {
+            String[] units = daa.split(",");
+            if (units.length > 10) {
+                if (!units[4].isEmpty())
+                    getOdometer = Double.valueOf(units[4]);
+                if (!units[6].isEmpty())
+                    engineHours = Double.valueOf(units[6]);
+
+            }
+        }
+
+        orign = "Manual";
+
+        insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+
+        startstopy();
+        helperClass.setIS_DRIVING(false);
+        helperClass.setODOMETER("");
+    });*/
+
 
     @Override
     public void onBackPressed() {
@@ -1143,67 +1358,67 @@ public class DashboardScreen extends BaseActivity {
         driveHelper.setdrivetimerCounting(true);
     }
 
-    private final void startStopDriveAction() {
-
-        if (driveHelper.drivetimerCounting()) {
-            driveHelper.setstopdriveTime(new Date());
-            //stopDriveTimer();
-            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
-        } else {
-
-            if (driveHelper.stopdriveTime() != null) {
-                driveHelper.setstartdriveTime(calcRestartTime());
-                driveHelper.setstopdriveTime(null);
-            } else {
-                driveHelper.setstartdriveTime(new Date());
-            }
-            if (heplper.timerCountinge()) {
-                heplper.setStopTimee(new Date());
-                stopsleep();
-            }
-            if (yardmoveshelper.ytimerCountinge()) {
-                yardmoveshelper.ysetStopTimee(new Date());
-                stopy();
-            }
-            if (personalHelper.ptimerCountinge()) {
-                personalHelper.psetStopTimee(new Date());
-                stopp();
-            }
-
-            if (breakhelper.stopbreakTime() != null) {
-                breakhelper.setstartbreakTime(offrestarttime());
-                breakhelper.setstopbreakTime(null);
-            } else {
-                breakhelper.setstartbreakTime(new Date());
-            }
-            startDriveTimer();
-            startbreak();
-
-            final Handler handl = new Handler();
-            handl.post(new Runnable() {
-                @SuppressLint("NewApi")
-                @Override
-                public void run() {
-
-                    long driveprog = drivesec / 1000;
-                    int peogressss = (int) driveprog;
-
-                    int hours = peogressss / 3600;
-                    int minutes = (peogressss % 3600) / 60;
-                    int secs = peogressss % 60;
-                    String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
-                    driveingtiming.setText(time);
-
-                    handl.postDelayed(this, 1000);
-                }
-            });
-            if (helperClass.getDASHBOARD()) {
-                myFragment.changeDriveandBreakUI(true, true);
-
-            }
-
-        }
-    }
+//    private final void startStopDriveAction() {
+//
+//        if (driveHelper.drivetimerCounting()) {
+//            driveHelper.setstopdriveTime(new Date());
+//            //stopDriveTimer();
+//            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+//        } else {
+//
+//            if (driveHelper.stopdriveTime() != null) {
+//                driveHelper.setstartdriveTime(calcRestartTime());
+//                driveHelper.setstopdriveTime(null);
+//            } else {
+//                driveHelper.setstartdriveTime(new Date());
+//            }
+//            if (heplper.timerCountinge()) {
+//                heplper.setStopTimee(new Date());
+//                stopsleep();
+//            }
+//            if (yardmoveshelper.ytimerCountinge()) {
+//                yardmoveshelper.ysetStopTimee(new Date());
+//                stopy();
+//            }
+//            if (personalHelper.ptimerCountinge()) {
+//                personalHelper.psetStopTimee(new Date());
+//                stopp();
+//            }
+//
+//            if (breakhelper.stopbreakTime() != null) {
+//                breakhelper.setstartbreakTime(offrestarttime());
+//                breakhelper.setstopbreakTime(null);
+//            } else {
+//                breakhelper.setstartbreakTime(new Date());
+//            }
+//            startDriveTimer();
+//            startbreak();
+//
+//            final Handler handl = new Handler();
+//            handl.post(new Runnable() {
+//                @SuppressLint("NewApi")
+//                @Override
+//                public void run() {
+//
+//                    long driveprog = drivesec / 1000;
+//                    int peogressss = (int) driveprog;
+//
+//                    int hours = peogressss / 3600;
+//                    int minutes = (peogressss % 3600) / 60;
+//                    int secs = peogressss % 60;
+//                    String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
+//                    driveTimingView.setText(time);
+//
+//                    handl.postDelayed(this, 1000);
+//                }
+//            });
+//            if (helperClass.getDASHBOARD()) {
+//                myFragment.changeDriveandBreakUI(true, true);
+//
+//            }
+//
+//        }
+//    }
 
     private final void stopsleep() {
         heplper.setTimerCountinge(false);
@@ -1214,17 +1429,15 @@ public class DashboardScreen extends BaseActivity {
 
     }
 
-    private final void startstopsleep() {
-        if (heplper.timerCountinge()) {
+    private final void startStopSleep() {
+        if (heplper.isTimerCounting()) {
             Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
         } else {
-
-//            inserdataa(x,y);
-            if (heplper.stopTimee() != null) {
-                heplper.setStartTimee(restarttime());
-                heplper.setStopTimee(null);
+            if (heplper.stopTime() != null) {
+                heplper.setStartTime(restarttime());
+                heplper.setStopTime(null);
             } else {
-                heplper.setStartTimee(new Date());
+                heplper.setStartTime(new Date());
             }
 
             if (driveHelper.drivetimerCounting()) {
@@ -1269,7 +1482,7 @@ public class DashboardScreen extends BaseActivity {
 
                     String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
 
-                    sleeptiming.setText(time);
+                    sleepTimingView.setText(time);
                     handl.postDelayed(this, 1000);
                 }
             });
@@ -1336,8 +1549,8 @@ public class DashboardScreen extends BaseActivity {
             } else {
                 offDutyHelper.setstartoffdutyTime(new Date());
             }
-            if (heplper.timerCountinge()) {
-                heplper.setStopTimee(new Date());
+            if (heplper.isTimerCounting()) {
+                heplper.setStopTime(new Date());
                 stopsleep();
             }
             if (yardmoveshelper.ytimerCountinge()) {
@@ -1380,7 +1593,7 @@ public class DashboardScreen extends BaseActivity {
                 String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
 
 
-                offdutyting.setText(time);
+                offDutyTimingView.setText(time);
                 handl.postDelayed(this, 1000);
             }
         });
@@ -1434,7 +1647,7 @@ public class DashboardScreen extends BaseActivity {
                     String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
 
 
-                    ondutytiming.setText(time);
+                    onDutyTimingView.setText(time);
                     handl.postDelayed(this, 1000);
                 }
             });
@@ -1454,7 +1667,7 @@ public class DashboardScreen extends BaseActivity {
         yardmoveshelper.ysetTimerCountinge(true);
     }
 
-    private final void startstopy() {
+    private final void startStopYard() {
         if (yardmoveshelper.ytimerCountinge()) {
 //            yardmoveshelper.ysetStopTimee(new Date());
 //            stopy();
@@ -1470,8 +1683,8 @@ public class DashboardScreen extends BaseActivity {
                 driveHelper.setstopdriveTime(new Date());
                 stopDriveTimer();
             }
-            if (heplper.timerCountinge()) {
-                heplper.setStopTimee(new Date());
+            if (heplper.isTimerCounting()) {
+                heplper.setStopTime(new Date());
                 stopsleep();
             }
             if (breakhelper.breaktimerCounting()) {
@@ -1508,7 +1721,7 @@ public class DashboardScreen extends BaseActivity {
 
                     String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
 
-                    yardtiming.setText(time);
+                    yardTimingView.setText(time);
                     handl.postDelayed(this, 1000);
                 }
             });
@@ -1523,7 +1736,7 @@ public class DashboardScreen extends BaseActivity {
         personalHelper.psetTimerCountinge(true);
     }
 
-    private final void startstop() {
+   private final void startStopPersonalTime() {
         if (personalHelper.ptimerCountinge()) {
             Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
         } else {
@@ -1537,8 +1750,8 @@ public class DashboardScreen extends BaseActivity {
                 driveHelper.setstopdriveTime(new Date());
                 stopDriveTimer();
             }
-            if (heplper.timerCountinge()) {
-                heplper.setStopTimee(new Date());
+            if (heplper.isTimerCounting()) {
+                heplper.setStopTime(new Date());
                 stopsleep();
             }
             if (breakhelper.breaktimerCounting()) {
@@ -1575,7 +1788,7 @@ public class DashboardScreen extends BaseActivity {
 
                     String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
 
-                    personaltiming.setText(time);
+                    personalTimingView.setText(time);
                     handl.postDelayed(this, 1000);
                 }
             });
@@ -1583,7 +1796,7 @@ public class DashboardScreen extends BaseActivity {
     }
 
     private final Date restarttime() {
-        long diff = heplper.startTimee().getTime() - heplper.stopTimee().getTime();
+        long diff = heplper.startTime().getTime() - heplper.stopTime().getTime();
 
         return new Date(System.currentTimeMillis() + diff);
     }
@@ -1726,8 +1939,8 @@ public class DashboardScreen extends BaseActivity {
                 if (!daa.equals("")) {
                     String[] units = daa.split(",");
                     if (units.length > 10) {
-                        if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
-                        if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
+                        if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
+                        if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
                     }
 
                 }
@@ -1761,8 +1974,8 @@ public class DashboardScreen extends BaseActivity {
             if (!daa.equals("")) {
                 String[] units = daa.split(",");
                 if (units.length > 10) {
-                    if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
-                    if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
+                    if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
+                    if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
                 }
 
             }
@@ -1772,14 +1985,14 @@ public class DashboardScreen extends BaseActivity {
 
             insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 
-            singalstatus.setText("D");
-            fullstatus.setText("Drive");
-            driveingtiming.setVisibility(View.VISIBLE);
-            ondutytiming.setVisibility(View.GONE);
-            sleeptiming.setVisibility(View.GONE);
-            offdutyting.setVisibility(View.GONE);
-            yardtiming.setVisibility(View.GONE);
-            personaltiming.setVisibility(View.GONE);
+            signalStatusView.setText("D");
+            fullStatusView.setText("Drive");
+            driveTimingView.setVisibility(View.VISIBLE);
+            onDutyTimingView.setVisibility(View.GONE);
+            sleepTimingView.setVisibility(View.GONE);
+            offDutyTimingView.setVisibility(View.GONE);
+            yardTimingView.setVisibility(View.GONE);
+            personalTimingView.setVisibility(View.GONE);
 
 
             startStopDriveAction();
@@ -1817,8 +2030,8 @@ public class DashboardScreen extends BaseActivity {
                     if (units.length > 7) {
                         float y = 4f;
                         orign = "Auto";
-                        if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
-                        if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
+                        if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
+                        if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
 
                         helperClass.setSaveStatus(status);
                         helperClass.setStatusChange(true);
@@ -1826,14 +2039,14 @@ public class DashboardScreen extends BaseActivity {
                         insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
 //STOP  E_OFF START OFFD
 
-                        singalstatus.setText("OFF");
-                        fullstatus.setText("Off duty");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.VISIBLE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
+                        signalStatusView.setText("OFF");
+                        fullStatusView.setText("Off duty");
+                        driveTimingView.setVisibility(View.GONE);
+                        onDutyTimingView.setVisibility(View.GONE);
+                        sleepTimingView.setVisibility(View.GONE);
+                        offDutyTimingView.setVisibility(View.VISIBLE);
+                        yardTimingView.setVisibility(View.GONE);
+                        personalTimingView.setVisibility(View.GONE);
 
 
                     }
@@ -1869,35 +2082,35 @@ public class DashboardScreen extends BaseActivity {
                 String[] units = daa.split(",");
                 if (units.length > 6) {
                     orign = "Auto";
-                    if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
-                    if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
+                    if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
+                    if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
                     helperClass.setSaveStatus(status);
                     helperClass.setStatusChange(true);
                     float y = 0f;
                     if (status.equals("E_OFF")) {
                         // E_OFF START MODE OFFD and STOP other mode
                         y = 4f;
-                        singalstatus.setText("OFF");
-                        fullstatus.setText("Off duty");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.VISIBLE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
+                        signalStatusView.setText("OFF");
+                        fullStatusView.setText("Off duty");
+                        driveTimingView.setVisibility(View.GONE);
+                        onDutyTimingView.setVisibility(View.GONE);
+                        sleepTimingView.setVisibility(View.GONE);
+                        offDutyTimingView.setVisibility(View.VISIBLE);
+                        yardTimingView.setVisibility(View.GONE);
+                        personalTimingView.setVisibility(View.GONE);
 
 
                     } else if (status.equals("E_ON")) {
                         // E_ON START MODE OND and stop other mode
                         y = 1f;
-                        singalstatus.setText("ON");
-                        fullstatus.setText("on duty");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.VISIBLE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.GONE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
+                        signalStatusView.setText("ON");
+                        fullStatusView.setText("on duty");
+                        driveTimingView.setVisibility(View.GONE);
+                        onDutyTimingView.setVisibility(View.VISIBLE);
+                        sleepTimingView.setVisibility(View.GONE);
+                        offDutyTimingView.setVisibility(View.GONE);
+                        yardTimingView.setVisibility(View.GONE);
+                        personalTimingView.setVisibility(View.GONE);
                         startstopshift(true);
 
                     }
@@ -1943,47 +2156,47 @@ public class DashboardScreen extends BaseActivity {
                 if (units.length > 12) {
                     float y = 0f;
                     orign = "Auto";
-                    if (!units[4].toString().isEmpty()) getOdometer = Double.valueOf(units[4]);
-                    if (!units[6].toString().isEmpty()) engineHours = Double.valueOf(units[6]);
+                    if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
+                    if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
                     helperClass.setSaveStatus(status);
                     helperClass.setStatusChange(true);
 
                     if (status.equals("E_OFF")) {
                         // E_OFF START MODE OFFD and STOP other mode
                         y = 4f;
-                        singalstatus.setText("OFF");
-                        fullstatus.setText("Off duty");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.VISIBLE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
+                        signalStatusView.setText("OFF");
+                        fullStatusView.setText("Off duty");
+                        driveTimingView.setVisibility(View.GONE);
+                        onDutyTimingView.setVisibility(View.GONE);
+                        sleepTimingView.setVisibility(View.GONE);
+                        offDutyTimingView.setVisibility(View.VISIBLE);
+                        yardTimingView.setVisibility(View.GONE);
+                        personalTimingView.setVisibility(View.GONE);
 
 
                     } else if (status.equals("E_ON")) {
                         // E_ON START MODE OND and stop other mode
                         y = 1f;
-                        singalstatus.setText("ON");
-                        fullstatus.setText("on duty");
-                        driveingtiming.setVisibility(View.GONE);
-                        ondutytiming.setVisibility(View.VISIBLE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.GONE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
+                        signalStatusView.setText("ON");
+                        fullStatusView.setText("on duty");
+                        driveTimingView.setVisibility(View.GONE);
+                        onDutyTimingView.setVisibility(View.VISIBLE);
+                        sleepTimingView.setVisibility(View.GONE);
+                        offDutyTimingView.setVisibility(View.GONE);
+                        yardTimingView.setVisibility(View.GONE);
+                        personalTimingView.setVisibility(View.GONE);
                         startstopshift(true);
 
                     } else if (status.equals("Drive")) {
                         y = 2f;
-                        singalstatus.setText("D");
-                        fullstatus.setText("Drive");
-                        driveingtiming.setVisibility(View.VISIBLE);
-                        ondutytiming.setVisibility(View.GONE);
-                        sleeptiming.setVisibility(View.GONE);
-                        offdutyting.setVisibility(View.GONE);
-                        yardtiming.setVisibility(View.GONE);
-                        personaltiming.setVisibility(View.GONE);
+                        signalStatusView.setText("D");
+                        fullStatusView.setText("Drive");
+                        driveTimingView.setVisibility(View.VISIBLE);
+                        onDutyTimingView.setVisibility(View.GONE);
+                        sleepTimingView.setVisibility(View.GONE);
+                        offDutyTimingView.setVisibility(View.GONE);
+                        yardTimingView.setVisibility(View.GONE);
+                        personalTimingView.setVisibility(View.GONE);
 
 
                         startStopDriveAction();
@@ -2020,87 +2233,72 @@ public class DashboardScreen extends BaseActivity {
     }
 
     public void dialog_StillDriving() {
-        driverWorkstatusDialog.setContentView(R.layout.change_status_notification);
-        driverWorkstatusDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        driverWorkstatusDialog.setCancelable(true);
-        driverWorkstatusDialog.show();
-        CardView no = driverWorkstatusDialog.findViewById(R.id.no);
-        CardView drive = driverWorkstatusDialog.findViewById(R.id.drive);
+        driverWorkStatusDialog.setContentView(R.layout.change_status_notification);
+        driverWorkStatusDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        driverWorkStatusDialog.setCancelable(true);
+        driverWorkStatusDialog.show();
+        CardView no = driverWorkStatusDialog.findViewById(R.id.no);
+        CardView drive = driverWorkStatusDialog.findViewById(R.id.drive);
 
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                driverWorkstatusDialog.dismiss();
-                confirmation_logout.setContentView(R.layout.edit_dialog);
-                confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                CardView yes = confirmation_logout.findViewById(R.id.update);
-                CardView cancel = confirmation_logout.findViewById(R.id.cancel);
-                TextView text = confirmation_logout.findViewById(R.id.dialog_title);
-                EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
-                text.setText("On duty reason");
+        no.setOnClickListener(v -> {
+            driverWorkStatusDialog.dismiss();
+            confirmation_logout.setContentView(R.layout.edit_dialog);
+            confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CardView yes = confirmation_logout.findViewById(R.id.update);
+            CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+            TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+            EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+            text.setText("On duty reason");
 
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String result = edittextedit.getText().toString();
-                        if (result.equals("")) {
-                            Toast.makeText(getApplicationContext(), "Enter something", Toast.LENGTH_SHORT).show();
-                        } else {
-                            singalstatus.setText("ON");
-                            fullstatus.setText("on duty");
-                            driveingtiming.setVisibility(View.GONE);
-                            ondutytiming.setVisibility(View.VISIBLE);
-                            sleeptiming.setVisibility(View.GONE);
-                            offdutyting.setVisibility(View.GONE);
-                            yardtiming.setVisibility(View.GONE);
-                            personaltiming.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
-                            confirmation_logout.dismiss();
+            yes.setOnClickListener(v12 -> {
+                String result = edittextedit.getText().toString();
+                if (result.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Enter something", Toast.LENGTH_SHORT).show();
+                } else {
+                    signalStatusView.setText("ON");
+                    fullStatusView.setText("on duty");
+                    driveTimingView.setVisibility(View.GONE);
+                    onDutyTimingView.setVisibility(View.VISIBLE);
+                    sleepTimingView.setVisibility(View.GONE);
+                    offDutyTimingView.setVisibility(View.GONE);
+                    yardTimingView.setVisibility(View.GONE);
+                    personalTimingView.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
+                    confirmation_logout.dismiss();
 
-                            location = locationnnv.getText().toString();
-                            String daa = datat.getText().toString();
+                    location = locationnnv.getText().toString();
+                    String daa = datat.getText().toString();
 
-                            if (!daa.equals("")) {
-                                String[] units = daa.split(",");
-                                if (units.length > 10) {
-                                    if (!units[4].toString().isEmpty())
-                                        getOdometer = Double.valueOf(units[4]);
-                                    if (!units[6].toString().isEmpty())
-                                        engineHours = Double.valueOf(units[6]);
-
-                                }
-                            }
-
-
-                            float y = 1f;
-                            status = "OND";
-                            orign = "Manual";
-                            helperClass.setIS_DRIVING(false);
-                            insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-                            startstopshift(true);
+                    if (!daa.equals("")) {
+                        String[] units = daa.split(",");
+                        if (units.length > 10) {
+                            if (!units[4].isEmpty())
+                                getOdometer = Double.valueOf(units[4]);
+                            if (!units[6].isEmpty())
+                                engineHours = Double.valueOf(units[6]);
 
                         }
                     }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmation_logout.dismiss();
-                        driverWorkstatusDialog.show();
-                    }
-                });
-                confirmation_logout.setCancelable(false);
-                confirmation_logout.show();
-            }
+
+
+                    float y = 1f;
+                    status = "OND";
+                    orign = "Manual";
+                    helperClass.setIS_DRIVING(false);
+                    insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+                    startstopshift(true);
+
+                }
+            });
+            cancel.setOnClickListener(v1 -> {
+                confirmation_logout.dismiss();
+                driverWorkStatusDialog.show();
+            });
+            confirmation_logout.setCancelable(false);
+            confirmation_logout.show();
         });
 
-        drive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                driverWorkstatusDialog.dismiss();
-            }
-        });
+        drive.setOnClickListener(v -> driverWorkStatusDialog.dismiss());
 
     }
 
@@ -2124,7 +2322,7 @@ public class DashboardScreen extends BaseActivity {
 
     }
 
-    public void createFirstLog() {
+   /* public void createFirstLog() {
         Log.d("TAG", " =========createFirstLog========== " + helperClass.getFirstLogin());
         if (helperClass.getFirstLogin()) {
 
@@ -2147,14 +2345,14 @@ public class DashboardScreen extends BaseActivity {
             insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
             helperClass.setFirstLogin(false);
 
-            singalstatus.setText("OFF");
-            fullstatus.setText("Off duty");
+            signal_status.setText("OFF");
+            fullStatusView.setText("Off duty");
             driveingtiming.setVisibility(View.GONE);
-            ondutytiming.setVisibility(View.GONE);
+            onDutyTimingView.setVisibility(View.GONE);
             sleeptiming.setVisibility(View.GONE);
             offdutyting.setVisibility(View.VISIBLE);
-            yardtiming.setVisibility(View.GONE);
-            personaltiming.setVisibility(View.GONE);
+            yardTimingView.setVisibility(View.GONE);
+            personalTimingView.setVisibility(View.GONE);
 
             if (offDutyHelper.offdutytimerCounting()) {
                 offDutyHelper.setstartoffdutyTime(new Date());
@@ -2214,6 +2412,100 @@ public class DashboardScreen extends BaseActivity {
                 }
             });
         }
+    }*/
+
+    public void createFirstLog() {
+        if (helperClass.getFirstLogin()) {
+            String rawData = datat.getText().toString();
+            location = locationnnv.getText().toString();
+
+            // Extract values from the 'rawData' string and update 'getOdometer' and 'engineHours'.
+            updateOdometerAndEngineHours(rawData);
+
+            // Initialize variables
+            float initialY = 4f;
+            String logStatus = "OFFD";
+            String originType = "Auto";
+
+            // Insert data and set 'FirstLogin' to false
+            insertLogEntry(initialY, logStatus, location, originType);
+
+            // Update UI elements
+            updateUIState();
+
+            // Start the off-duty timer
+            startOffDutyTimer();
+        }
+    }
+
+    private void updateOdometerAndEngineHours(String rawData) {
+        if (!rawData.isEmpty()) {
+            String[] dataUnits = rawData.split(",");
+            if (dataUnits.length > 11) {
+                if (!dataUnits[4].isEmpty()) getOdometer = Double.valueOf(dataUnits[4]);
+                if (!dataUnits[6].isEmpty()) engineHours = Double.valueOf(dataUnits[6]);
+            }
+        }
+    }
+
+    private void insertLogEntry(float initialY, String logStatus, String logLocation, String originType) {
+        insertLogData(getCurrentDateTime(), initialY, logStatus, logLocation, getOdometer, engineHours, originType, "logs");
+        helperClass.setFirstLogin(false);
+    }
+
+    private void updateUIState() {
+        signalStatusView.setText("OFF");
+        fullStatusView.setText("Off duty");
+        driveTimingView.setVisibility(View.GONE);
+        onDutyTimingView.setVisibility(View.GONE);
+        sleepTimingView.setVisibility(View.GONE);
+        offDutyTimingView.setVisibility(View.VISIBLE);
+        yardTimingView.setVisibility(View.GONE);
+        personalTimingView.setVisibility(View.GONE);
+
+        // Handle other timer-related logic
+        handleTimers();
+    }
+
+    private void startOffDutyTimer() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @SuppressLint("NewApi")
+            @Override
+            public void run() {
+                long offDutyProgress = offdutysec / 1000;
+                int progressInSeconds = (int) offDutyProgress;
+
+                int hours = progressInSeconds / 3600;
+                int minutes = (progressInSeconds % 3600) / 60;
+                int seconds = progressInSeconds % 60;
+
+                String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds);
+
+                offDutyTimingView.setText(time);
+                handler.postDelayed(this, 1000);
+            }
+        });
+    }
+
+    private void handleTimers() {
+        if (offDutyHelper.offdutytimerCounting()) {
+            offDutyHelper.setstartoffdutyTime(new Date());
+            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+        } else {
+            // Handle off-duty logic
+        }
+
+        // Handle other timers here
+    }
+
+    private void insertLogData(Date dateTime, float y, String status, String location, Double odometer, Double hours, String origin, String logType) {
+        // Implement the data insertion logic here.
+    }
+
+    private Date getCurrentDateTime() {
+        // Implement the logic to get the current date and time.
+        return new Date();
     }
 
     public void createINTLog() {
@@ -2284,9 +2576,9 @@ public class DashboardScreen extends BaseActivity {
         }
 
         public void run() {
-            if (heplper.timerCountinge()) {
+            if (heplper.isTimerCounting()) {
                 long datt = (new Date()).getTime();
-                long time = datt - heplper.startTimee().getTime();
+                long time = datt - heplper.startTime().getTime();
                 timeFromLong(time);
 
             }
@@ -2430,5 +2722,5 @@ public class DashboardScreen extends BaseActivity {
         }
     }
 
-    
+
 }

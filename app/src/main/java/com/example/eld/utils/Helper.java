@@ -18,47 +18,47 @@ public class Helper {
     private SharedPreferences sharedPref;
     private SimpleDateFormat dateFormat;
     private boolean timerCounting;
-    private Date startTimeee;
-    private Date stopTimeee;
+    private Date startTime;
+    private Date stopTime;
 
     @NotNull
     public static final Helper.Companionn Companion = new Helper.Companionn((DefaultConstructorMarker)null);
 
     @Nullable
-    public final Date startTimee() {
-        return this.startTimeee;
+    public final Date startTime() {
+        return this.startTime;
     }
-    public final void setStartTimee(@Nullable Date datee) {
-        this.startTimeee = datee;
+    public final void setStartTime(@Nullable Date date) {
+        this.startTime = date;
         SharedPreferences.Editor var2 = this.sharedPref.edit();
         boolean var4 = false;
-        String stringDatee = datee == null ? null : this.dateFormat.format(datee);
+        String stringDatee = date == null ? null : this.dateFormat.format(date);
         var2.putString("sleepstart", stringDatee);
         var2.apply();
     }
     @Nullable
-    public final Date stopTimee() {
-        return this.stopTimeee;
+    public final Date stopTime() {
+        return this.stopTime;
     }
 
-    public final void setStopTimee(@Nullable Date datee) {
-        this.stopTimeee = datee;
+    public final void setStopTime(@Nullable Date date) {
+        this.stopTime = date;
         SharedPreferences.Editor var2 = this.sharedPref.edit();
         boolean var4 = false;
-        String stringDatee = datee == null ? null : this.dateFormat.format(datee);
+        String stringDatee = date == null ? null : this.dateFormat.format(date);
         var2.putString("sleepstop", stringDatee);
         var2.apply();
     }
 
-    public final boolean timerCountinge() {
+    public final boolean isTimerCounting() {
         return this.timerCounting;
     }
 
-    public final void setTimerCountinge(boolean valuee) {
-        this.timerCounting = valuee;
+    public final void setTimerCountinge(boolean value) {
+        this.timerCounting = value;
         SharedPreferences.Editor var2 = this.sharedPref.edit();
         boolean var4 = false;
-        var2.putBoolean("sleepcountinue", valuee);
+        var2.putBoolean("sleepcountinue", value);
         var2.apply();
     }
     public Helper(@NotNull Context contextt) {
@@ -71,7 +71,7 @@ public class Helper {
         String startString = this.sharedPref.getString("sleepstart", (String)null);
         if (startString != null) {
             try {
-                this.startTimeee = this.dateFormat.parse(startString);
+                this.startTime = this.dateFormat.parse(startString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -79,7 +79,7 @@ public class Helper {
         String stopString = this.sharedPref.getString("sleepstop", (String)null);
         if (stopString != null) {
             try {
-                this.stopTimeee = this.dateFormat.parse(stopString);
+                this.stopTime = this.dateFormat.parse(stopString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
