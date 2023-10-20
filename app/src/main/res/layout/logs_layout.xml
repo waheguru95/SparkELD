@@ -19,7 +19,8 @@
             android:layout_gravity="center_vertical"
             android:textColor="#000"
             android:textSize="14sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
         <TextView
             android:id="@+id/statusadpter"
             android:layout_width="0dp"
@@ -42,7 +43,8 @@
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
             android:textColor="#000"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/odoadpter"
@@ -53,7 +55,8 @@
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
             android:textColor="#000"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/engadpter"
@@ -64,7 +67,8 @@
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
             android:textColor="#000"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/originadpter"
@@ -75,7 +79,8 @@
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
             android:textColor="#000"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
 
 
     </LinearLayout>

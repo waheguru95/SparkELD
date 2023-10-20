@@ -54,9 +54,16 @@ public interface ApiService {
     @POST("driver/addAttendenceRecord")
     Call<ResponseBody> addAttendanceRecord(@Body AddAttendanceRecordRequestModel requestBody);
 
-    @GET("driver/getAttendenceRecord")
-    Call<ResponseBody> getAttendanceRecord(@Query("userId") String userId, @Query("fromdate") String fromDate);
+//    @GET("driver/getAttendenceRecord")
+//    Call<ResponseBody> getAttendanceRecord(@Query("userId") String userId, @Query("fromdate") String fromDate,@Query("todate") String toDate);
 
+
+    @GET("driver/getAttendenceRecord")
+    Call<ResponseBody> getAttendenceRecord(
+            @Query("userId") String userId,
+            @Query("fromdate") String fromdate,
+            @Query("todate") String todate
+    );
    @PUT ("driver/updateCoDriver")
    Call<ResponseBody> updateCoDriver(@Body UpdateCoDriverModel requestBody);
 

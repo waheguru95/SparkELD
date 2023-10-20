@@ -4,8 +4,8 @@ import com.google.firebase.Timestamp;
 
 public class Eventmodel {
     String x, y, graph, status, location, odometer, eh, orign;
-    Timestamp time;
-    public Eventmodel(String x, String y, Timestamp time, String graph, String status, String location, String odometer, String eh, String orign) {
+    String time;
+    public Eventmodel(String x, String y, String time, String graph, String status, String location, String odometer, String eh, String orign) {
         this.x = x;
         this.y = y;
         this.time = time;
@@ -44,11 +44,11 @@ public class Eventmodel {
         this.y = y;
     }
 
-    public Timestamp getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

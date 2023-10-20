@@ -545,8 +545,7 @@ public class DashboardFragment extends BaseFragment {
 
                     codriver.setText(drivername);
                     confirmation_logout.dismiss();
-                    //TODO
-                    callUpdateCoDriverAPI(drivername,"");
+                    callUpdateCoDriverAPI(edittextedit.getText().toString(), helperClass.getADD_ATTENDANCE_ID());
                 }
             });
             cancel.setOnClickListener(v12 -> confirmation_logout.dismiss());
@@ -554,85 +553,63 @@ public class DashboardFragment extends BaseFragment {
             confirmation_logout.show();
         });
 
-        trip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmation_logout.setContentView(R.layout.edit_dialog);
-                confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                CardView updateBtn = confirmation_logout.findViewById(R.id.update);
-                CardView cancel = confirmation_logout.findViewById(R.id.cancel);
-                TextView text = confirmation_logout.findViewById(R.id.dialog_title);
-                EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
-                text.setText("Trip number");
+        trip.setOnClickListener(v -> {
+            confirmation_logout.setContentView(R.layout.edit_dialog);
+            confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CardView updateBtn = confirmation_logout.findViewById(R.id.update);
+            CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+            TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+            EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+            text.setText("Trip number");
 
-                updateBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        tripnoo = edittextedit.getText().toString();
-                        if (tripnoo.equals("")) {
-                            Toast.makeText(getActivity(), "Enter something", Toast.LENGTH_SHORT).show();
-                        } else {
+            updateBtn.setOnClickListener(v13 -> {
+                tripnoo = edittextedit.getText().toString();
+                if (tripnoo.equals("")) {
+                    Toast.makeText(getActivity(), "Enter something", Toast.LENGTH_SHORT).show();
+                } else {
 
-                            String codrivername = codriver.getText().toString();
-                            String shipnorf = shipno.getText().toString();
+                    String codrivername = codriver.getText().toString();
+                    String shipnorf = shipno.getText().toString();
 
-                            tripno.setText(tripnoo);
-                            //TODO
-                            callUpdateTripNoAPI(tripnoo,"");
-                            confirmation_logout.dismiss();
+                    tripno.setText(tripnoo);
+                    //TODO
+                    callUpdateTripNoAPI(tripnoo,helperClass.getADD_ATTENDANCE_ID());
+                    confirmation_logout.dismiss();
 
-                        }
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmation_logout.dismiss();
-                    }
-                });
-                confirmation_logout.setCancelable(false);
-                confirmation_logout.show();
-            }
+                }
+            });
+            cancel.setOnClickListener(v14 -> confirmation_logout.dismiss());
+            confirmation_logout.setCancelable(false);
+            confirmation_logout.show();
         });
-        ship.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmation_logout.setContentView(R.layout.edit_dialog);
-                confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                CardView updateBtn = confirmation_logout.findViewById(R.id.update);
-                CardView cancel = confirmation_logout.findViewById(R.id.cancel);
-                TextView text = confirmation_logout.findViewById(R.id.dialog_title);
-                EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
-                text.setText("Shipping address");
+        ship.setOnClickListener(v -> {
+            confirmation_logout.setContentView(R.layout.edit_dialog);
+            confirmation_logout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CardView updateBtn = confirmation_logout.findViewById(R.id.update);
+            CardView cancel = confirmation_logout.findViewById(R.id.cancel);
+            TextView text = confirmation_logout.findViewById(R.id.dialog_title);
+            EditText edittextedit = confirmation_logout.findViewById(R.id.edittextedit);
+            text.setText("Shipping address");
 
-                updateBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        shiping = edittextedit.getText().toString();
-                        if (shiping.equals("")) {
-                            Toast.makeText(getActivity(), "Enter something", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String codrivername = codriver.getText().toString();
-                            String tripnor = tripno.getText().toString();
+            updateBtn.setOnClickListener(v15 -> {
+                shiping = edittextedit.getText().toString();
+                if (shiping.equals("")) {
+                    Toast.makeText(getActivity(), "Enter something", Toast.LENGTH_SHORT).show();
+                } else {
+                    String codrivername = codriver.getText().toString();
+                    String tripnor = tripno.getText().toString();
 
 
-                            shipno.setText(shiping);
-                            confirmation_logout.dismiss();
-                            //TODO
-                            callUpdateShippingAddressAPI(shiping,"");
+                    shipno.setText(shiping);
+                    confirmation_logout.dismiss();
+                    //TODO
+                    callUpdateShippingAddressAPI(shiping,helperClass.getADD_ATTENDANCE_ID());
 
-                        }
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmation_logout.dismiss();
-                    }
-                });
-                confirmation_logout.setCancelable(false);
-                confirmation_logout.show();
-            }
+                }
+            });
+            cancel.setOnClickListener(v16 -> confirmation_logout.dismiss());
+            confirmation_logout.setCancelable(false);
+            confirmation_logout.show();
         });
 
 
@@ -1481,7 +1458,7 @@ public class DashboardFragment extends BaseFragment {
     }
 
     private void callUpdateCoDriverAPI(String coDriver, String id) {
-        UpdateCoDriverModel requestBody = new UpdateCoDriverModel(coDriver,id);
+        UpdateCoDriverModel requestBody = new UpdateCoDriverModel(id,coDriver);
         if (helperClass.getNetworkInfo()) {
             Call<ResponseBody> updateCoDrivercall = apiService.updateCoDriver(requestBody);
             updateCoDrivercall.enqueue(new Callback<ResponseBody>() {
@@ -1519,7 +1496,7 @@ public class DashboardFragment extends BaseFragment {
         }
     }
     private void callUpdateTripNoAPI(String tripNo, String id) {
-        UpdateTripNoModel requestBody = new UpdateTripNoModel(tripNo,id);
+        UpdateTripNoModel requestBody = new UpdateTripNoModel(id,tripNo);
         if (helperClass.getNetworkInfo()) {
             Call<ResponseBody> updateTripNoCall = apiService.updateTripNo(requestBody);
             updateTripNoCall.enqueue(new Callback<ResponseBody>() {
@@ -1557,7 +1534,7 @@ public class DashboardFragment extends BaseFragment {
         }
     }
     private void callUpdateShippingAddressAPI(String shippingAddress, String id) {
-        UpdateShippingAddressModel requestBody = new UpdateShippingAddressModel(shippingAddress,id);
+        UpdateShippingAddressModel requestBody = new UpdateShippingAddressModel(id,shippingAddress);
         if (helperClass.getNetworkInfo()) {
             Call<ResponseBody> updateShippingAddressCall = apiService.updateShippingAddress(requestBody);
             updateShippingAddressCall.enqueue(new Callback<ResponseBody>() {

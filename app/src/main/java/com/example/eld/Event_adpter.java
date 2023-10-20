@@ -34,7 +34,7 @@ public class Event_adpter extends RecyclerView.Adapter<Event_adpter.evenholder> 
     public void onBindViewHolder(@NonNull Event_adpter.evenholder holder, int position) {
         Eventmodel eventmodel = list.get(position);
         if (eventmodel.getTime() != null) {
-            holder.time.setText(TimestampConverter.convertTimestamp(eventmodel.getTime()));
+            holder.time.setText(eventmodel.getTime());
         }
 
         holder.status.setText(eventmodel.getStatus());

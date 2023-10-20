@@ -1,9 +1,13 @@
 
-g	java:S112_"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8“¥‘œ¬1
-m	java:S116"QRename this field "et_otp" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¥‰Î8°¥‘œ¬1
-u	java:S116"YRename this field "et_newPassword" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¥‰Î8°¥‘œ¬1
-y	java:S116"]Rename this field "et_comfirmPassword" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¥‰Î8°¥‘œ¬1
+g	java:S112v"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ûÁ£’­1
+m
+java:S1301W"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ8ûÁ£’­1
+m	java:S116"QRename this field "et_otp" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¥‰Î8ªÂ£’­1
+u	java:S116"YRename this field "et_newPassword" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¥‰Î8ªÂ£’­1
+y	java:S116"]Rename this field "et_comfirmPassword" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¥‰Î8ªÂ£’­1
 h
-java:S1659"KDeclare "et_newPassword" and all following declarations on a separate line.(Õ¥‰Î8·¥‘œ¬1
+java:S1659"KDeclare "et_newPassword" and all following declarations on a separate line.(Õ¥‰Î8ªÂ£’­1
+J
+java:S19408"(Use the opposite operator ("<") instead.(½½¢Îùÿÿÿÿ8ºÂ£’­1
 ]
-java:S1858]"@"string" returns a string, there's no need to call "toString()".(ø…¾8Ì¥‘œ¬1
+java:S1858t"@"string" returns a string, there's no need to call "toString()".(ø…¾8ÊÂ£’­1

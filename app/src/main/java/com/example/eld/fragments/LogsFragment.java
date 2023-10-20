@@ -25,8 +25,9 @@ import com.example.eld.Event_adpter;
 import com.example.eld.Eventmodel;
 import com.example.eld.R;
 import com.example.eld.activity.BaseActivity;
-
 import com.example.eld.activity.DashboardScreen;
+import com.example.eld.network.dto.login.response.GetAttendanceResponseModel;
+import com.example.eld.network.dto.login.response.Record;
 import com.example.eld.utils.TimestampConverter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -41,17 +42,20 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -83,11 +87,12 @@ public class LogsFragment extends Fragment {
     LineData lineData;
     Timestamp stimestamp, ltimestamp;
     private BaseActivity baseActivity;
+    private String formattedDate1;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        baseActivity = ((DashboardScreen)context);
+        baseActivity = ((DashboardScreen) context);
     }
 
     @Override
@@ -102,7 +107,7 @@ public class LogsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        callGetAttendanceRecord();
+        //
         lineEntries = new ArrayList<>();
 
         filterrr = view.findViewById(R.id.filterrr);
@@ -118,6 +123,7 @@ public class LogsFragment extends Fragment {
         SimpleDateFormat senddf = new SimpleDateFormat("MM/dd/yyyy");
         String senddate = senddf.format(c.getTime());
         formattedDatee = df.format(c.getTime());
+        callGetAttendanceRecord("2023-09-26", "2023-09-26");
         showdate.setText(formattedDatee);
         Calendar t = Calendar.getInstance();
         t.add(Calendar.DATE, -7);
@@ -152,7 +158,6 @@ public class LogsFragment extends Fragment {
         lineChart.getXAxis().setLabelCount(25);
         lineChart.getXAxis().setAxisMinimum(0);
         lineChart.getXAxis().setAxisMaximum(24);
-
 
 
         // Setup Y Axis
@@ -194,58 +199,52 @@ public class LogsFragment extends Fragment {
 
 
         // Define the EventListener outside of the button click
-        EventListener<QuerySnapshot> graphListener = new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("TAG", "Listen failed.", e);
-                    return;
-                }
+        EventListener<QuerySnapshot> graphListener = (snapshots, e) -> {
+            if (e != null) {
+                Log.w("TAG", "Listen failed.", e);
+                return;
+            }
 
-                List<DocumentSnapshot> listt = snapshots.getDocuments();
+            List<DocumentSnapshot> listt = snapshots.getDocuments();
 
-                Eventmodel em;
-                Log.d("TAG", " =========GSize=========> " + snapshots.size());
-                for (QueryDocumentSnapshot doc : snapshots) {
-                    if (doc.exists()) {
-                        lineEntries.clear();
-                        for (DocumentSnapshot d : listt) {
-                            em = d.toObject(Eventmodel.class);
-                           // Log.d("TAG", " =========YYYYYY=========> " + em.getY());
-                            float x = Float.parseFloat(TimestampConverter.convertTimestampforx(em.getX()));
-                            float y = Float.parseFloat(em.getY());
-                            lineEntries.add(new Entry(x, y));
+            Eventmodel em;
+            Log.d("TAG", " =========GSize=========> " + snapshots.size());
+            for (QueryDocumentSnapshot doc : snapshots) {
+                if (doc.exists()) {
+                    lineEntries.clear();
+                    for (DocumentSnapshot d : listt) {
+                        em = d.toObject(Eventmodel.class);
+                        // Log.d("TAG", " =========YYYYYY=========> " + em.getY());
+                        float x = Float.parseFloat(TimestampConverter.convertTimestampforx(em.getX()));
+                        float y = Float.parseFloat(em.getY());
+                        lineEntries.add(new Entry(x, y));
 
-                        }
-                        //   Log.d("TAG", "======lineEntries======" + lineEntries.size());
-                        showchart(lineEntries);
-                    } else {
-                        Log.d("TAG", "Current data: null");
-
-                        lineChart.clear();
-                        lineChart.invalidate();
                     }
+                    //   Log.d("TAG", "======lineEntries======" + lineEntries.size());
+                    showchart(lineEntries);
+                } else {
+                    Log.d("TAG", "Current data: null");
+
+                    lineChart.clear();
+                    lineChart.invalidate();
                 }
             }
         };
-        EventListener<QuerySnapshot> logListener = new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("TAG", "Listen failed.", e);
-                    return;
-                }
-
-                List<Eventmodel> eventList = new ArrayList<>();
-                for (QueryDocumentSnapshot doc : snapshots) {
-                    Eventmodel eventmodel = doc.toObject(Eventmodel.class);
-                    if (eventmodel.getGraph() != null && eventmodel.getGraph().equalsIgnoreCase("logs"))
-                        eventList.add(eventmodel);
-                }
-                list.clear();
-                list.addAll(eventList);
-                event_adpter.notifyDataSetChanged();
+        EventListener<QuerySnapshot> logListener = (snapshots, e) -> {
+            if (e != null) {
+                Log.w("TAG", "Listen failed.", e);
+                return;
             }
+
+            List<Eventmodel> eventList = new ArrayList<>();
+            for (QueryDocumentSnapshot doc : snapshots) {
+                Eventmodel eventmodel = doc.toObject(Eventmodel.class);
+                if (eventmodel.getGraph() != null && eventmodel.getGraph().equalsIgnoreCase("logs"))
+                    eventList.add(eventmodel);
+            }
+            list.clear();
+            list.addAll(eventList);
+            event_adpter.notifyDataSetChanged();
         };
 
 
@@ -276,99 +275,85 @@ public class LogsFragment extends Fragment {
 // Start the updates
 
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String showingdatt = showdate.getText().toString();
-                if (showingdatt.equals(formattedDatee)) {
-                    Toast.makeText(getContext(), "Nobody predicts future", Toast.LENGTH_SHORT).show();
-                } else {
-                    c.add(Calendar.DATE, 1);
-                    String formattedDate1 = df.format(c.getTime());
-                    String senddate = senddf.format(c.getTime());
-                    showdate.setText(formattedDate1);
-                    lineChart.clear();
-                    list.clear();
-                    lineEntries.clear();
-                    event_adpter.notifyDataSetChanged();
-                    Log.d("TAG", "====formattedDate1=====" + TimestampConverter.getTimestampFromDate(senddate, true));
-                    Log.d("TAG", "====formattedDate1=====" + TimestampConverter.getTimestampFromDate(senddate, false));
+        next.setOnClickListener(v -> {
+            String showingdatt = showdate.getText().toString();
+            if (showingdatt.equals(formattedDatee)) {
+                Toast.makeText(getContext(), "Nobody predicts future", Toast.LENGTH_SHORT).show();
+            } else {
+                c.add(Calendar.DATE, 1);
+                formattedDate1 = df.format(c.getTime());
+                String senddate1 = senddf.format(c.getTime());
+                showdate.setText(formattedDate1);
+                lineChart.clear();
+                list.clear();
+                lineEntries.clear();
+                event_adpter.notifyDataSetChanged();
+                Log.d("TAG", "====formattedDate1=====" + TimestampConverter.getTimestampFromDate(senddate1, true));
+                Log.d("TAG", "====formattedDate1=====" + TimestampConverter.getTimestampFromDate(senddate1, false));
+
+                callGetAttendanceRecord("2023-09-26", "2023-09-26");
 //                    Query newquery = graph.whereGreaterThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, true)).whereLessThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, false)).orderBy("time", Query.Direction.ASCENDING);
 
 //                    graphlistenerRegistration.remove();
 //                    loglistenerRegistration.remove();
 
-                    // Assign the new EventListener to the new query
+                // Assign the new EventListener to the new query
 //                    graphlistenerRegistration = newquery.addSnapshotListener(graphListener);
 //                    loglistenerRegistration = newquery.addSnapshotListener(logListener);
 //
 //
 //                    // Update the query variable with the new query
 //                    query = newquery;
-                }
             }
         });
-        privios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String showingdatt = showdate.getText().toString();
+        privios.setOnClickListener(v -> {
+            String showingdatt = showdate.getText().toString();
 
-                if (showingdatt.equals(old)) {
-                    Toast.makeText(getContext(), "Cannot be viewed before 8 days", Toast.LENGTH_SHORT).show();
-                } else {
-                    c.add(Calendar.DATE, -1);
-                    String formattedDate2 = df.format(c.getTime());
-                    String senddate = senddf.format(c.getTime());
-                    showdate.setText(formattedDate2);
-                    lineEntries.clear();
-                    lineChart.clear();
-                    list.clear();
-                    event_adpter.notifyDataSetChanged();
-                    Log.d("TAG", "====formattedDate2=====" + TimestampConverter.getTimestampFromDate(senddate, true));
-                    Log.d("TAG", "====formattedDate2=====" + TimestampConverter.getTimestampFromDate(senddate, false));
+            if (showingdatt.equals(old)) {
+                Toast.makeText(getContext(), "Cannot be viewed before 8 days", Toast.LENGTH_SHORT).show();
+            } else {
+                c.add(Calendar.DATE, -1);
+                String formattedDate2 = df.format(c.getTime());
+                String senddate12 = senddf.format(c.getTime());
+                showdate.setText(formattedDate2);
+                lineEntries.clear();
+                lineChart.clear();
+                list.clear();
+                event_adpter.notifyDataSetChanged();
+                Log.d("TAG", "====formattedDate2=====" + TimestampConverter.getTimestampFromDate(senddate12, true));
+
+                Log.d("TAG", "====formattedDate2=====" + TimestampConverter.getTimestampFromDate(senddate12, false));
+                callGetAttendanceRecord("2023-09-26", "2023-09-26");
+//
 //                    Query newquery = graph.whereGreaterThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, true)).whereLessThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, false)).orderBy("time", Query.Direction.ASCENDING);
 
 
-                    // Remove the previous listener
+                // Remove the previous listener
 //                    graphlistenerRegistration.remove();
 //                    loglistenerRegistration.remove();
-                    // Assign the new EventListener to the new query
+                // Assign the new EventListener to the new query
 //                    graphlistenerRegistration = newquery.addSnapshotListener(graphListener);
 //                    loglistenerRegistration = newquery.addSnapshotListener(logListener);
 //
 //                    // Update the query variable with the new query
 //                    query = newquery;
-                }
             }
         });
 
         dialog = new Dialog(getContext());
 
-        filterrr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.setContentView(R.layout.filter_layout);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        filterrr.setOnClickListener(v -> {
+            dialog.setContentView(R.layout.filter_layout);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                TextView cancel = dialog.findViewById(R.id.cannn);
-                TextView apply = dialog.findViewById(R.id.apply);
+            TextView cancel = dialog.findViewById(R.id.cannn);
+            TextView apply = dialog.findViewById(R.id.apply);
 
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                apply.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+            cancel.setOnClickListener(v1 -> dialog.dismiss());
+            apply.setOnClickListener(v12 -> dialog.dismiss());
 
-                dialog.setCancelable(false);
-                dialog.show();
-            }
+            dialog.setCancelable(false);
+            dialog.show();
         });
 
     }
@@ -383,16 +368,16 @@ public class LogsFragment extends Fragment {
         lineChart.invalidate();
         String showingdatt = showdate.getText().toString();
         if (showingdatt.equals(formattedDatee)) {
-           // Toast.makeText(getContext(), "Graph runing", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getContext(), "Graph runing", Toast.LENGTH_SHORT).show();
             handler.post(runnable);
         }
     }
 
-    private void callGetAttendanceRecord() {
+    private void callGetAttendanceRecord(String startDate, String endDate) {
         if (baseActivity.helperClass.getNetworkInfo()) {
-            Call<ResponseBody> addAttendanceRecordCall = baseActivity.apiService
-                    .getAttendanceRecord(String.valueOf(baseActivity.helperClass.getID()), "");
-            addAttendanceRecordCall.enqueue(new Callback<ResponseBody>() {
+            Call<ResponseBody> getAttendanceRecordCall = baseActivity.apiService
+                    .getAttendenceRecord(String.valueOf(baseActivity.helperClass.getID()), startDate, endDate);
+            getAttendanceRecordCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
@@ -401,8 +386,62 @@ public class LogsFragment extends Fragment {
                             ResponseBody responseBody = response.body();
                             if (responseBody != null) {
                                 try {
-                                    String profileJson = responseBody.string();
+                                    String logsJson = responseBody.string();
 
+                                    GetAttendanceResponseModel getAttendanceResponseModel = new Gson().fromJson(logsJson, GetAttendanceResponseModel.class);
+
+                                    int statusCode = getAttendanceResponseModel.getStatusCode();
+                                    String message = getAttendanceResponseModel.getMessage();
+                                    boolean status = getAttendanceResponseModel.isStatus();
+
+                                    List<Record> records = getAttendanceResponseModel.getData();
+                                    for (Record record : records) {
+                                        String VIN = record.getVIN();
+                                        String latitude = record.getLatitude();
+                                        String longitude = record.getLongitude();
+                                        String attendenceType = record.getAttendenceType();
+                                        int userId = record.getUserId();
+                                        String date = record.getDATE();
+
+                                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+                                        inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+
+                                        Date fdate = inputFormat.parse(date);
+                                        String formattedDate = outputFormat.format(fdate);
+
+                                        System.out.println("Formatted Date and Time: " + formattedDate);
+
+
+                                        Eventmodel logEvent = new Eventmodel();
+                                        logEvent.setStatus(attendenceType);
+
+
+                                        logEvent.setTime(formattedDate);
+                                        list.add(logEvent);
+
+                          /*      this.x = x;
+                                this.y = y;
+                                this.time = time;
+                                this.graph = graph;
+                                this.status = status;
+                                this.location = location;
+                                this.odometer = odometer;
+                                this.eh = eh;
+                                this.orign = orign;*/
+
+
+                                        System.out.println("VIN: " + VIN);
+                                        System.out.println("Latitude: " + latitude);
+                                        System.out.println("Longitude: " + longitude);
+                                        System.out.println("Attendence Type: " + attendenceType);
+                                        System.out.println("User ID: " + userId);
+                                        System.out.println("Date: " + date);
+                                    }
+                                    event_adpter = new Event_adpter(getContext(), list);
+                                    recycleview.setAdapter(event_adpter);
+                                    event_adpter.notifyDataSetChanged();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -426,5 +465,23 @@ public class LogsFragment extends Fragment {
             baseActivity.showNoInternetConnectionError();
         }
     }
+
+
+    public static String convertDateFormat(String inputDate) {
+        try {
+            // Decode the URL-encoded date
+            String decodedDate = URLDecoder.decode(inputDate, "UTF-8");
+            // Parse the decoded date using the original format
+            SimpleDateFormat originalFormat = new SimpleDateFormat("MMM dd yyyy");
+            Date date = originalFormat.parse(decodedDate);
+            // Convert the date to the desired format
+            SimpleDateFormat desiredFormat = new SimpleDateFormat("yyyy-MM-dd");
+            return desiredFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error: Unable to convert date";
+        }
+    }
+
 
 }

@@ -30,6 +30,8 @@ public class Helperclass {
     private String PASSWORD = "password";
     private String REMEMBER_ME = "remember_me";
     private String DRIVER_USER_ID = "driver_user_id";
+
+    private String ADD_ATTENDANCE_ID = "driver_user_id";
     private static final String LOGIN_STATUS = "login_status";
     public Helperclass(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
@@ -185,7 +187,14 @@ public class Helperclass {
     public void setDRIVER_USER_ID(String driver_user_id) {
         sharedPreferences.edit().putString(DRIVER_USER_ID, driver_user_id).apply();
     }
+    public String getADD_ATTENDANCE_ID() {
+        return sharedPreferences.getString(ADD_ATTENDANCE_ID, "");
+    }
 
+    public void setADD_ATTENDANCE_ID(String add_attendance_id) {
+        sharedPreferences.edit().putString(ADD_ATTENDANCE_ID, add_attendance_id).apply();
+
+    }
     public Gson getGson() {
         return gson;
     }

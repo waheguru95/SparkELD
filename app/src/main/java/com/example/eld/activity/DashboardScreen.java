@@ -39,6 +39,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import com.example.eld.LoginActivity;
 import com.example.eld.R;
 import com.example.eld.alert.FiveMinuteN;
 import com.example.eld.alert.ResetDataReceiver;
@@ -46,7 +47,10 @@ import com.example.eld.fragments.Certify_fragment;
 import com.example.eld.fragments.DashboardFragment;
 import com.example.eld.fragments.LogsFragment;
 import com.example.eld.fragments.Reports_fragment;
+import com.example.eld.models.DriverProfileModel;
 import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestModel;
+import com.example.eld.network.dto.login.response.AddAttendanceRecordResponseModel;
+import com.example.eld.network.dto.login.response.ChangePasswordResponseModel;
 import com.example.eld.utils.Breakhelper;
 import com.example.eld.utils.DriveHelper;
 import com.example.eld.utils.Helper;
@@ -59,6 +63,7 @@ import com.example.eld.utils.Yardmoveshelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 import com.iosix.eldblelib.EldBleConnectionStateChangeCallback;
 import com.iosix.eldblelib.EldBleDataCallback;
 import com.iosix.eldblelib.EldBroadcast;
@@ -549,25 +554,32 @@ public class DashboardScreen extends BaseActivity {
         String location = locationnnv.getText().toString();
         String data = datat.getText().toString();
         orign = "manual";
-
+        String attendanceType = "";
         if (!data.isEmpty()) {
             processData(data);
         }
         if (status.equals("Drive")) {
-             insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+            insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
             startStopDriveAction();
+            attendanceType = "Drive";
         } else if (status.equals("Off duty")) {
+            attendanceType = "OffDuty";
             handleOffDuty();
         } else if (status.equals("On duty")) {
+            attendanceType = "onDuty";
             handleOnDuty();
         } else if (status.equals("Sleep berth")) {
+            attendanceType = "sleep";
             handleSleepData();
         } else if (status.equals("Yard move")) {
+            attendanceType = "yardMove";
             handleYardData();
         } else if (status.equals("Personal use")) {
+            attendanceType = "personalUse";
             insertPersonalUseData();
-
         }
+        callAddAttendanceRecord(status, attendanceType);
+
     }
 
 
@@ -752,7 +764,7 @@ public class DashboardScreen extends BaseActivity {
         }
         if (yardmoveshelper.ytimerCountinge()) {
             yardmoveshelper.ysetStopTimee(new Date());
-            stopy();
+            stopyard();
         }
         if (personalHelper.ptimerCountinge()) {
             personalHelper.psetStopTimee(new Date());
@@ -884,7 +896,7 @@ public class DashboardScreen extends BaseActivity {
         updateButton.setOnClickListener(v -> {
             String result = edittextedit.getText().toString();
             if (result.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Enter something",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Enter something", Toast.LENGTH_SHORT).show();
             } else {
                 handleOnDutyMode(result);
             }
@@ -986,7 +998,7 @@ public class DashboardScreen extends BaseActivity {
     }
 
     private void insertPersonalUseData() {
-         String dateTime = getDateTime();
+        String dateTime = getDateTime();
 
         // Update UI elements for Personal Use mode
         signalStatusView.setText("PU");
@@ -1454,7 +1466,7 @@ public class DashboardScreen extends BaseActivity {
             }
             if (yardmoveshelper.ytimerCountinge()) {
                 yardmoveshelper.ysetStopTimee(new Date());
-                stopy();
+                stopyard();
             }
             if (personalHelper.ptimerCountinge()) {
                 personalHelper.psetStopTimee(new Date());
@@ -1555,7 +1567,7 @@ public class DashboardScreen extends BaseActivity {
             }
             if (yardmoveshelper.ytimerCountinge()) {
                 yardmoveshelper.ysetStopTimee(new Date());
-                stopy();
+                stopyard();
             }
         }
 
@@ -1659,11 +1671,11 @@ public class DashboardScreen extends BaseActivity {
 
     }
 
-    private final void stopy() {
+    private final void stopyard() {
         yardmoveshelper.ysetTimerCountinge(false);
     }
 
-    private final void starty() {
+    private final void startyard() {
         yardmoveshelper.ysetTimerCountinge(true);
     }
 
@@ -1703,7 +1715,7 @@ public class DashboardScreen extends BaseActivity {
                 offDutyHelper.setstopoffdutyTime(new Date());
                 stopoffdutyTimer();
             }
-            starty();
+            startyard();
 
             final Handler handl = new Handler();
             handl.post(new Runnable() {
@@ -1736,7 +1748,7 @@ public class DashboardScreen extends BaseActivity {
         personalHelper.psetTimerCountinge(true);
     }
 
-   private final void startStopPersonalTime() {
+    private final void startStopPersonalTime() {
         if (personalHelper.ptimerCountinge()) {
             Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
         } else {
@@ -1760,7 +1772,7 @@ public class DashboardScreen extends BaseActivity {
             }
             if (yardmoveshelper.ytimerCountinge()) {
                 yardmoveshelper.ysetStopTimee(new Date());
-                stopy();
+                stopyard();
             }
             if (shifthelper.shifttimerCounting()) {
                 shifthelper.setshiftstopTime(new Date());
@@ -2322,98 +2334,6 @@ public class DashboardScreen extends BaseActivity {
 
     }
 
-   /* public void createFirstLog() {
-        Log.d("TAG", " =========createFirstLog========== " + helperClass.getFirstLogin());
-        if (helperClass.getFirstLogin()) {
-
-            String daa = datat.getText().toString();
-            location = locationnnv.getText().toString();
-
-            if (!daa.equals("")) {
-                String[] units = daa.split(",");
-                Log.d("TAG", " =========OFFD========== " + units[4]);
-                if (units.length > 11) {
-                    if (!units[4].isEmpty()) getOdometer = Double.valueOf(units[4]);
-                    if (!units[6].isEmpty()) engineHours = Double.valueOf(units[6]);
-                }
-            }
-
-            float y = 4f;
-            status = "OFFD";
-            orign = "Auto";
-
-            insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-            helperClass.setFirstLogin(false);
-
-            signal_status.setText("OFF");
-            fullStatusView.setText("Off duty");
-            driveingtiming.setVisibility(View.GONE);
-            onDutyTimingView.setVisibility(View.GONE);
-            sleeptiming.setVisibility(View.GONE);
-            offdutyting.setVisibility(View.VISIBLE);
-            yardTimingView.setVisibility(View.GONE);
-            personalTimingView.setVisibility(View.GONE);
-
-            if (offDutyHelper.offdutytimerCounting()) {
-                offDutyHelper.setstartoffdutyTime(new Date());
-                Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
-            } else {
-                if (offDutyHelper.stopoffdutyTime() != null) {
-                    offDutyHelper.setstartoffdutyTime(offdutystarttime());
-                    offDutyHelper.setstopoffdutyTime(null);
-                } else {
-                    offDutyHelper.setstartoffdutyTime(new Date());
-                }
-                if (heplper.timerCountinge()) {
-                    heplper.setStopTimee(new Date());
-                    stopsleep();
-                }
-                if (yardmoveshelper.ytimerCountinge()) {
-                    yardmoveshelper.ysetStopTimee(new Date());
-                    stopy();
-                }
-            }
-            if (driveHelper.drivetimerCounting()) {
-                driveHelper.setstopdriveTime(new Date());
-                stopDriveTimer();
-            }
-            if (breakhelper.breaktimerCounting()) {
-                breakhelper.setstopbreakTime(new Date());
-
-                stopbreak();
-            }
-            if (shifthelper.shifttimerCounting()) {
-                shifthelper.setshiftstopTime(new Date());
-                stopshift();
-
-            }
-
-            startoffdutyTimer();
-
-            final Handler handl = new Handler();
-            handl.post(new Runnable() {
-                @SuppressLint("NewApi")
-                @Override
-                public void run() {
-
-                    long driveprog = offdutysec / 1000;
-                    int peogressss = (int) driveprog;
-
-
-                    int hours = peogressss / 3600;
-                    int minutes = (peogressss % 3600) / 60;
-                    int secs = peogressss % 60;
-
-                    String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
-
-
-                    offdutyting.setText(time);
-                    handl.postDelayed(this, 1000);
-                }
-            });
-        }
-    }*/
-
     public void createFirstLog() {
         if (helperClass.getFirstLogin()) {
             String rawData = datat.getText().toString();
@@ -2696,7 +2616,11 @@ public class DashboardScreen extends BaseActivity {
                             ResponseBody responseBody = response.body();
                             if (responseBody != null) {
                                 try {
-                                    String profileJson = responseBody.string();
+                                    String addAttendanceJson = responseBody.string();
+                                    Gson gson = new Gson();
+                                    AddAttendanceRecordResponseModel addAtendanceResponseModel = gson.fromJson(addAttendanceJson, AddAttendanceRecordResponseModel.class);
+                                    String addAtendanceResponseString = gson.toJson(addAtendanceResponseModel);
+                                    helperClass.setADD_ATTENDANCE_ID(""+addAtendanceResponseModel.getData());
 
                                 } catch (IOException e) {
                                     e.printStackTrace();
