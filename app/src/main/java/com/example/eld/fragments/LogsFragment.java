@@ -21,13 +21,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eld.Event_adpter;
+import com.example.eld.EventLogsAdapter;
 import com.example.eld.Eventmodel;
 import com.example.eld.R;
 import com.example.eld.activity.BaseActivity;
 import com.example.eld.activity.DashboardScreen;
 import com.example.eld.network.dto.login.response.GetAttendanceResponseModel;
-import com.example.eld.network.dto.login.response.Record;
+import com.example.eld.utils.CommonUtils;
 import com.example.eld.utils.TimestampConverter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -55,7 +55,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -68,11 +67,11 @@ public class LogsFragment extends Fragment {
     CardView filterrr, privios, next;
     String formattedDatee;
     Dialog dialog;
-    TextView showdate;
+    TextView showdate, emptyView;
     String querydate;
     RecyclerView recycleview;
     ArrayList<Eventmodel> list;
-    Event_adpter event_adpter;
+    EventLogsAdapter event_adpter;
     FirebaseFirestore firebaseFirestore;
     Eventmodel eventmodel;
     List<Entry> lineEntries;
@@ -113,6 +112,7 @@ public class LogsFragment extends Fragment {
         filterrr = view.findViewById(R.id.filterrr);
         privios = view.findViewById(R.id.privios);
         next = view.findViewById(R.id.next);
+        emptyView = view.findViewById(R.id.emptyView);
         showdate = view.findViewById(R.id.showdate);
         recycleview = view.findViewById(R.id.recycleview);
         lineChart = view.findViewById(R.id.lineCharttt);
@@ -120,10 +120,10 @@ public class LogsFragment extends Fragment {
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMM dd yyyy");
-        SimpleDateFormat senddf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat senddf = new SimpleDateFormat("yyyy-MM-dd");
         String senddate = senddf.format(c.getTime());
         formattedDatee = df.format(c.getTime());
-        callGetAttendanceRecord("2023-09-26", "2023-09-26");
+        callGetAttendanceRecord(CommonUtils.getCurrentDate(CommonUtils.dateFormat), CommonUtils.getCurrentDate(CommonUtils.dateFormat));
         showdate.setText(formattedDatee);
         Calendar t = Calendar.getInstance();
         t.add(Calendar.DATE, -7);
@@ -185,15 +185,11 @@ public class LogsFragment extends Fragment {
         lineChart.getAxisRight().setEnabled(false);
         lineChart.invalidate();
 
-        event_adpter = new Event_adpter(getContext(), list);
-        recycleview.setAdapter(event_adpter);
+//        event_adpter = new Event_adpter(getContext(), list);
+//        recycleview.setAdapter(event_adpter);
         recycleview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 //        CollectionReference graph = firebaseFirestore.collection(Helperclass.getid(getActivity()));
         //CollectionReference graph = firebaseFirestore.collection("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOm51bGwsImF1ZCI6bnVsbCwiaWF0IjoxNjc5NTczMDcwLCJuYmYiOjE2Nzk1NzMwODAsImV4cCI6MTY3OTY1OTQ3MCwiZGF0YSI6eyJpZCI6IjYiLCJkcml2ZXJfaWQiOiJ0ZXN0MDEifX0.86RCwx4C1FRfsrbS7kF42MGlD3S0uWmObHrt_DDtSZQ");
-
-        Log.d("TAG", "====1=====" + TimestampConverter.getTimestampFromDate(senddate, true));
-        Log.d("TAG", "====2=====" + TimestampConverter.getTimestampFromDate(senddate, false));
-
 // Use the UTC time to query the Firestore database
 //        query = graph.whereGreaterThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, true)).whereLessThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, false)).orderBy("time", Query.Direction.ASCENDING);
 
@@ -288,10 +284,8 @@ public class LogsFragment extends Fragment {
                 list.clear();
                 lineEntries.clear();
                 event_adpter.notifyDataSetChanged();
-                Log.d("TAG", "====formattedDate1=====" + TimestampConverter.getTimestampFromDate(senddate1, true));
-                Log.d("TAG", "====formattedDate1=====" + TimestampConverter.getTimestampFromDate(senddate1, false));
 
-                callGetAttendanceRecord("2023-09-26", "2023-09-26");
+                callGetAttendanceRecord(senddate1, senddate1);
 //                    Query newquery = graph.whereGreaterThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, true)).whereLessThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, false)).orderBy("time", Query.Direction.ASCENDING);
 
 //                    graphlistenerRegistration.remove();
@@ -320,10 +314,7 @@ public class LogsFragment extends Fragment {
                 lineChart.clear();
                 list.clear();
                 event_adpter.notifyDataSetChanged();
-                Log.d("TAG", "====formattedDate2=====" + TimestampConverter.getTimestampFromDate(senddate12, true));
-
-                Log.d("TAG", "====formattedDate2=====" + TimestampConverter.getTimestampFromDate(senddate12, false));
-                callGetAttendanceRecord("2023-09-26", "2023-09-26");
+                callGetAttendanceRecord(senddate12, senddate12);
 //
 //                    Query newquery = graph.whereGreaterThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, true)).whereLessThanOrEqualTo("time", TimestampConverter.getTimestampFromDate(senddate, false)).orderBy("time", Query.Direction.ASCENDING);
 
@@ -375,8 +366,9 @@ public class LogsFragment extends Fragment {
 
     private void callGetAttendanceRecord(String startDate, String endDate) {
         if (baseActivity.helperClass.getNetworkInfo()) {
+            baseActivity.showLoader();
             Call<ResponseBody> getAttendanceRecordCall = baseActivity.apiService
-                    .getAttendenceRecord(String.valueOf(baseActivity.helperClass.getID()), startDate, endDate);
+                    .getAttendenceRecord(String.valueOf(baseActivity.helperClass.getID()), startDate);
             getAttendanceRecordCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -387,61 +379,69 @@ public class LogsFragment extends Fragment {
                             if (responseBody != null) {
                                 try {
                                     String logsJson = responseBody.string();
-
                                     GetAttendanceResponseModel getAttendanceResponseModel = new Gson().fromJson(logsJson, GetAttendanceResponseModel.class);
-
                                     int statusCode = getAttendanceResponseModel.getStatusCode();
                                     String message = getAttendanceResponseModel.getMessage();
                                     boolean status = getAttendanceResponseModel.isStatus();
 
-                                    List<Record> records = getAttendanceResponseModel.getData();
-                                    for (Record record : records) {
-                                        String VIN = record.getVIN();
-                                        String latitude = record.getLatitude();
-                                        String longitude = record.getLongitude();
-                                        String attendenceType = record.getAttendenceType();
-                                        int userId = record.getUserId();
-                                        String date = record.getDATE();
+                                    if (getAttendanceResponseModel.getData().isEmpty()) {
+                                        emptyView.setVisibility(View.VISIBLE);
+                                        recycleview.setVisibility(View.GONE);
+                                    } else {
+                                        emptyView.setVisibility(View.GONE);
+                                        recycleview.setVisibility(View.VISIBLE);
 
-                                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                                        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
-                                        inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-
-                                        Date fdate = inputFormat.parse(date);
-                                        String formattedDate = outputFormat.format(fdate);
-
-                                        System.out.println("Formatted Date and Time: " + formattedDate);
-
-
-                                        Eventmodel logEvent = new Eventmodel();
-                                        logEvent.setStatus(attendenceType);
-
-
-                                        logEvent.setTime(formattedDate);
-                                        list.add(logEvent);
-
-                          /*      this.x = x;
-                                this.y = y;
-                                this.time = time;
-                                this.graph = graph;
-                                this.status = status;
-                                this.location = location;
-                                this.odometer = odometer;
-                                this.eh = eh;
-                                this.orign = orign;*/
-
-
-                                        System.out.println("VIN: " + VIN);
-                                        System.out.println("Latitude: " + latitude);
-                                        System.out.println("Longitude: " + longitude);
-                                        System.out.println("Attendence Type: " + attendenceType);
-                                        System.out.println("User ID: " + userId);
-                                        System.out.println("Date: " + date);
+//                                        List<Record> records = getAttendanceResponseModel.getData();
+//                                        for (Record record : records) {
+//                                            String VIN = record.getVIN();
+//                                            String latitude = record.getLatitude();
+//                                            String longitude = record.getLongitude();
+//                                            String attendenceType = record.getAttendenceType();
+//                                            int userId = record.getUserId();
+//                                            String date = record.getDATE();
+//
+//                                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                                            SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+//                                            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//
+//
+//                                            Date fdate = inputFormat.parse(date);
+//                                            String formattedDate = outputFormat.format(fdate);
+//
+//                                            System.out.println("Formatted Date and Time: " + formattedDate);
+//
+//
+//                                            Eventmodel logEvent = new Eventmodel();
+//                                            logEvent.setStatus(attendenceType);
+//
+//
+//                                            logEvent.setTime(formattedDate);
+//                                            list.add(logEvent);
+//
+//                          /*      this.x = x;
+//                                this.y = y;
+//                                this.time = time;
+//                                this.graph = graph;
+//                                this.status = status;
+//                                this.location = location;
+//                                this.odometer = odometer;
+//                                this.eh = eh;
+//                                this.orign = orign;*/
+//
+//
+//                                            System.out.println("VIN: " + VIN);
+//                                            System.out.println("Latitude: " + latitude);
+//                                            System.out.println("Longitude: " + longitude);
+//                                            System.out.println("Attendence Type: " + attendenceType);
+//                                            System.out.println("User ID: " + userId);
+//                                            System.out.println("Date: " + date);
+//                                        }
+//                                        event_adpter = new Event_adpter(getContext(), list);
+//                                        recycleview.setAdapter(event_adpter);
+//                                        event_adpter.notifyDataSetChanged();
+                                        event_adpter = new EventLogsAdapter(getContext(), getAttendanceResponseModel.getData());
+                                        recycleview.setAdapter(event_adpter);
                                     }
-                                    event_adpter = new Event_adpter(getContext(), list);
-                                    recycleview.setAdapter(event_adpter);
-                                    event_adpter.notifyDataSetChanged();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

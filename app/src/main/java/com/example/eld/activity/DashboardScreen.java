@@ -61,6 +61,7 @@ import com.example.eld.utils.TimestampConverter;
 import com.example.eld.utils.WeekHelper;
 import com.example.eld.utils.Yardmoveshelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
@@ -74,6 +75,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumSet;
@@ -388,6 +390,9 @@ public class DashboardScreen extends BaseActivity {
 
         mEldManager = EldManager.GetEldManager(this, "123456789A");
 
+        locationnnv.setText("Chandigarh, Chandigarh");
+        deviceid.setText(MessageFormat.format("Device Id: {0}", "No Device Connected"));
+        VIN_no.setText(MessageFormat.format("VIN: {0}", "No Device Connected"));
 //BLUETOOTH CONNECTIVITY
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
             bAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -558,25 +563,33 @@ public class DashboardScreen extends BaseActivity {
         if (!data.isEmpty()) {
             processData(data);
         }
-        if (status.equals("Drive")) {
-            insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-            startStopDriveAction();
-            attendanceType = "Drive";
-        } else if (status.equals("Off duty")) {
-            attendanceType = "OffDuty";
-            handleOffDuty();
-        } else if (status.equals("On duty")) {
-            attendanceType = "onDuty";
-            handleOnDuty();
-        } else if (status.equals("Sleep berth")) {
-            attendanceType = "sleep";
-            handleSleepData();
-        } else if (status.equals("Yard move")) {
-            attendanceType = "yardMove";
-            handleYardData();
-        } else if (status.equals("Personal use")) {
-            attendanceType = "personalUse";
-            insertPersonalUseData();
+
+        switch (status) {
+            case "Drive":
+                insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
+                startStopDriveAction();
+                attendanceType = "DRIVE";
+                break;
+            case "Off duty":
+                attendanceType = "OFFD";
+                handleOffDuty();
+                break;
+            case "On duty":
+                attendanceType = "OND";
+                handleOnDuty();
+                break;
+            case "Sleep berth":
+                attendanceType = "S";
+                handleSleepData();
+                break;
+            case "Yard move":
+                attendanceType = "YM";
+                handleYardData();
+                break;
+            case "Personal use":
+                attendanceType = "PU";
+                insertPersonalUseData();
+                break;
         }
         callAddAttendanceRecord(status, attendanceType);
 
@@ -739,7 +752,8 @@ public class DashboardScreen extends BaseActivity {
 
     private void handleDriveTimerRunning() {
         driveHelper.setstopdriveTime(new Date());
-        Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+        Snackbar.make(drawerLayout.getRootView(), getString(R.string.you_are_already_in_this_mode), Snackbar.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
     }
 
     private void handleDriveTimerNotRunning() {
@@ -805,7 +819,8 @@ public class DashboardScreen extends BaseActivity {
     private void handleOffDuty() {
         driverWorkStatusDialog.dismiss();
         if (offDutyHelper.offdutytimerCounting()) {
-            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
+            Snackbar.make(drawerLayout.getRootView(), R.string.you_are_already_in_this_mode, Snackbar.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "You are already in this mode", Toast.LENGTH_SHORT).show();
         } else {
             driverWorkStatusDialog.dismiss();
             showOffDutyReasonDialog();
@@ -849,7 +864,8 @@ public class DashboardScreen extends BaseActivity {
         float y = 4f;
         status = "OFFD";
         insertData(getDateTime(), y, getDateTime(), status, location, getOdometer, engineHours, orign, "logs");
-        Toast.makeText(getApplicationContext(), "Your` reason - " + reason, Toast.LENGTH_SHORT).show();
+        Snackbar.make(drawerLayout.getRootView(), "Your` reason - " + reason, Snackbar.LENGTH_SHORT).show();
+      //  Toast.makeText(getApplicationContext(), "Your` reason - " + reason, Toast.LENGTH_SHORT).show();
         startstopOFFDuty();
     }
 
@@ -921,7 +937,8 @@ public class DashboardScreen extends BaseActivity {
         yardTimingView.setVisibility(View.GONE);
         personalTimingView.setVisibility(View.GONE);
 
-        Toast.makeText(getApplicationContext(), "Your reason - " + reason, Toast.LENGTH_SHORT).show();
+        Snackbar.make(drawerLayout.getRootView(), "Your reason - " + reason, Snackbar.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), "Your reason - " + reason, Toast.LENGTH_SHORT).show();
 
         confirmation_logout.dismiss();
 
@@ -2275,7 +2292,8 @@ public class DashboardScreen extends BaseActivity {
                     offDutyTimingView.setVisibility(View.GONE);
                     yardTimingView.setVisibility(View.GONE);
                     personalTimingView.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
+                    Snackbar.make(drawerLayout.getRootView(), "Your reason - " + result, Snackbar.LENGTH_SHORT).show();
+                  //  Toast.makeText(getApplicationContext(), "Your reason - " + result, Toast.LENGTH_SHORT).show();
                     confirmation_logout.dismiss();
 
                     location = locationnnv.getText().toString();

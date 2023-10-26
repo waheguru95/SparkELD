@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="2dp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
         android:weightSum="65">
         <TextView
             android:id="@+id/timeadpter"
@@ -39,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="17"
-            android:text="Mount Holly, New Jersey"
+            android:text="Mount Holly,"
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
             android:textColor="#000"

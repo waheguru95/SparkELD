@@ -260,7 +260,7 @@ public class DashboardFragment extends BaseFragment {
     }
 
     public void changeShift(boolean shift) {
-        Toast.makeText(getActivity(), "Call fragment now", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getActivity(), "Call fragment now", Toast.LENGTH_SHORT).show();
         Log.i("TAG", "==========S=========" + shifthelper.shifttimerCounting());
 
 

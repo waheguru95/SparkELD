@@ -25,6 +25,7 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        //int a = 30/0;
 
         final BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
 //        bAdapter.enable();

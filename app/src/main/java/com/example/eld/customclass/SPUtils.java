@@ -1,4 +1,4 @@
-package com.example.eld.custumclass;
+package com.example.eld.customclass;
 
 import android.content.SharedPreferences;
 import com.google.gson.Gson;

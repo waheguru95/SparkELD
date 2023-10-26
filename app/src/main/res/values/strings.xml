@@ -31,5 +31,6 @@
     <string name="share">Share</string>
     <string name="rate">Rate</string>
     <string name="settings">Settings</string>
+    <string name="you_are_already_in_this_mode">You are already in this mode</string>
     <integer name="btnPlusView">1</integer>
 </resources>

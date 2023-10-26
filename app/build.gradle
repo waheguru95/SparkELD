@@ -19,8 +19,16 @@ android {
     buildTypes {
 
         release {
+            applicationIdSuffix ".pro"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        staging {
+            initWith debug
+
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
         }
     }
     compileOptions {
