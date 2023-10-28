@@ -94,12 +94,12 @@
                     android:id="@+id/card2text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Certified"
-                    android:textStyle="bold"
-                    android:textColor="#000"
-                    android:textAllCaps="true"
                     android:layout_gravity="center"
-                    android:textSize="18sp"/>
+                    android:text="Certified"
+                    android:textAllCaps="true"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 
@@ -109,12 +109,11 @@
     </LinearLayout>
 
 
-    <FrameLayout
-        android:id="@+id/certificationframe"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
- />
-
+        android:layout_height="wrap_content"
+        android:id="@+id/recycleview"
+        />
 </LinearLayout>
 
 

@@ -2,11 +2,11 @@
 n
 java:S1192"PDefine a constant instead of duplicating this literal "Enter something" 3 times.(é÷Ë‡8„¨÷³1
 l
-java:S1192¬"IDefine a constant instead of duplicating this literal "00:00:00" 4 times.(©çŞ³şÿÿÿÿ8…¨÷³1
-l
 java:S1192­	"ODefine a constant instead of duplicating this literal "%02d:%02d:%02d" 6 times.(¾±—88…¨÷³1
 d
 java:S1192õ"FDefine a constant instead of duplicating this literal "CLOCK" 3 times.(ìïæ8…¨÷³1
+l
+java:S1192¬"IDefine a constant instead of duplicating this literal "00:00:00" 4 times.(©çŞ³şÿÿÿÿ8…¨÷³1
 p
 java:S1192y"NDefine a constant instead of duplicating this literal "%d:%02d:%02d" 20 times.(åíáûıÿÿÿÿ8…¨÷³1
 X
@@ -33,13 +33,13 @@ java:S1104É"[Make yardmoveshelper a static final constant or non-public and pr
 }
 java:S1104Ê"ZMake personalHelper a static final constant or non-public and provide accessors if needed.(¡åš‰üÿÿÿÿ8“¨÷³1
 c
-java:S2637Œ"EThis method's return value is marked "@NotNull" but null is returned.(†‘Ü­8Å¡¨÷³1
+java:S2637ƒ"EThis method's return value is marked "@NotNull" but null is returned.(ëÎÙÓ8Æ¡¨÷³1
 h
 java:S2637•"EThis method's return value is marked "@NotNull" but null is returned.(®’‡ùÿÿÿÿ8Æ¡¨÷³1
 h
 java:S2637ñ"EThis method's return value is marked "@NotNull" but null is returned.(º•Ã–şÿÿÿÿ8Æ¡¨÷³1
 c
-java:S2637ƒ"EThis method's return value is marked "@NotNull" but null is returned.(ëÎÙÓ8Æ¡¨÷³1
+java:S2637Œ"EThis method's return value is marked "@NotNull" but null is returned.(†‘Ü­8Å¡¨÷³1
 h
 java:S2637"EThis method's return value is marked "@NotNull" but null is returned.(èé‰°øÿÿÿÿ8Æ¡¨÷³1
 €	java:S116½"^Rename this field "confirmation_logout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÓ±üÿÿÿÿ8Ç¡¨÷³1
@@ -163,12 +163,12 @@ b
 java:S1854"?Remove this useless assignment to local variable "profileJson".(É£¨şÿÿÿÿ8Œ£¨÷³1
 S
 java:S1481"0Remove this unused "profileJson" local variable.(É£¨şÿÿÿÿ8£¨÷³1
-E
-java:S3398¬
-""Move this method into "TimeTasky".(—ÙÔúÿÿÿÿ8‘£¨÷³1
 @
 java:S3398Ë
 ""Move this method into "TimeTaskp".(ŸŸš©8‘£¨÷³1
+E
+java:S3398¬
+""Move this method into "TimeTasky".(—ÙÔúÿÿÿÿ8‘£¨÷³1
 L
 java:S1068Í".Remove this unused "sleeptimer" private field.(¼²Œ¤8‘£¨÷³1
 H

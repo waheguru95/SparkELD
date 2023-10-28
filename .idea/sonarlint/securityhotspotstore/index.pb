@@ -75,3 +75,7 @@ bapp/src/main/java/com/example/eld/network/dto/login/response/AddAttendanceRecor
 ]app/src/main/java/com/example/eld/network/dto/login/response/ForgotPasswordResponseModel.java,d\7\d7cc56119a2d093fb0d6abb2a91cbec386edf136
 Œ
 \app/src/main/java/com/example/eld/network/dto/login/response/GetAttendanceResponseModel.java,2\1\213b956c4f63b184c3b39e73e4dd581e2d4ec018
+x
+Happ/src/main/java/com/example/eld/network/dto/login/response/Record.java,4\8\4895f2d634f6831c229097242562b46fd6519028
+a
+1app/src/main/java/com/example/eld/Eventmodel.java,4\9\492a006b45f8d097d98bef8a8478dfc36c841046

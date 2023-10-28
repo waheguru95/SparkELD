@@ -115,7 +115,7 @@ public class LogsFragment extends Fragment {
         emptyView = view.findViewById(R.id.emptyView);
         showdate = view.findViewById(R.id.showdate);
         recycleview = view.findViewById(R.id.recycleview);
-        lineChart = view.findViewById(R.id.lineCharttt);
+        lineChart = view.findViewById(R.id.lineChartLogs);
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         Calendar c = Calendar.getInstance();

@@ -1,0 +1,13 @@
+
+c
+java:S1192#"MDefine a constant instead of duplicating this literal "offdutystart" 3 times.(Şî«é
+b
+java:S1192/"LDefine a constant instead of duplicating this literal "offdutystop" 3 times.(¾¹™â
+>
+java:S1481!")Remove this unused "var4" local variable.(šİ2
+>
+java:S1481-")Remove this unused "var4" local variable.(šİ2
+>
+java:S14818")Remove this unused "var4" local variable.(šİ2
+V	java:S125X"<This block of commented-out lines of code should be removed.(ô®Ãøúÿÿÿÿ
+V	java:S125\"<This block of commented-out lines of code should be removed.(½ÔÂøüÿÿÿÿ

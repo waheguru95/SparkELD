@@ -1,0 +1,336 @@
+
+M
+java:S3740Ï"/Provide the parametrized type for this generic.(‹¤·8†³÷³1
+M
+java:S3740Ï"/Provide the parametrized type for this generic.(‹¤·8†³÷³1
+j
+java:S1192¥"GDefine a constant instead of duplicating this literal "Manual" 5 times.(‰†¾şÿÿÿÿ8Œ³÷³1
+f
+java:S1192Ç"HDefine a constant instead of duplicating this literal "on duty" 3 times.(’âòÜ8Œ³÷³1
+k
+java:S1192Á"MDefine a constant instead of duplicating this literal "Personal use" 4 times.(¹±¶”8³÷³1
+e
+java:S1192±"GDefine a constant instead of duplicating this literal "Drive" 12 times.(Ä°8³÷³1
+d
+java:S1192ï"FDefine a constant instead of duplicating this literal "E_OFF" 3 times.(¤Ù¯‘8³÷³1
+€
+java:S1192æ"]Define a constant instead of duplicating this literal "You are already in this mode" 8 times.(À³Æşÿÿÿÿ8³÷³1
+l
+java:S1192¡"ODefine a constant instead of duplicating this literal "%02d:%02d:%02d" 6 times.(¾±—88³÷³1
+g
+java:S1192µ"IDefine a constant instead of duplicating this literal "Off duty" 8 times.(å×Ò8³÷³1
+p
+java:S1192š"MDefine a constant instead of duplicating this literal "%d:%02d:%02d" 7 times.(åíáûıÿÿÿÿ8³÷³1
+f
+java:S1192¸"HDefine a constant instead of duplicating this literal "On duty" 5 times.(øã“8³÷³1
+h
+java:S1192¾"JDefine a constant instead of duplicating this literal "Yard move" 4 times.(Ä©º£8³÷³1
+j
+java:S1192»"LDefine a constant instead of duplicating this literal "Sleep berth" 4 times.(Áèş‚8³÷³1
+R
+java:S1066"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8‘³÷³1
+R
+java:S1066”"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8‘³÷³1
+R
+java:S1066Ó"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8‘³÷³1
+R
+java:S1066Ø"/Merge this if statement with the enclosing one.(íÛ•Äùÿÿÿÿ8’³÷³1
+X
+java:S1141º"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8•³÷³1
+s	java:S117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÑÛìüÿÿÿÿ8•³÷³1
+n	java:S117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êû©¤8•³÷³1
+n	java:S117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êû©¤8–³÷³1
+s	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š…•Ğüÿÿÿÿ8–³÷³1
+{
+java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "miles".(·Ë²‘8›³÷³1
+y
+java:S1104l"WMake driveHelper a static final constant or non-public and provide accessors if needed.(‰‰¾ıÿÿÿÿ8³÷³1
+{
+java:S1104m"YMake offDutyHelper a static final constant or non-public and provide accessors if needed.(Í°íúÿÿÿÿ8³÷³1
+s
+java:S1104n"VMake weekHelper a static final constant or non-public and provide accessors if needed.(–â¬±8³÷³1
+p
+java:S1104o"SMake heplper a static final constant or non-public and provide accessors if needed.(’Ùˆİ8³÷³1
+s
+java:S1104p"WMake breakhelper a static final constant or non-public and provide accessors if needed.(ÀÉØ=8³÷³1
+t
+java:S1104q"WMake shifthelper a static final constant or non-public and provide accessors if needed.(îÙÑ¶8³÷³1
+x
+java:S1104r"[Make yardmoveshelper a static final constant or non-public and provide accessors if needed.(§ù²Š8³÷³1
+|
+java:S1104s"ZMake personalHelper a static final constant or non-public and provide accessors if needed.(¡åš‰üÿÿÿÿ8³÷³1
+K
+java:S5411¢"(Use a primitive boolean expression here.(Î«”òşÿÿÿÿ8£³÷³1
+c
+java:S2637É"EThis method's return value is marked "@NotNull" but null is returned.(†‘Ü­8Ú¹÷³1
+c
+java:S2637À"EThis method's return value is marked "@NotNull" but null is returned.(ëÎÙÓ8Ú¹÷³1
+h
+java:S2637·"EThis method's return value is marked "@NotNull" but null is returned.(ÇĞÕÿÿÿÿÿ8Ú¹÷³1
+c
+java:S2637®"EThis method's return value is marked "@NotNull" but null is returned.(²ËßŒ8Ú¹÷³1
+h
+java:S2637Û"EThis method's return value is marked "@NotNull" but null is returned.(èé‰°øÿÿÿÿ8Ú¹÷³1
+h
+java:S2637Ò"EThis method's return value is marked "@NotNull" but null is returned.(®’‡ùÿÿÿÿ8Ú¹÷³1
+p	java:S116w"TRename this field "side_menu" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ú½§¨8Ş¹÷³1
+	java:S116{"^Rename this field "confirmation_logout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûıÖßøÿÿÿÿ8Ş¹÷³1
+m	java:S116ƒ"QRename this field "VIN_no" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈÃŒ8ß¹÷³1
+…
+java:S1845Ö"hRename method "startOffDutyTimer" to prevent any misunderstanding/clash with method "startoffdutyTimer".(“ïˆ"8î¹÷³1
+G
+java:S1659w"*Declare "notification" on a separate line.(ú½§¨8õ¹÷³1
+V
+java:S1659{"4Declare "driverWorkStatusDialog" on a separate line.(ûıÖßøÿÿÿÿ8õ¹÷³1
+b
+java:S1659ƒ"EDeclare "deviceid" and all following declarations on a separate line.(ÈÃŒ8õ¹÷³1
+k
+java:S1659ª"MDeclare "onDutyTimingView" and all following declarations on a separate line.(‡ĞÆ8õ¹÷³1
+H
+java:S1659«"%Declare "offblue" on a separate line.(‚ƒÇæıÿÿÿÿ8õ¹÷³1
+Y	java:S107É"<Method has 9 parameters, which is greater than 7 authorized.(êû©¤8ı¹÷³1
+^	java:S107ö"<Method has 8 parameters, which is greater than 7 authorized.(×Úšøÿÿÿÿÿ8ı¹÷³1
+Q
+java:S1874k"/Remove this use of "Handler"; it is deprecated.(„ı ‚şÿÿÿÿ8„º÷³1
+Y	java:S125"<This block of commented-out lines of code should be removed.(°Á’Ÿ8„º÷³1
+c
+java:S1858Ú"E"units" is an array of strings, there's no need to call "toString()".(©”¤Ú8º÷³1
+c
+java:S1858ß"E"units" is an array of strings, there's no need to call "toString()".(Û§éö8º÷³1
+c
+java:S1858à"E"units" is an array of strings, there's no need to call "toString()".(ŞªÑ€8º÷³1
+c
+java:S1858á"E"units" is an array of strings, there's no need to call "toString()".(ó¬”8‘º÷³1
+h
+java:S1858ç"E"units" is an array of strings, there's no need to call "toString()".(ÄˆÚÌıÿÿÿÿ8’º÷³1
+^	java:S125è"<This block of commented-out lines of code should be removed.(îøåëûÿÿÿÿ8’º÷³1
+^	java:S125ó"<This block of commented-out lines of code should be removed.(îøåëûÿÿÿÿ8“º÷³1
+U
+java:S1874"7Remove this use of "getFromLocation"; it is deprecated.(Î¼ï§8•º÷³1
+Y	java:S125Ÿ"<This block of commented-out lines of code should be removed.(Í¤”8—º÷³1
+^	java:S125¥"<This block of commented-out lines of code should be removed.(ÌÔŒùşÿÿÿÿ8˜º÷³1
+c
+java:S1117¼"@Rename "breakhelper" which hides the field declared at line 112.(É¾ßÕøÿÿÿÿ8™º÷³1
+]
+java:S1117Å"@Rename "shifthelper" which hides the field declared at line 113.(æõ°8šº÷³1
+g
+java:S1117Î"DRename "yardmoveshelper" which hides the field declared at line 114.(ª”şİıÿÿÿÿ8šº÷³1
+a
+java:S1117×"CRename "personalHelper" which hides the field declared at line 115.(°Ó†8›º÷³1
+u
+java:S3776Ş"RRefactor this method to reduce its Cognitive Complexity from 48 to the 15 allowed.(…ïòüüÿÿÿÿ8œº÷³1
+\
+java:S1874‰"9Remove this use of "getDefaultAdapter"; it is deprecated.(İÉ·†ùÿÿÿÿ8£º÷³1
+Y	java:S125›"<This block of commented-out lines of code should be removed.(í™ÄØ8¤º÷³1
+^	java:S125¡"<This block of commented-out lines of code should be removed.(×‰Œ³øÿÿÿÿ8¥º÷³1
+a
+java:S1874»">Remove this use of "startActivityForResult"; it is deprecated.(ëÇÍáøÿÿÿÿ8¬º÷³1
+z
+java:S3252Æ"WUse static access with "androidx.core.content.ContextCompat" for "checkSelfPermission".(ÜÉÂ†üÿÿÿÿ8®º÷³1
+M
+java:S1874É"/Remove this use of "disable"; it is deprecated.(Ç´Ÿ‘8®º÷³1
+D	java:S131í""Add a default case to this switch.(øå´¡ÿÿÿÿÿ8½º÷³1
+V
+java:S1874‹"3Remove this use of "getInstance"; it is deprecated.(ˆ™˜Ìùÿÿÿÿ8Æº÷³1
+Y
+java:S1117¨";Rename "status" which hides the field declared at line 140.(Ã¾‡ı8îº÷³1
+`
+java:S1117ª"=Rename "location" which hides the field declared at line 124.(â‡Œëúÿÿÿÿ8îº÷³1
+M
+java:S1172É"/Remove this unused method parameter "dateTime".(êû©¤8ÿº÷³1
+^	java:S125Ù"<This block of commented-out lines of code should be removed.(ù£üùÿÿÿÿ8…»÷³1
+R
+java:S1874"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ8»÷³1
+\
+java:S1117š"9Rename "time" which hides the field declared at line 172.(åíáûıÿÿÿÿ8’»÷³1
+Y
+java:S1117Ñ"6Rename "y" which hides the field declared at line 132.(ıˆõªøÿÿÿÿ8»÷³1
+T
+java:S1117¤"6Rename "y" which hides the field declared at line 132.(Š€Òò8¬»÷³1
+Y
+java:S1117¾"6Rename "y" which hides the field declared at line 132.(€Ç¬ëıÿÿÿÿ8°»÷³1
+T
+java:S1117Ù"6Rename "y" which hides the field declared at line 132.(úÌÉŸ8´»÷³1
+T
+java:S1117ù"6Rename "y" which hides the field declared at line 132.(úÌÉŸ8·»÷³1
+m
+java:S1874 
+"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿ8¹»÷³1
+^	java:S125‹"<This block of commented-out lines of code should be removed.(ÒÌâ–øÿÿÿÿ8½»÷³1
+m
+java:S1874µ
+"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ÉÎÍïıÿÿÿÿ8Ä»÷³1
+]
+java:S1161µ
+":Add the "@Override" annotation above this method signature(ÉÎÍïıÿÿÿÿ8Ä»÷³1
+^	java:S125»
+"<This block of commented-out lines of code should be removed.(Ò‹©şÿÿÿÿ8Å»÷³1
+k	java:S100Â
+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿøˆ8Å»÷³1
+^	java:S125Ã
+"<This block of commented-out lines of code should be removed.(Ÿ™†·ÿÿÿÿÿ8Æ»÷³1
+^	java:S125Ö
+"<This block of commented-out lines of code should be removed.(ÂñÅŸşÿÿÿÿ8É»÷³1
+^	java:S125İ
+"<This block of commented-out lines of code should be removed.(ºêú‚ÿÿÿÿÿ8Ë»÷³1
+u
+java:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(±á•¯úÿÿÿÿ8Í»÷³1
+R
+java:S1874Ê"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ8Ô»÷³1
+\
+java:S1117×"9Rename "time" which hides the field declared at line 172.(åíáûıÿÿÿÿ8Ö»÷³1
+^	java:S125İ"<This block of commented-out lines of code should be removed.(ÔĞ—şÿÿÿÿ8Ø»÷³1
+^	java:S125ö"<This block of commented-out lines of code should be removed.(‡¯Á—ùÿÿÿÿ8Û»÷³1
+Y	java:S125‹"<This block of commented-out lines of code should be removed.(Õğå8Û»÷³1
+R
+java:S1874·"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ8â»÷³1
+\
+java:S1117Å"9Rename "time" which hides the field declared at line 172.(åíáûıÿÿÿÿ8ã»÷³1
+R
+java:S1874í"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ8é»÷³1
+\
+java:S1117û"9Rename "time" which hides the field declared at line 172.(åíáûıÿÿÿÿ8ê»÷³1
+u
+java:S3776’"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(È·ğšÿÿÿÿÿ8í»÷³1
+X	java:S125”"<This block of commented-out lines of code should be removed.(êèŞ58î»÷³1
+R
+java:S1874¸"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ8ó»÷³1
+\
+java:S1117Æ"9Rename "time" which hides the field declared at line 172.(åíáûıÿÿÿÿ8ô»÷³1
+p
+java:S3776×"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Š„›ß8÷»÷³1
+R
+java:S1874û"/Remove this use of "Handler"; it is deprecated.(‡¯Á—ùÿÿÿÿ8û»÷³1
+\
+java:S1117‰"9Rename "time" which hides the field declared at line 172.(åíáûıÿÿÿÿ8ü»÷³1
+p	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š…•Ğüÿÿÿÿ8¼÷³1
+u
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Š…•Ğüÿÿÿÿ8¼÷³1
+\
+java:S1854">Remove this useless assignment to local variable "totalMiles".(ûóß†8¼÷³1
+T
+java:S1117§"6Rename "y" which hides the field declared at line 132.(úÌÉŸ8“¼÷³1
+T
+java:S1117Ê"6Rename "y" which hides the field declared at line 132.(úÌÉŸ8—¼÷³1
+p
+java:S3776â"RRefactor this method to reduce its Cognitive Complexity from 86 to the 15 allowed.(ä§Œ™8š¼÷³1
+Y
+java:S1117û"6Rename "y" which hides the field declared at line 132.(ıˆõªøÿÿÿÿ8Ÿ¼÷³1
+Y	java:S125›"<This block of commented-out lines of code should be removed.(ˆæö½8¢¼÷³1
+Y
+java:S1117µ"6Rename "y" which hides the field declared at line 132.(©ÒÏ‹øÿÿÿÿ8¥¼÷³1
+Y	java:S125ä"<This block of commented-out lines of code should be removed.(®•Áø8ª¼÷³1
+Y
+java:S1117ù"6Rename "y" which hides the field declared at line 132.(©ÒÏ‹øÿÿÿÿ8¬¼÷³1
+k	java:S100Ç"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ìş¸8¶¼÷³1
+p
+java:S3776Ç"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(§ìş¸8¶¼÷³1
+U
+java:S1874"7Remove this use of "getRunningTasks"; it is deprecated.(•¯Ö¥8Á¼÷³1
+F
+java:S1185œ"(Remove this method to simply inherit it.(ÍÙ÷¢8Ã¼÷³1
+R
+java:S1874×"/Remove this use of "Handler"; it is deprecated.(§çµüÿÿÿÿ8É¼÷³1
+W
+java:S1117ã"9Rename "time" which hides the field declared at line 172.(„ÅØ 8Ê¼÷³1
+™
+java:S1172ö"vRemove these unused method parameters "dateTime", "y", "status", "location", "odometer", "hours", "origin", "logType".(×Úšøÿÿÿÿÿ8Î¼÷³1
+T
+java:S1117"6Rename "y" which hides the field declared at line 132.(¿¼Ó¨8Ñ¼÷³1
+k	java:S100”"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿ÁÆà8Ó¼÷³1
+¤
+java:S1186¿"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¡¿Œâûÿÿÿÿ8Ú¼÷³1
+J
+java:S3985¾",Remove this unused private "TimeTask" class.(ôéÌÂ8Ú¼÷³1
+W
+java:S1117Å"9Rename "time" which hides the field declared at line 172.(¯öòû8Ü¼÷³1
+¤
+java:S1186Í"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ìí¸©üÿÿÿÿ8Ş¼÷³1
+P
+java:S3985Ì"-Remove this unused private "TimeDrive" class.(Êƒëøûÿÿÿÿ8ß¼÷³1
+V
+java:S1117Ó"9Rename "time" which hides the field declared at line 172.(†ÉÇM8à¼÷³1
+Ÿ
+java:S1186ß"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(²ÈßÛ8ã¼÷³1
+V
+java:S3985Ş"3Remove this unused private "TimeTaskoffduty" class.(Â€»Æüÿÿÿÿ8ã¼÷³1
+V
+java:S1117æ"9Rename "time" which hides the field declared at line 172.(†ÉÇM8å¼÷³1
+¤
+java:S1186ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(§ïÕøÿÿÿÿ8æ¼÷³1
+P
+java:S3985ñ"-Remove this unused private "TimeShift" class.(ùĞôóüÿÿÿÿ8ç¼÷³1
+V
+java:S1117ø"9Rename "time" which hides the field declared at line 172.(†ÉÇM8è¼÷³1
+¤
+java:S1186ƒ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹€ÿËùÿÿÿÿ8é¼÷³1
+P
+java:S3985‚"-Remove this unused private "TimeTasky" class.(©ƒŸóùÿÿÿÿ8é¼÷³1
+W
+java:S1117‰"9Rename "time" which hides the field declared at line 172.(‹šé¿8ë¼÷³1
+¤
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(şï¶•üÿÿÿÿ8î¼÷³1
+P
+java:S3985"-Remove this unused private "TimeTaskp" class.(°ÏÑ½üÿÿÿÿ8î¼÷³1
+\
+java:S1117—"9Rename "time" which hides the field declared at line 172.(ã”ºÿÿÿÿÿ8ğ¼÷³1
+p
+java:S3776Ÿ"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(üŒé8ò¼÷³1
+l
+java:S1854¾"NRemove this useless assignment to local variable "addAtendanceResponseString".(ìç8—ô÷³1
+]
+java:S1481¾"?Remove this unused "addAtendanceResponseString" local variable.(ìç8 ô÷³1
+E
+java:S3398©""Move this method into "TimeDrive".(Ğ«é„şÿÿÿÿ8Š½÷³1
+E
+java:S3398ñ""Move this method into "TimeTasky".(—ÙÔúÿÿÿÿ8Š½÷³1
+F
+java:S3398È"(Move this method into "TimeTaskoffduty".(Ë¥ìä8Š½÷³1
+]
+java:S3398â"?Move this method into the anonymous class declared at line 204.(ä§Œ™8Š½÷³1
+D
+java:S3398˜"!Move this method into "TimeTask".(¼à˜ïıÿÿÿÿ8Š½÷³1
+E
+java:S3398ß""Move this method into "TimeShift".(Æ˜Ğüüÿÿÿÿ8Š½÷³1
+@
+java:S3398‚""Move this method into "TimeTaskp".(ŸŸš©8Š½÷³1
+J
+java:S1068d"-Remove this unused "timedrive" private field.(·€¤8Š½÷³1
+K
+java:S1068e".Remove this unused "sleeptimer" private field.(¼²Œ¤8‹½÷³1
+I
+java:S1068f",Remove this unused "offtimer" private field.(ş³ş•8‹½÷³1
+M
+java:S1068g"+Remove this unused "ontimer" private field.(¶úÎãûÿÿÿÿ8‹½÷³1
+G
+java:S1068h"*Remove this unused "ytimer" private field.(¤ª´²8‹½÷³1
+F
+java:S1068i"*Remove this unused "ptimer" private field.(±ÒŸ88‹½÷³1
+R
+java:S1068j"5Remove this unused "subscribedRecords" private field.(÷À•è8‹½÷³1
+S
+java:S1068k"1Remove this unused "hourlyhandler" private field.(„ı ‚şÿÿÿÿ8‹½÷³1
+Z
+java:S1068­"7Remove this unused "periodicWorkRequest" private field.(Ü›Ù×şÿÿÿÿ8‹½÷³1
+g
+java:S1068±"DRemove this unused "bleConnectionStateChangeCallback" private field.(ßëâÚşÿÿÿÿ8Œ½÷³1
+J
+java:S1068Ç",Remove this unused "mHandler" private field.(€£öò8Œ½÷³1
+K
+java:S1068È"-Remove this unused "mRunnable" private field.(çšµÈ8Œ½÷³1
+W
+java:S1068Ê"4Remove this unused "activityLauncher" private field.(×ãÆ¿şÿÿÿÿ8Œ½÷³1
+V
+java:S1068Ì"3Remove this unused "bleDataCallback" private field.(êôèùÿÿÿÿÿ8Œ½÷³1
+Q
+java:S1144ê"3Remove this unused private "startstopbreak" method.(×üúó8Œ½÷³1
+T
+java:S1144Ú"7Remove this unused private "offdutyrestarttime" method.(Ë×Ÿ8½÷³1
+L
+java:S1144Š".Remove this unused private "makeTimep" method.(ÖÁÂÑ8½÷³1
+P
+java:S1144"-Remove this unused private "Fivemile" method.(Š…•Ğüÿÿÿÿ8½÷³1
+P
+java:S1144©"-Remove this unused private "setAlarm" method.(Í½ŠÌøÿÿÿÿ8½÷³1
+å
+java:S6541â"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 153 to 64, Complexity from 29 to 14, Nesting Level from 6 to 2, Number of Variables from 13 to 6.(ä§Œ™8½÷³1

@@ -1,0 +1,15 @@
+
+v	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(–‰¶¦8³º÷ü±1
+Y
+java:S1854"<Remove this useless assignment to local variable "bAdapter".(ÿô†Ÿ8Òº÷ü±1
+V
+java:S1874"9Remove this use of "getDefaultAdapter"; it is deprecated.(ÿô†Ÿ8âº÷ü±1
+J
+java:S1481"-Remove this unused "bAdapter" local variable.(ÿô†Ÿ8âº÷ü±1
+]	java:S125"<This block of commented-out lines of code should be removed.(êŸ·Šûÿÿÿÿ8âº÷ü±1
+S
+java:S1874'"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD8âº÷ü±1
+S
+java:S1874'"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD8âº÷ü±1
+Q
+java:S1874)"/Remove this use of "Handler"; it is deprecated.(’àÞ–úÿÿÿÿ8âº÷ü±1

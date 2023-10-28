@@ -1,0 +1,8 @@
+
+h	java:S116"NRename this field "VIN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷şÊæşÿÿÿÿ
+m	java:S116
+"SRename this field "Latitude" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó¯ú¢ÿÿÿÿÿ
+n	java:S116"TRename this field "Longitude" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öûİúÿÿÿÿ
+s	java:S116"YRename this field "AttendenceType" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(âœÑÇüÿÿÿÿ
+k	java:S116"QRename this field "UserId" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Ìçúÿÿÿÿ
+d	java:S116"ORename this field "DATE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åµ¨Û

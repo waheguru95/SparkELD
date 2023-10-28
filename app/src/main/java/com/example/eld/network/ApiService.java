@@ -70,5 +70,12 @@ public interface ApiService {
     Call<ResponseBody> updateShippingAddress(@Body UpdateShippingAddressModel requestBody);
     @PUT ("driver/updateTripNo")
     Call<ResponseBody> updateTripNo(@Body UpdateTripNoModel requestBody);
-
+    @GET("report/getPendingLog")
+    Call<ResponseBody> getPendingLog(
+            @Query("userId") String userId
+    );
+   @GET("report/getCertifiedLog")
+    Call<ResponseBody> getCertifiedLog(
+            @Query("userId") String userId
+    );
 }

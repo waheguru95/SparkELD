@@ -24,13 +24,14 @@ android:layout_marginStart="10dp"
             android:layout_marginStart="15dp"
             android:layout_gravity="center_vertical"
             android:layout_height="30dp"
-            android:id="@+id/checkBox" />
+            android:id="@+id/checkbox_pending_log" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:id="@+id/playerNameList"
+            android:id="@+id/date_pending_log"
             android:layout_marginStart="10dp"
+            android:text="sssfff"
             android:textColor="#000"
             android:textSize="18sp" />
     </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.eld.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -44,5 +45,21 @@ public class CommonUtils {
             e.printStackTrace();
             return originalTime; // Return the original string if parsing fails
         }
+    }
+
+    public static String convertDateFormat(String inputDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            if (date != null) {
+                return outputFormat.format(date);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null; // Return null if conversion fails
     }
 }

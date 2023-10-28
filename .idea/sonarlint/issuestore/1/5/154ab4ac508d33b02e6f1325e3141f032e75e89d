@@ -1,0 +1,15 @@
+
+e
+java:S1192+"JDefine a constant instead of duplicating this literal "condition" 3 times.(òÔİÕÿÿÿÿÿ
+d
+java:S1192+"IDefine a constant instead of duplicating this literal "MyWorker" 4 times.(òÔİÕÿÿÿÿÿ
+V	java:S1256"<This block of commented-out lines of code should be removed.(¨ÊÀûÿÿÿÿ
+V	java:S125\"<This block of commented-out lines of code should be removed.(øù‘£úÿÿÿÿ
+G
+java:S1068",Remove this unused "mContext" private field.(»úÅ¾øÿÿÿÿ
+B
+java:S1068",Remove this unused "mHandler" private field.(€£öò
+C
+java:S1068"-Remove this unused "mRunnable" private field.(çšµÈ
+R
+java:S1068"<Remove this unused "mIsNotificationDisplayed" private field.(ƒä¦Š
