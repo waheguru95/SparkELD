@@ -95,14 +95,18 @@ public class LoginActivity extends BaseActivity {
                 public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {
                     try {
                         if (response.code() == HttpURLConnection.HTTP_OK) {
-                            LoginResponseModel loginRequestModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
+                            LoginResponseModel loginResponseModel = new Gson().fromJson(response.body().toString(), LoginResponseModel.class);
                             helperClass.setLoginStatus(true);
                             helperClass.setDRIVER_USER_ID(etDriverId.getText().toString());
-                            helperClass.setEmail(loginRequestModel.getData().getEmail());
+                            helperClass.setEmail(loginResponseModel.getData().get(0).getEmail());
                             helperClass.setPASSWORD(paswordedit.getText().toString());
-                            helperClass.setId(loginRequestModel.getData().getId());
+                            helperClass.setId(loginResponseModel.getData().get(0).getId());
+                            helperClass.setCO_DRIVER(loginResponseModel.getData().get(0).getCoDriver());
+                            helperClass.setTRIP_NO(loginResponseModel.getData().get(0).getTripNo());
+                            helperClass.setSHIPPING_ADDRESS(loginResponseModel.getData().get(0).getShippingAddress());
+
                             Log.d("driver id",""+helperClass.getID());
-                            callGetDriverDetailsApi(loginRequestModel.getData().getId());
+                            callGetDriverDetailsApi(loginResponseModel.getData().get(0).getId());
                             helperClass.setFirstLogin(true);
                             helperClass.setREMEMBER_ME(cbRememberMe.isChecked());
                         } else {

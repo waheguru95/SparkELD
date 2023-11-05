@@ -39,18 +39,15 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.eld.LoginActivity;
 import com.example.eld.R;
 import com.example.eld.alert.FiveMinuteN;
 import com.example.eld.alert.ResetDataReceiver;
-import com.example.eld.fragments.Certify_fragment;
+import com.example.eld.fragments.CertifyLogsFragment;
 import com.example.eld.fragments.DashboardFragment;
 import com.example.eld.fragments.LogsFragment;
 import com.example.eld.fragments.Reports_fragment;
-import com.example.eld.models.DriverProfileModel;
 import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestModel;
 import com.example.eld.network.dto.login.response.AddAttendanceRecordResponseModel;
-import com.example.eld.network.dto.login.response.ChangePasswordResponseModel;
 import com.example.eld.utils.Breakhelper;
 import com.example.eld.utils.DriveHelper;
 import com.example.eld.utils.Helper;
@@ -507,7 +504,7 @@ public class DashboardScreen extends BaseActivity {
                     break;
                 case R.id.certfy:
                     helperClass.setDASHBOARD(true);
-                    controlfunction(new Certify_fragment());
+                    controlfunction(new CertifyLogsFragment());
                     break;
                 case R.id.reports:
                     helperClass.setDASHBOARD(true);

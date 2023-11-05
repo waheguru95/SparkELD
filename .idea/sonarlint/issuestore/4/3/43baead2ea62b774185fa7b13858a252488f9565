@@ -1,0 +1,67 @@
+
+W
+java:S1141u"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8íçÇó¹1
+X
+java:S1141ñ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8îçÇó¹1
+J
+java:S1604G"(Make this anonymous inner class a lambda(‚¤Î…üÿÿÿÿ8îçÇó¹1
+J
+java:S1604W"(Make this anonymous inner class a lambda(åı®†øÿÿÿÿ8îçÇó¹1
+i
+java:S1659""GDeclare "card1front" and all following declarations on a separate line.(•İ‡Œúÿÿÿÿ8ÃèÇó¹1
+D
+java:S1659$"'Declare "card2text" on a separate line.(“¢Ñ·8ÃèÇó¹1
+y
+java:S1450'"\Remove the "customAdapter" field and declare it as a local variable in the relevant methods.(˜¬ö“8ÃèÇó¹1
+]	java:S125E"<This block of commented-out lines of code should be removed.(î†­€ûÿÿÿÿ8ÎèÇó¹1
+X	java:S125L"<This block of commented-out lines of code should be removed.(ú´ºŒ8ÏèÇó¹1
+]	java:S125S"<This block of commented-out lines of code should be removed.(î†­€ûÿÿÿÿ8ÏèÇó¹1
+]	java:S125Z"<This block of commented-out lines of code should be removed.(ñ×£Úıÿÿÿÿ8ĞèÇó¹1
+o
+java:S3776g"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(‰á‹±8ÑèÇó¹1
+[
+java:S1854x">Remove this useless assignment to local variable "statusCode".(Ë÷ÂÓ8ÔèÇó¹1
+X
+java:S1854y";Remove this useless assignment to local variable "message".(’Ù¯ş8ÔèÇó¹1
+\
+java:S1117s"?Rename "recordDates" which hides the field declared at line 41.(õ±Äµ8ÕèÇó¹1
+L
+java:S1481x"/Remove this unused "statusCode" local variable.(Ë÷ÂÓ8ŞèÇó¹1
+I
+java:S1481y",Remove this unused "message" local variable.(’Ù¯ş8ŞèÇó¹1
+]	java:S125z"<This block of commented-out lines of code should be removed.(ç˜¶­ÿÿÿÿÿ8ŞèÇó¹1
+]	java:S125}"<This block of commented-out lines of code should be removed.(áíÿ´ùÿÿÿÿ8ßèÇó¹1
+^	java:S125ƒ"<This block of commented-out lines of code should be removed.(ì’âÇøÿÿÿÿ8àèÇó¹1
+X	java:S125†"<This block of commented-out lines of code should be removed.(…Óá28àèÇó¹1
+d
+java:S1117¼"ARename "customAdapter" which hides the field declared at line 39.(Âƒ«¾ûÿÿÿÿ8áèÇó¹1
+^	java:S125Ã"<This block of commented-out lines of code should be removed.(ºÖ›Ÿúÿÿÿÿ8æèÇó¹1
+Y	java:S125Ñ"<This block of commented-out lines of code should be removed.(É»æÚ8çèÇó¹1
+u
+java:S3776ä"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(ˆóßÖùÿÿÿÿ8éèÇó¹1
+a
+java:S1854ô">Remove this useless assignment to local variable "statusCode".(â´Ì‰şÿÿÿÿ8ëèÇó¹1
+Y
+java:S1854õ";Remove this useless assignment to local variable "message".(ŞÀ 8ëèÇó¹1
+R
+java:S1481ô"/Remove this unused "statusCode" local variable.(â´Ì‰şÿÿÿÿ8íèÇó¹1
+J
+java:S1481õ",Remove this unused "message" local variable.(ŞÀ 8íèÇó¹1
+^	java:S125ö"<This block of commented-out lines of code should be removed.(ç˜¶­ÿÿÿÿÿ8íèÇó¹1
+^	java:S125ù"<This block of commented-out lines of code should be removed.(áíÿ´ùÿÿÿÿ8íèÇó¹1
+^	java:S125"<This block of commented-out lines of code should be removed.(ì’âÇøÿÿÿÿ8ïèÇó¹1
+X	java:S125„"<This block of commented-out lines of code should be removed.(…Óá28ïèÇó¹1
+d
+java:S1117¾"ARename "customAdapter" which hides the field declared at line 39.(Âƒ«¾ûÿÿÿÿ8ğèÇó¹1
+^	java:S125»"<This block of commented-out lines of code should be removed.(§ßğıÿÿÿÿ8ğèÇó¹1
+^	java:S125Ã"<This block of commented-out lines of code should be removed.(ÈØ˜Ÿûÿÿÿÿ8ñèÇó¹1
+^	java:S125Å"<This block of commented-out lines of code should be removed.(ºÖ›Ÿúÿÿÿÿ8ñèÇó¹1
+Y	java:S125Ó"<This block of commented-out lines of code should be removed.(É»æÚ8óèÇó¹1
+d
+java:S1117í"ARename "customAdapter" which hides the field declared at line 39.(Âƒ«¾ûÿÿÿÿ8öèÇó¹1
+^	java:S125ê"<This block of commented-out lines of code should be removed.(§ßğıÿÿÿÿ8öèÇó¹1
+^	java:S125ñ"<This block of commented-out lines of code should be removed.(ÈØ˜Ÿûÿÿÿÿ8øèÇó¹1
+^	java:S125ó"<This block of commented-out lines of code should be removed.(ºÖ›Ÿúÿÿÿÿ8øèÇó¹1
+Y	java:S125"<This block of commented-out lines of code should be removed.(É»æÚ8úèÇó¹1
+Z
+java:S1144Û"7Remove this unused private "certifyPendingLogs" method.(»ò—ëüÿÿÿÿ8ûèÇó¹1

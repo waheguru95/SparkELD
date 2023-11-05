@@ -1,63 +1,59 @@
 
-h
-java:S1192~"KDefine a constant instead of duplicating this literal "2023-09-26" 6 times.(ÃÃæÙ8ÙÃÓõ´1
 X
-java:S1141„"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÚÃÓõ´1
-s	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È…öÿÿÿÿÿ8ÚÃÓõ´1
-x	java:S116K"WRename this field "event_adpter" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß¿ úÿÿÿÿ8¾ÄÓõ´1
+java:S1141ü"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÚÃÓõ´1
+s	java:S116J"WRename this field "event_adpter" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğƒò8ûîÄæ¶1
 f
-java:S1659D"DDeclare "privios" and all following declarations on a separate line.(ƒ²±ıÿÿÿÿ8ÆÄÓõ´1
+java:S1659C"DDeclare "privios" and all following declarations on a separate line.(ƒ²±ıÿÿÿÿ8ÆÄÓõ´1
+D
+java:S1659F"'Declare "emptyView" on a separate line.( ¦«8‹ïÄæ¶1
 J
-java:S1659X"(Declare "ltimestamp" on a separate line.(çŒÿûÿÿÿÿ8ÇÄÓõ´1
+java:S1659W"(Declare "ltimestamp" on a separate line.(çŒÿûÿÿÿÿ8ÇÄÓõ´1
 L
-java:S1874O"/Remove this use of "Handler"; it is deprecated.(ïóî‘8ÏÄÓõ´1
+java:S1874N"/Remove this use of "Handler"; it is deprecated.(ïóî‘8ÏÄÓõ´1
 o
-java:S3776k"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(¡Œşø8ÕÄÓõ´1
+java:S3776j"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(¡Œşø8ÕÄÓõ´1
 ]
-java:S1854é"?Remove this useless assignment to local variable "logListener".(Ğ©¾Ñ8ÕÄÓõ´1
+java:S1854å"?Remove this useless assignment to local variable "logListener".(Ğ©¾Ñ8ÕÄÓõ´1
 d
-java:S1854Ê"ARemove this useless assignment to local variable "graphListener".(ï„ó­üÿÿÿÿ8ÕÄÓõ´1
+java:S1854Æ"ARemove this useless assignment to local variable "graphListener".(ï„ó­üÿÿÿÿ8Ø•è¶1
+^
+java:S1854|"<Remove this useless assignment to local variable "senddate".(†ƒÏÿúÿÿÿÿ8«ïÄæ¶1
+O
+java:S1481|"-Remove this unused "senddate" local variable.(†ƒÏÿúÿÿÿÿ8«ïÄæ¶1
 ^	java:S125±"<This block of commented-out lines of code should be removed.(°­Ê¨ûÿÿÿÿ8İÄÓõ´1
+^	java:S125¼"<This block of commented-out lines of code should be removed.(è³äŸüÿÿÿÿ8ÊïÄæ¶1
 Y	java:S125¿"<This block of commented-out lines of code should be removed.(óÆ¥é8äÄÓõ´1
-Y	java:S125Æ"<This block of commented-out lines of code should be removed.(Ÿ£§¥8äÄÓõ´1
-Y	java:S125Ù"<This block of commented-out lines of code should be removed.(¥·ÙÖ8çÄÓõ´1
-Y	java:S125ß"<This block of commented-out lines of code should be removed.(¤Œà¢8éÄÓõ´1
+Y	java:S125Õ"<This block of commented-out lines of code should be removed.(¥·ÙÖ8á–è¶1
+Y	java:S125Û"<This block of commented-out lines of code should be removed.(¤Œà¢8î–è¶1
 U
-java:S1481Ê"2Remove this unused "graphListener" local variable.(ï„ó­üÿÿÿÿ8êÄÓõ´1
+java:S1481Æ"2Remove this unused "graphListener" local variable.(ï„ó­üÿÿÿÿ8ó–è¶1
 \
-java:S1117ñ">Rename "eventmodel" which hides the field declared at line 77.(‰Š¬×8êÄÓõ´1
+java:S1117í">Rename "eventmodel" which hides the field declared at line 76.(‰Š¬×8êÄÓõ´1
 N
-java:S1481é"0Remove this unused "logListener" local variable.(Ğ©¾Ñ8ëÄÓõ´1
-Y	java:S125ü"<This block of commented-out lines of code should be removed.(îòÂ„8ìÄÓõ´1
-X	java:S125ş"<This block of commented-out lines of code should be removed.(ËÔÌ!8ìÄÓõ´1
-^	java:S125‚"<This block of commented-out lines of code should be removed.(¿åËùùÿÿÿÿ8ìÄÓõ´1
-Y	java:S125§"<This block of commented-out lines of code should be removed.(ÉÚÙ8îÄÓõ´1
-^	java:S125©"<This block of commented-out lines of code should be removed.(›Æóùÿÿÿÿ8îÄÓõ´1
-Y	java:S125­"<This block of commented-out lines of code should be removed.(Ö¨ºñ8îÄÓõ´1
-Y	java:S125È"<This block of commented-out lines of code should be removed.(ÉÚÙ8ğÄÓõ´1
-^	java:S125Ì"<This block of commented-out lines of code should be removed.(›Æóùÿÿÿÿ8ğÄÓõ´1
-Y	java:S125ó"<This block of commented-out lines of code should be removed.(ƒëˆ8øÄÓõ´1
+java:S1481å"0Remove this unused "logListener" local variable.(Ğ©¾Ñ8ëÄÓõ´1
+Y	java:S125ø"<This block of commented-out lines of code should be removed.(îòÂ„8ìÄÓõ´1
+X	java:S125ú"<This block of commented-out lines of code should be removed.(ËÔÌ!8ìÄÓõ´1
+^	java:S125ş"<This block of commented-out lines of code should be removed.(¿åËùùÿÿÿÿ8ìÄÓõ´1
+Y	java:S125¡"<This block of commented-out lines of code should be removed.(ÉÚÙ8îÄÓõ´1
+^	java:S125£"<This block of commented-out lines of code should be removed.(›Æóùÿÿÿÿ8îÄÓõ´1
+Y	java:S125§"<This block of commented-out lines of code should be removed.(Ö¨ºñ8îÄÓõ´1
+Y	java:S125¿"<This block of commented-out lines of code should be removed.(ÉÚÙ8ğÄÓõ´1
+^	java:S125Ã"<This block of commented-out lines of code should be removed.(›Æóùÿÿÿÿ8ğÄÓõ´1
+Y	java:S125ê"<This block of commented-out lines of code should be removed.(ƒëˆ8øÄÓõ´1
 p
-java:S3776ø"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(Á“ŸÌ8ùÄÓõ´1
+java:S3776ï"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(Á“ŸÌ8ùÄÓõ´1
+L
+java:S1172ï".Remove this unused method parameter "endDate".(Á“ŸÌ8ğÄæ¶1
 \
-java:S1854‰">Remove this useless assignment to local variable "statusCode".(–¯šô8üÄÓõ´1
+java:S1854ÿ">Remove this useless assignment to local variable "statusCode".(–¯šô8üÄÓõ´1
 X
-java:S1854Š";Remove this useless assignment to local variable "message".(×İ‚S8üÄÓõ´1
+java:S1854€";Remove this useless assignment to local variable "message".(×İ‚S8üÄÓõ´1
 X
-java:S1854‹":Remove this useless assignment to local variable "status".(ˆö”£8üÄÓõ´1
+java:S1854":Remove this useless assignment to local variable "status".(ˆö”£8üÄÓõ´1
 M
-java:S1481‰"/Remove this unused "statusCode" local variable.(–¯šô8„ÅÓõ´1
+java:S1481ÿ"/Remove this unused "statusCode" local variable.(–¯šô8„ÅÓõ´1
 I
-java:S1481Š",Remove this unused "message" local variable.(×İ‚S8…ÅÓõ´1
+java:S1481€",Remove this unused "message" local variable.(×İ‚S8…ÅÓõ´1
 I
-java:S1481‹"+Remove this unused "status" local variable.(ˆö”£8†ÅÓõ´1
-X
-java:S6213":Rename this variable to not match a restricted identifier.(‚¬8†ÅÓõ´1
-H	java:S106"+Replace this use of System.out by a logger.(ôò²è8‡ÅÓõ´1
-M	java:S106³"+Replace this use of System.out by a logger.(…˜åäûÿÿÿÿ8‡ÅÓõ´1
-Y	java:S125¨"<This block of commented-out lines of code should be removed.(¸­ôÎ8ˆÅÓõ´1
-M	java:S106´"+Replace this use of System.out by a logger.(ØöšÆÿÿÿÿÿ8ˆÅÓõ´1
-H	java:S106µ"+Replace this use of System.out by a logger.( £Í8ˆÅÓõ´1
-M	java:S106¶"+Replace this use of System.out by a logger.(ú¾ĞÏùÿÿÿÿ8ˆÅÓõ´1
-G	java:S106·"+Replace this use of System.out by a logger.(‹•õ28ˆÅÓõ´1
-H	java:S106¸"+Replace this use of System.out by a logger.(·áè8ˆÅÓõ´1
+java:S1481"+Remove this unused "status" local variable.(ˆö”£8†ÅÓõ´1
+X	java:S125Š"<This block of commented-out lines of code should be removed.(…Óá28¨ğÄæ¶1

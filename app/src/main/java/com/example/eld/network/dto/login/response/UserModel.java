@@ -1,27 +1,39 @@
-package com.example.eld.network.dto.user;
+package com.example.eld.network.dto.login.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserModel {
+public class  UserModel {
     @SerializedName("id")
     @Expose
     private int id;
+
     @SerializedName("userName")
     @Expose
     private String userName;
-    @SerializedName("password")
-    @Expose
-    private String password;
+
     @SerializedName("role")
     @Expose
     private String role;
+
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("status")
+
+    @SerializedName("coDriver")
     @Expose
-    private int status;
+    private String coDriver;
+
+    @SerializedName("tripNo")
+    @Expose
+    private String tripNo;
+
+    @SerializedName("shippingAddress")
+    @Expose
+    private String shippingAddress;
+
+    // Getters and Setters for all the fields
+    // ...
 
     public int getId() {
         return id;
@@ -37,14 +49,6 @@ public class UserModel {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {
@@ -63,11 +67,27 @@ public class UserModel {
         this.email = email;
     }
 
-    public int getStatus() {
-        return status;
+    public String getCoDriver() {
+        return coDriver;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCoDriver(String coDriver) {
+        this.coDriver = coDriver;
+    }
+
+    public String getTripNo() {
+        return tripNo;
+    }
+
+    public void setTripNo(String tripNo) {
+        this.tripNo = tripNo;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 }

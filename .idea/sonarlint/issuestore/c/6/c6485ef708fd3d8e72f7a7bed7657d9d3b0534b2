@@ -1,0 +1,12 @@
+
+
+java:S1319"nThe type of "modelArrayList" should be an interface such as "List" rather than the implementation "ArrayList".(ª‚£ùùÿÿÿÿ8ƒ³Õ¶¹1
+Œ
+java:S13196"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(–÷¸t8Óß×¶¹1
+M
+java:S3010"+Remove this assignment of "modelArrayList".(®Ö¦Èüÿÿÿÿ8¢³Õ¶¹1
+X	java:S125."<This block of commented-out lines of code should be removed.(ä¤×œ8„Šúî¹1
+Q
+java:S21751"4A "ArrayList<String>" cannot contain a "PendingLog".(ÀÜ…8ÀîÏì¹1
+G
+java:S1068"+Remove this unused "context" private field.(êİç8²³Õ¶¹1

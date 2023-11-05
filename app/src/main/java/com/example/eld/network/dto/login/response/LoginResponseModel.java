@@ -1,24 +1,49 @@
 package com.example.eld.network.dto.login.response;
-
-import com.example.eld.network.dto.common.BaseModel;
-import com.example.eld.network.dto.user.UserModel;
+import com.example.eld.network.dto.login.response.UserModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResponseModel extends BaseModel {
+import java.util.List;
+
+public class LoginResponseModel {
+    @SerializedName("statusCode")
+    @Expose
+    private int statusCode;
+
+    @SerializedName("message")
+    @Expose
+    private String message;
 
     @SerializedName("data")
     @Expose
-    private UserModel data;
+    private List<UserModel> data;
+
     @SerializedName("status")
     @Expose
     private boolean status;
 
-    public UserModel getData() {
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<UserModel> getData() {
         return data;
     }
 
-    public void setData(UserModel data) {
+    public void setData(List<UserModel> data) {
         this.data = data;
     }
 
@@ -30,3 +55,5 @@ public class LoginResponseModel extends BaseModel {
         this.status = status;
     }
 }
+
+

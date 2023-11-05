@@ -1,0 +1,40 @@
+
+W
+java:S1141v"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8àÁÃò¹1
+9
+java:S1643D"Use a StringBuilder instead.(¯õ¾ç8âÁÃò¹1
+g	java:S101""MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(§ß.8åÁÃò¹1
+u	java:S116$"TRename this field "list_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ÏÊÜşÿÿÿÿ8²ÂÃò¹1
+u	java:S116)"TRename this field "check_box" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àååÀÿÿÿÿÿ8²ÂÃò¹1
+W	java:S1258"<This block of commented-out lines of code should be removed.(ÂøªJ8ÁÂÃò¹1
+]	java:S125:"<This block of commented-out lines of code should be removed.(úááøÿÿÿÿ8ÁÂÃò¹1
+]	java:S125?"<This block of commented-out lines of code should be removed.(ˆÀá¡ıÿÿÿÿ8ÁÂÃò¹1
+X	java:S125O"<This block of commented-out lines of code should be removed.(”ÚŞ8ÅÂÃò¹1
+t
+java:S3776i"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(ˆóßÖùÿÿÿÿ8ÇÂÃò¹1
+`
+java:S1854y">Remove this useless assignment to local variable "statusCode".(â´Ì‰şÿÿÿÿ8ËÂÃò¹1
+X
+java:S1854z";Remove this useless assignment to local variable "message".(ŞÀ 8ËÂÃò¹1
+Q
+java:S1481y"/Remove this unused "statusCode" local variable.(â´Ì‰şÿÿÿÿ8ÓÂÃò¹1
+I
+java:S1481z",Remove this unused "message" local variable.(ŞÀ 8ÔÂÃò¹1
+]	java:S125{"<This block of commented-out lines of code should be removed.(ç˜¶­ÿÿÿÿÿ8ÔÂÃò¹1
+]	java:S125~"<This block of commented-out lines of code should be removed.(áíÿ´ùÿÿÿÿ8ÔÂÃò¹1
+^	java:S125†"<This block of commented-out lines of code should be removed.(ì’âÇøÿÿÿÿ8ÕÂÃò¹1
+X	java:S125‰"<This block of commented-out lines of code should be removed.(…Óá28ÕÂÃò¹1
+d
+java:S1117Ã"ARename "customAdapter" which hides the field declared at line 38.(Âƒ«¾ûÿÿÿÿ8ÖÂÃò¹1
+^	java:S125À"<This block of commented-out lines of code should be removed.(§ßğıÿÿÿÿ8ÖÂÃò¹1
+^	java:S125Ç"<This block of commented-out lines of code should be removed.(ÈØ˜Ÿûÿÿÿÿ8ÖÂÃò¹1
+^	java:S125É"<This block of commented-out lines of code should be removed.(ºÖ›Ÿúÿÿÿÿ8ÖÂÃò¹1
+Y	java:S125×"<This block of commented-out lines of code should be removed.(É»æÚ8ØÂÃò¹1
+d
+java:S1117ğ"ARename "customAdapter" which hides the field declared at line 38.(Âƒ«¾ûÿÿÿÿ8”øó¹1
+^	java:S125í"<This block of commented-out lines of code should be removed.(§ßğıÿÿÿÿ8”øó¹1
+^	java:S125ô"<This block of commented-out lines of code should be removed.(ÈØ˜Ÿûÿÿÿÿ8•øó¹1
+^	java:S125ö"<This block of commented-out lines of code should be removed.(ºÖ›Ÿúÿÿÿÿ8•øó¹1
+Y	java:S125„"<This block of commented-out lines of code should be removed.(É»æÚ8–øó¹1
+T
+java:S1068%"2Remove this unused "modelArrayList" private field.(úóÈúúÿÿÿÿ8ÜÂÃò¹1

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eld.Certifyadpter;
 import com.example.eld.PendingLog;
 import com.example.eld.R;
+import com.example.eld.network.dto.login.request.UpdateCertifiedLogRequest;
 import com.example.eld.network.dto.login.response.AttendanceData;
 import com.example.eld.network.dto.login.response.GetLogsModel;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -37,7 +40,8 @@ public class Pendingcertify_fragment extends BaseFragment {
     RecyclerView recycleview;
     CheckBox check_box;
     ArrayList<String> recordDates = new ArrayList<>();
-
+    ArrayList<String> recordIds = new ArrayList<>();
+    ArrayList<PendingLog> selectedItems= new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class Pendingcertify_fragment extends BaseFragment {
         callGetPendingLogs();
 
         //modelArrayList = getModel(false);
-      /* certifydone.setOnClickListener((View.OnClickListener) v -> {
+      certifydone.setOnClickListener((View.OnClickListener) v -> {
             String itemselect = "";
             for (int i = 0; i < recycleview.getChildCount(); i++) {
                 if (list_data.isSelected()) {
@@ -68,8 +72,10 @@ public class Pendingcertify_fragment extends BaseFragment {
                 Toast.makeText(getContext(), "Select report", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), itemselect, Toast.LENGTH_SHORT).show();
+
+                certifyPendingLogs(customAdapter.getSelectedItemIds());
             }
-        });*/
+        });
 //        check_box.setOnClickListener(v -> {
 //            if (check_box.isChecked()) {
 //                modelArrayList = getModel(recordDates, true);
@@ -122,6 +128,7 @@ public class Pendingcertify_fragment extends BaseFragment {
                                     } else {
                                         for (AttendanceData attendanceData : getPendingLogsModel.getData()) {
                                             recordDates.add(attendanceData.getRecordDate());
+                                            recordIds.add(""+attendanceData.getId());
                                         }
 
 //                                        emptyView.setVisibility(View.GONE);
@@ -185,10 +192,11 @@ public class Pendingcertify_fragment extends BaseFragment {
                                 // customAdapter = new Certifyadpter(getActivity(), getModel(recordDates,false));
                                 //RecyclerView recyclerView = findViewById(R.id.your_recycler_view_id); // Replace with your RecyclerView ID
 
-                                Certifyadpter customAdapter = new Certifyadpter(getContext(), getModel(recordDates, false)); // replace yourDataList with your actual data
+                                Certifyadpter customAdapter = new Certifyadpter(getContext(), getModel(recordDates, false),recordIds); // replace yourDataList with your actual data
                                 recycleview.setVisibility(View.VISIBLE);
                                 recycleview.setAdapter(customAdapter);
                                 customAdapter.notifyDataSetChanged();
+                                //selectedItems= customAdapter.getSelectedItems();
 
                                 //   recycleview.setAdapter(customAdapter);
                             }
@@ -211,5 +219,49 @@ public class Pendingcertify_fragment extends BaseFragment {
             showNoInternetConnectionError();
         }
     }
+    private void certifyPendingLogs(List<String> ids) {
+        if (helperClass.getNetworkInfo()) {
+            showLoader();
+            UpdateCertifiedLogRequest requestBody = new UpdateCertifiedLogRequest(ids);
+            Call<ResponseBody> updateCertifiedLog = apiService.updateCertifiedLog(requestBody);
 
+            updateCertifiedLog.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        hideLoader();
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+
+                                // customAdapter = new Certifyadpter(getActivity(), getModel(recordDates,false));
+                                //RecyclerView recyclerView = findViewById(R.id.your_recycler_view_id); // Replace with your RecyclerView ID
+
+                                Certifyadpter customAdapter = new Certifyadpter(getContext(), getModel(recordDates, false),recordIds); // replace yourDataList with your actual data
+                                recycleview.setVisibility(View.VISIBLE);
+                                recycleview.setAdapter(customAdapter);
+                                customAdapter.notifyDataSetChanged();
+                                //selectedItems= customAdapter.getSelectedItems();
+
+                                //   recycleview.setAdapter(customAdapter);
+                            }
+                        } else {
+                            onAPIErrorMessageReceived(response.errorBody().toString());
+                        }
+                    } catch (Exception e) {
+                        hideLoader();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    hideLoader();
+                    // Toast.makeText(baseActivity, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            showNoInternetConnectionError();
+        }
+    }
 }

@@ -4,6 +4,7 @@ import com.example.eld.network.dto.attendance.AddAttendanceRecordRequestModel;
 import com.example.eld.network.dto.login.request.ChangePasswordRequestModel;
 import com.example.eld.network.dto.login.request.ForgotPasswordModel;
 import com.example.eld.network.dto.login.request.LoginRequestModel;
+import com.example.eld.network.dto.login.request.UpdateCertifiedLogRequest;
 import com.example.eld.network.dto.login.request.UpdateCoDriverModel;
 import com.example.eld.network.dto.login.request.UpdateShippingAddressModel;
 import com.example.eld.network.dto.login.request.UpdateTripNoModel;
@@ -18,6 +19,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -78,4 +80,9 @@ public interface ApiService {
     Call<ResponseBody> getCertifiedLog(
             @Query("userId") String userId
     );
+
+    @PATCH("report/updateCertifiedLog")
+    Call<ResponseBody> updateCertifiedLog(@Body UpdateCertifiedLogRequest request);
+
+
 }

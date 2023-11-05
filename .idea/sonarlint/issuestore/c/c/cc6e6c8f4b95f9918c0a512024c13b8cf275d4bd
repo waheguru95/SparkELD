@@ -4,5 +4,5 @@ java:S1104"WMake helperClass a static final constant or non-public and provide
 x
 java:S1104"VMake apiService a static final constant or non-public and provide accessors if needed.(äÚğ˜úÿÿÿÿ8û¨›¬1
 a
-java:S1858:"D"getMessage" returns a string, there's no need to call "toString()".(­š ò8²©›¬1
-]	java:S125R"<This block of commented-out lines of code should be removed.(¨ı¸üÿÿÿÿ8¶©›¬1
+java:S1858;"D"getMessage" returns a string, there's no need to call "toString()".(­š ò8²©›¬1
+]	java:S125S"<This block of commented-out lines of code should be removed.(¨ı¸üÿÿÿÿ8¶©›¬1

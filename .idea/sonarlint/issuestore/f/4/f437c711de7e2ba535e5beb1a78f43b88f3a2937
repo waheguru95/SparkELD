@@ -1,0 +1,14 @@
+
+C
+java:S1604<"(Make this anonymous inner class a lambda(‚¤Î…üÿÿÿÿ
+C
+java:S1604G"(Make this anonymous inner class a lambda(åı®†øÿÿÿÿ
+b	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ûáå¾
+b
+java:S1659"GDeclare "card1front" and all following declarations on a separate line.(•İ‡Œúÿÿÿÿ
+[
+java:S1659"FDeclare "card2text" and all following declarations on a separate line.(‰Ğu
+r
+java:S1450"WRemove the "runnable" field and declare it as a local variable in the relevant methods.(±¨üÏûÿÿÿÿ
+E
+java:S1874"/Remove this use of "Handler"; it is deprecated.(ïóî‘

@@ -50,6 +50,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onAPIErrorMessageReceived(String errorBody) {
         try {
             JSONObject body = new JSONObject(errorBody);
+            Log.e("API Error", ""+body);
             if (body.has("message")) {
                 Toast.makeText(getApplicationContext(), "" + body.getString("message"), Toast.LENGTH_SHORT).show();
             }

@@ -26,8 +26,8 @@
 
         <CheckBox
             android:id="@+id/check_box"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/selecttall"
             android:background="@drawable/button_gradient"
@@ -50,9 +50,13 @@
 <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/recycleview"
+    android:id="@+id/rv_pending"
     >
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_cerified"
+        />
 
 
 </androidx.recyclerview.widget.RecyclerView>

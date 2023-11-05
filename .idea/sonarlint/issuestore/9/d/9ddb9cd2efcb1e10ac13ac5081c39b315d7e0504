@@ -1,18 +1,18 @@
 
 X
-java:S1141Œ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8¼©¡ÿ±1
-w	java:S116#"VRename this field "text_forgot" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½ÏÅ°ıÿÿÿÿ8Ø©¡ÿ±1
+java:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8Å™á·¹1
+w	java:S116#"VRename this field "text_forgot" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½ÏÅ°ıÿÿÿÿ8ÿ™á·¹1
 D
-java:S1659'"(Declare "etDriverId" on a separate line.(­™ù+8Ü©¡ÿ±1
+java:S1659'"(Declare "etDriverId" on a separate line.(­™ù+8†šá·¹1
 `
-java:S18544">Remove this useless assignment to local variable "rememberMe".(ºäÄÛøÿÿÿÿ8å©¡ÿ±1
+java:S18544">Remove this useless assignment to local variable "rememberMe".(ºäÄÛøÿÿÿÿ8šá·¹1
 Q
-java:S14814"/Remove this unused "rememberMe" local variable.(ºäÄÛøÿÿÿÿ8ë©¡ÿ±1
-X	java:S1256"<This block of commented-out lines of code should be removed.(Ã­€ú8ë©¡ÿ±1
+java:S14814"/Remove this unused "rememberMe" local variable.(ºäÄÛøÿÿÿÿ8šá·¹1
+X	java:S1256"<This block of commented-out lines of code should be removed.(Ã­€ú8šá·¹1
 p
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(°‰ä‚8£ª¡ÿ±1
-M	java:S106‘"+Replace this use of System.out by a logger.(øÅóÊøÿÿÿÿ8«ª¡ÿ±1
+java:S3776…"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(°‰ä‚8¯šá·¹1
+M	java:S106•"+Replace this use of System.out by a logger.(øÅóÊøÿÿÿÿ8´šá·¹1
 m
-java:S1874®"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿ8’¸ª€²1
+java:S1874²"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿ8¸šá·¹1
 ^
-java:S1144T"<Remove this unused private "setStatusBarTransparent" method.(°£›şıÿÿÿÿ8¯ª¡ÿ±1
+java:S1144T"<Remove this unused private "setStatusBarTransparent" method.(°£›şıÿÿÿÿ8ºšá·¹1

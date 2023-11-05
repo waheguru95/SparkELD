@@ -33,6 +33,13 @@ public class Helperclass {
 
     private String ADD_ATTENDANCE_ID = "driver_user_id";
     private static final String LOGIN_STATUS = "login_status";
+
+    private String CO_DRIVER = "co_driver";
+    private String TRIP_NO = "trip_no";
+
+
+    private String SHIPPING_ADDRESS = "shipping_address";
+
     public Helperclass(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -194,6 +201,30 @@ public class Helperclass {
     public void setADD_ATTENDANCE_ID(String add_attendance_id) {
         sharedPreferences.edit().putString(ADD_ATTENDANCE_ID, add_attendance_id).apply();
 
+    }
+
+    public String getCO_DRIVER() {
+        return sharedPreferences.getString(CO_DRIVER, "");
+    }
+
+    public void setCO_DRIVER(String cO_DRIVER) {
+        sharedPreferences.edit().putString(CO_DRIVER, cO_DRIVER).apply();
+    }
+
+    public String getTRIP_NO() {
+        return sharedPreferences.getString(TRIP_NO, "");
+    }
+
+    public void setTRIP_NO(String tripNo) {
+        sharedPreferences.edit().putString(TRIP_NO, tripNo).apply();
+    }
+
+    public String getSHIPPING_ADDRESS() {
+        return sharedPreferences.getString(SHIPPING_ADDRESS, "");
+    }
+
+    public void setSHIPPING_ADDRESS(String shippingAddress) {
+        sharedPreferences.edit().putString(SHIPPING_ADDRESS, shippingAddress).apply();
     }
     public Gson getGson() {
         return gson;

@@ -464,7 +464,9 @@ public class DashboardFragment extends BaseFragment {
         mp = MediaPlayer.create(getContext(), R.raw.violationsound);
 
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-
+        codriver.setText(helperClass.getCO_DRIVER());
+        shipno.setText(helperClass.getSHIPPING_ADDRESS());
+        tripno.setText(helperClass.getTRIP_NO());
 
         confirmation_logout = new Dialog(getContext());
 //OLD CODE
@@ -542,8 +544,9 @@ public class DashboardFragment extends BaseFragment {
                 } else {
                     String tripnor = tripno.getText().toString();
                     String shipnorf = shipno.getText().toString();
-
-                    codriver.setText(drivername);
+                    helperClass.setCO_DRIVER(drivername);
+                    codriver.setText(helperClass.getCO_DRIVER());
+                   // codriver.setText(drivername);
                     confirmation_logout.dismiss();
                     callUpdateCoDriverAPI(edittextedit.getText().toString(), helperClass.getADD_ATTENDANCE_ID());
                 }
@@ -571,7 +574,9 @@ public class DashboardFragment extends BaseFragment {
                     String codrivername = codriver.getText().toString();
                     String shipnorf = shipno.getText().toString();
 
-                    tripno.setText(tripnoo);
+                    helperClass.setTRIP_NO(tripnoo);
+
+                    tripno.setText(helperClass.getTRIP_NO());
                     //TODO
                     callUpdateTripNoAPI(tripnoo,helperClass.getADD_ATTENDANCE_ID());
                     confirmation_logout.dismiss();
@@ -598,9 +603,9 @@ public class DashboardFragment extends BaseFragment {
                 } else {
                     String codrivername = codriver.getText().toString();
                     String tripnor = tripno.getText().toString();
-
-
-                    shipno.setText(shiping);
+                    helperClass.setSHIPPING_ADDRESS(shiping);
+                    shipno.setText(helperClass.getSHIPPING_ADDRESS());
+                    // shipno.setText(shiping);
                     confirmation_logout.dismiss();
                     //TODO
                     callUpdateShippingAddressAPI(shiping,helperClass.getADD_ATTENDANCE_ID());
